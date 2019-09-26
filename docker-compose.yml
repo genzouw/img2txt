@@ -8,4 +8,4 @@ services:
       - ./db:/var/www/db
     restart: always
     ports:
-      - 8080:80
+      - 10001:80
