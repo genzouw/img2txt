@@ -1,6 +1,6 @@
 <?php
 
-$url = $_GET['url'];
+$url = urldecode($_GET['url']);
 
 if (parse_url($url)) {
     $trimLeft = $_GET['tl'] ?: 0;
@@ -11,7 +11,7 @@ if (parse_url($url)) {
     $sha256Url = hash_file('sha256', $url);
 
     header('Content-Type: text/plain;charset=UTF-8');
-    $shell = "(cat /var/www/db/${sha256Url} || curl -sS '${url}' | /usr/lib/x86_64-linux-gnu/go/bin/ansize /dev/stdin /var/www/db/${sha256Url}) \
+    $shell = "(cat /var/www/db/${sha256Url} || curl  -A 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0' -sS '${url}' | /usr/lib/x86_64-linux-gnu/go/bin/ansize /dev/stdin /var/www/db/${sha256Url}) \
         | sed 's/^\(\e[^\e]*\)\{${trimLeft}\}//; s/\(\e[^\e]*\)\{${trimRight}\}$//; ' \
         | tail -n +${trimTop} \
         | head -n -${trimBottom} \
