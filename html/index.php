@@ -6,7 +6,7 @@ if (parse_url($url)) {
     $trimLeft = $_GET['tl'] ?: 0;
     $trimRight = $_GET['tr'] ?: 0;
     $trimTop = ($_GET['tt'] ?: 0) + 1;
-    $trimBottom = ($_GET['tb'] ?: 0) + 1;
+    $trimBottom = ($_GET['tb'] ?: 0);
 
     $sha256Url = hash_file('sha256', $url);
 
