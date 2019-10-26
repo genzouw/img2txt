@@ -4,8 +4,8 @@ services:
     build:
       context: .
     volumes:
-      - ./html:/var/www/html
-      - ./db:/var/www/db
+      - ./html:/var/www/localhost/htdocs
+      - ./db:/var/www/localhost/db
     restart: always
     ports:
       - 10001:80
