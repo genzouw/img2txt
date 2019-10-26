@@ -19,5 +19,7 @@ RUN apk add \
     unzip \
     ;
 
+RUN sed -i '/#LoadModule deflate_module modules\/mod_deflate.so/s/^#//' /etc/apache2/httpd.conf
+
 ENTRYPOINT ["/usr/sbin/httpd"]
 CMD ["-D", "FOREGROUND"]
