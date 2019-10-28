@@ -172,9 +172,9 @@ $ curl -sS 'https://img2txt.genzouw.com?url=https://www.google.com/images/brandi
           <p>You can also trim the output.</p>
 
           <p><em style="color: blue;">"tl"</em> query string : Specify a numeric value. Remove N columns from the left.</p>
-          <p><em style="color: blue;">"tr"lue;">"tl"</em> query string : Specify a numeric value. Remove N columns from the right.</p>
-          <p><em style="color: blue;">"tt"lue;">"tl"</em> query string : Specify a numeric value. Remove N lines from the top.</p>
-          <p><em style="color: blue;">"tb"lue;">"tl"</em> query string : Specify a numeric value. Remove N lines from the bottom.</p>
+          <p><em style="color: blue;">"tr"</em> query string : Specify a numeric value. Remove N columns from the right.</p>
+          <p><em style="color: blue;">"tt"</em> query string : Specify a numeric value. Remove N lines from the top.</p>
+          <p><em style="color: blue;">"tb"</em> query string : Specify a numeric value. Remove N lines from the bottom.</p>
 
           <pre class="line-numbers"><code class="language-bash">
 # Delete 10 columns from the left
