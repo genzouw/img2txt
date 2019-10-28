@@ -53,6 +53,13 @@ if (isset($_GET['url']) && parse_url($url)) {
     <![endif]-->
     <meta name="keywords" content="image,asciiart,convert,webapi,free" />
     <meta name="description" content="It's the web-api for converting free-use images into colored ASCII art for terminals." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@genzouw" />
+    <meta name="twitter:creator" content="@genzouw" />
+    <meta property="og:url" content="https://img2txt.genzouw.com" />
+    <meta property="og:title" content="img2txt" />
+    <meta property="og:description" content="'img2txt' is a web API for converting image files into colored ASCII art that can be displayed on Unix terminals." />
+    <meta property="og:image" content="https://i.imgur.com/ZZaPoN3l.png" />
     <title>Top - img2txt</title>
     <style>
 h3 {
