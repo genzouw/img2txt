@@ -75,6 +75,14 @@ pre {
     padding: 0.1em 1.0em;
 }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41583079-16"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-41583079-16');
+    </script>
   </head>
 
   <body>
