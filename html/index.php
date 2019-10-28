@@ -83,6 +83,7 @@ pre {
       gtag('js', new Date());
       gtag('config', 'UA-41583079-16');
     </script>
+    <script data-ad-client="ca-pub-6278393724888948" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
 
   <body>
