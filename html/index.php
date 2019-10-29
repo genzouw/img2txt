@@ -21,7 +21,7 @@ if (isset($_GET['url']) && parse_url($url)) {
     header('Content-Type: text/plain;charset=UTF-8');
     $shell = "(
         cat ${dbDir}/${sha256Url} \
-          || curl  -A 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0' -sS '${url}' | ansize /dev/stdin ${dbDir}/${sha256Url} ${width} \
+          || curl -L -A 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0' -sS '${url}' | ansize /dev/stdin ${dbDir}/${sha256Url} ${width} \
       ) \
         | sed 's/m1/m0/g' \
         | sed 's/m0/m${char}/g' \
