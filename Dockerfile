@@ -1,4 +1,4 @@
-FROM genzouw/ansize:1.0.2
+FROM genzouw/ansize:1.0.3
 
 LABEL maintainer "genzouw <genzouw@gmail.com>"
 
