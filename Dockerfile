@@ -2,6 +2,7 @@ FROM genzouw/ansize:1.0.2
 
 LABEL maintainer "genzouw <genzouw@gmail.com>"
 
+# hadolint ignore=DL3018
 RUN apk add \
   --no-cache \
     apache2 \
@@ -17,9 +18,11 @@ RUN apk add \
     php7-phar \
     tzdata \
     unzip \
-    ;
+    ; \
+  sed -i '/#LoadModule deflate_module modules\/mod_deflate.so/s/^#//' /etc/apache2/httpd.conf
 
-RUN sed -i '/#LoadModule deflate_module modules\/mod_deflate.so/s/^#//' /etc/apache2/httpd.conf
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost/ || exit 1
 
 ENTRYPOINT ["/usr/sbin/httpd"]
 CMD ["-D", "FOREGROUND"]
