@@ -27,7 +27,7 @@ curl -sS 'http://localhost:10001?url=https://www.google.com/images/branding/goog
 2. 以下のコマンドを実行してコンテナを起動します。
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 3. ブラウザで `http://localhost:10001` にアクセスするか、`curl`コマンド等でAPIエンドポイントを確認します。
@@ -59,7 +59,7 @@ docker-compose up -d
 - `html/`: Webアプリケーションのソースコード（PHPファイルなど）が含まれています。
 - `db/`: データベースファイルが格納されるディレクトリです。
 - `Dockerfile`: アプリケーションを実行するためのDockerイメージの構築手順を定義しています。
-- `docker-compose.yml`: サービスとボリュームの設定を定義しています。
+- `compose.yaml`: サービスとボリュームの設定を定義しています。
 - `.github/workflows/ci.yml`: GitHub ActionsのCIワークフローを定義しています。
 - `.github/dependabot.yml`: Dependabotの設定ファイルです。
 - `.coderabbit.yaml`: CodeRabbitの設定ファイルです。
