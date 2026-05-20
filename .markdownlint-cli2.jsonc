@@ -31,5 +31,7 @@
     "**/dist/**",
     "build/**",
     "**/build/**",
+    "vendor/**",
+    "**/vendor/**",
   ],
 }
