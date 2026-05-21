@@ -26,7 +26,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [php]
+        # CodeQL は PHP を公式サポートしていないため、本リポジトリでは
+        # GitHub Actions ワークフロー定義の脆弱性解析を対象とする
+        language: [actions]
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
