@@ -10,7 +10,7 @@ jobs:
   lint-php:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -21,7 +21,7 @@ jobs:
   lint-docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Hadolint
         uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
         with:
@@ -30,7 +30,7 @@ jobs:
   security-scan-docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Build an image from Dockerfile
         run: docker build -t my-app:${{ github.sha }} .
       - name: Run Trivy vulnerability scanner
