@@ -41,6 +41,7 @@ docker compose up -d
     - **PHP Lint**: PHPコードの構文エラーをチェックします。
     - **Hadolint**: `Dockerfile` のベストプラクティスをチェックします。
     - **Trivy**: DockerイメージのOSおよびライブラリの脆弱性をスキャンします。
+    - **markdownlint**: Markdown ドキュメントの構文・スタイルを `markdownlint-cli2` でチェックします。
 
 - **Dependabot**:
   - 毎週定期的にDockerおよびGitHub Actionsの依存関係をチェックし、アップデートが必要な場合は自動的にプルリクエストを作成します。
