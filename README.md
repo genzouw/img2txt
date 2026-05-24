@@ -68,3 +68,8 @@ docker compose up -d
 ## ライセンス
 
 このプロジェクトは [MITライセンス](LICENSE) の下で公開されているオープンソースソフトウェアです。
+
+## セキュリティ報告窓口
+
+セキュリティ上の脆弱性や、意図しない認証情報・シークレットの漏洩を発見した場合は、**公開 Issue で報告せず**、リポジトリの管理者へ直接プライベートな手段（もしあれば）でご連絡いただくか、GitHub の [Private vulnerability reporting](https://docs.github.com/ja/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability) を利用して報告してください。
+シークレット漏洩を未然に防ぐための取り組みについては、[docs/security/leak-prevention.md](docs/security/leak-prevention.md) を参照してください。
