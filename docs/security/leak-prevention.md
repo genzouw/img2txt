@@ -5,11 +5,13 @@
 ## 防御層の全体像
 
 1. **コミット前検知（ローカル開発・AIエージェント環境）**:
+
    - ツール: `pre-commit` framework + `gitleaks` hook
    - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。
    - 責任: 各開発者およびAIエージェントのローカル環境での水際対策。
 
 2. **CI 検知（GitHub Actions環境）**:
+
    - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks)
    - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。
 
@@ -31,6 +33,10 @@ brew install pre-commit
 
 # Python環境の場合
 pip install pre-commit
+
+# または、システムのPython環境を汚染しない pipx の利用を推奨します
+# （PEP 668 によりシステムPythonへの pip install がブロックされる環境にも対応できます）
+pipx install pre-commit
 ```
 
 2. リポジトリのルートディレクトリで以下のコマンドを実行し、Gitのフックをインストールします。
