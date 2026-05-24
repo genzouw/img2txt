@@ -4,15 +4,15 @@ on:
   push:
     branches: [main]
     paths:
-      - '**/*.md'
-      - '.markdownlint-cli2.jsonc'
-      - '.github/workflows/markdownlint.yml'
+      - "**/*.md"
+      - ".markdownlint-cli2.jsonc"
+      - ".github/workflows/markdownlint.yml"
   pull_request:
     branches: [main]
     paths:
-      - '**/*.md'
-      - '.markdownlint-cli2.jsonc'
-      - '.github/workflows/markdownlint.yml'
+      - "**/*.md"
+      - ".markdownlint-cli2.jsonc"
+      - ".github/workflows/markdownlint.yml"
 
 concurrency:
   group: markdownlint-${{ github.ref }}
@@ -25,16 +25,17 @@ jobs:
   markdownlint:
     name: markdownlint-cli2
     runs-on: ubuntu-latest
-    # 既存ドキュメントの MD040/MD031 違反を片付けるまでは赤検知にしない。
-    # 整備完了後に continue-on-error を外して赤検知に切り替える。
-    continue-on-error: true
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
 
+      # サードパーティ Action を使わず npm から直接導入する。
+      # 理由: 本リポジトリの Actions ポリシーは sha_pinning_required + selected
+      # (github_owned/verified のみ許可) で、未 verified の DavidAnson/markdownlint-cli2-action
+      # は SHA ピンしても startup_failure になるため。
+      - name: Install markdownlint-cli2
+        run: npm install -g markdownlint-cli2@0.22.1
+
       - name: Run markdownlint-cli2
-        uses: DavidAnson/markdownlint-cli2-action@ded1f9488f68a970bc66ea5619e13e9b52e601cd # v23.2.0
-        with:
-          config: '.markdownlint-cli2.jsonc'
-          globs: '**/*.md'
+        run: markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"

@@ -24,31 +24,28 @@ curl -sS 'http://localhost:10001?url=https://www.google.com/images/branding/goog
 アプリケーションを実行するには、DockerとDocker Composeが必要です。
 
 1. リポジトリをクローンします。
-2. 以下のコマンドを実行してコンテナを起動します。
+1. 以下のコマンドを実行してコンテナを起動します。
 
 ```bash
 docker compose up -d
 ```
 
-3. ブラウザで `http://localhost:10001` にアクセスするか、`curl`コマンド等でAPIエンドポイントを確認します。
+1. ブラウザで `http://localhost:10001` にアクセスするか、`curl`コマンド等でAPIエンドポイントを確認します。
 
 ## CI/CD と コード品質
 
 このリポジトリでは、以下のツールを使用してコード品質を維持し、セキュリティを確保しています。
 
 - **GitHub Actions**:
-
   - プルリクエストおよび `main` ブランチへのプッシュ時に、以下のチェックを自動的に実行します。
     - **PHP Lint**: PHPコードの構文エラーをチェックします。
     - **Hadolint**: `Dockerfile` のベストプラクティスをチェックします。
     - **Trivy**: DockerイメージのOSおよびライブラリの脆弱性をスキャンします。
 
 - **Dependabot**:
-
   - 毎週定期的にDockerおよびGitHub Actionsの依存関係をチェックし、アップデートが必要な場合は自動的にプルリクエストを作成します。
 
 - **CodeRabbit**:
-
   - AIを利用した自動コードレビューを行います。レビューコメントは日本語で提供されます。
 
 - **Gemini Code Assist**:
