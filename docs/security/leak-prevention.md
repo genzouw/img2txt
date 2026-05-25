@@ -6,7 +6,7 @@
 
 1. **コミット前検知（ローカル開発・AIエージェント環境）**:
    - ツール: `pre-commit` framework + `gitleaks` hook + `pre-commit-hooks` (`detect-private-key` 等), および `.gitignore` の厳格な除外設定
-   - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。また、`.gitignore` を用いて、環境変数ファイルや秘密鍵、AIエージェントの作業履歴（`.cursor/`等）が意図せずコミットされるのを防ぎ、`detect-private-key` などのフックによって水際対策を強化します。
+   - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。また、`.gitignore` を用いて、環境変数ファイルや秘密鍵が意図せずコミットされるのを防ぎ、`detect-private-key` などのフックによって水際対策を強化します。
    - 責任: 各開発者およびAIエージェントのローカル環境での水際対策。
 
 1. **CI 検知（GitHub Actions環境）**:
