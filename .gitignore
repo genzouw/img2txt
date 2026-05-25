@@ -1,1 +1,21 @@
 db/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Credentials and keys
+*.pem
+*.key
+credentials.json
+
+# AI agent directories
+.cursor/
+.aider*
+.claude/
+
+# OS hidden files
+.DS_Store
+Thumbs.db
