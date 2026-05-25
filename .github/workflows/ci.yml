@@ -2,43 +2,104 @@ name: CI
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: [main, master]
   pull_request:
-    branches: ["main", "master"]
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   lint-php:
+    name: PHP syntax check
     runs-on: ubuntu-latest
+    # PHP 7.4 は ubuntu-latest 標準にも含まれず shivammathur/setup-php もポリシー違反で
+    # 起動不可のため、公式 PHP コンテナを container として利用する。
+    container: php:7.4-cli
     steps:
-      - uses: actions/checkout@v6.0.2
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          php-version: "7.4"
+          persist-credentials: false
+
+      # 1 ファイルでも syntax error があれば赤にする。元実装は `|| true` で常に成功扱いだった。
       - name: PHP Lint
-        run: find html/ -name "*.php" -type f -exec php -l {} \; | grep -v "No syntax errors detected" || true
+        run: |
+          set -euo pipefail
+          fail=0
+          while IFS= read -r -d '' file; do
+            if ! php -l "$file" >/dev/null; then
+              echo "::error file=${file}::PHP syntax error"
+              fail=1
+            fi
+          done < <(find html/ -name "*.php" -type f -print0)
+          exit "$fail"
 
   lint-docker:
+    name: Hadolint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.2
-      - name: Hadolint
-        uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          dockerfile: Dockerfile
+          persist-credentials: false
+
+      # サードパーティ Action を使わず GitHub Release から直接導入する。
+      # 理由: Actions ポリシーが sha_pinning_required + selected (github_owned/verified のみ)
+      # で、未 verified の hadolint/hadolint-action は SHA ピンしても startup_failure になるため。
+      # SHA256 は公式 release artifact 実測値 (v2.12.0 を更新する場合は要更新)。
+      - name: Install Hadolint
+        env:
+          HADOLINT_VERSION: v2.12.0
+          HADOLINT_SHA256: 56de6d5e5ec427e17b74fa48d51271c7fc0d61244bf5c90e828aab8362d55010
+        run: |
+          set -euo pipefail
+          curl -fsSL -o /tmp/hadolint \
+            "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION}/hadolint-Linux-x86_64"
+          echo "${HADOLINT_SHA256}  /tmp/hadolint" | sha256sum -c -
+          chmod +x /tmp/hadolint
+          sudo mv /tmp/hadolint /usr/local/bin/hadolint
+
+      - name: Run Hadolint
+        run: hadolint Dockerfile
 
   security-scan-docker:
+    name: Trivy image scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.2
-      - name: Build an image from Dockerfile
-        run: docker build -t my-app:${{ github.sha }} .
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          image-ref: "my-app:${{ github.sha }}"
-          format: "table"
-          exit-code: "0"
-          ignore-unfixed: true
-          vuln-type: "os,library"
-          severity: "CRITICAL,HIGH"
+          persist-credentials: false
+
+      - name: Build image
+        run: docker build -t img2txt:${{ github.sha }} .
+
+      # aquasecurity/trivy-action もポリシー違反のため、公式 release から CLI を直接導入する
+      # (.github/workflows/trivy.yml の filesystem スキャンと同じ方式)。
+      - name: Install Trivy
+        env:
+          TRIVY_VERSION: v0.70.0
+        run: |
+          set -euo pipefail
+          ARCH=Linux-64bit
+          BASE_URL="https://github.com/aquasecurity/trivy/releases/download/${TRIVY_VERSION}"
+          TARBALL="trivy_${TRIVY_VERSION#v}_${ARCH}.tar.gz"
+          curl -sSfL -o "/tmp/${TARBALL}" "${BASE_URL}/${TARBALL}"
+          curl -sSfL -o /tmp/trivy_checksums.txt "${BASE_URL}/trivy_${TRIVY_VERSION#v}_checksums.txt"
+          (cd /tmp && grep "${TARBALL}" trivy_checksums.txt | sha256sum -c -)
+          tar -xzf "/tmp/${TARBALL}" -C /tmp trivy
+          sudo install -m 0755 /tmp/trivy /usr/local/bin/trivy
+
+      # 既存 ci.yml は exit-code: 0 で常に成功扱いだった。
+      # --ignore-unfixed と組み合わせて CRITICAL/HIGH の修正可能な脆弱性のみで赤にする。
+      - name: Run Trivy on built image
+        run: |
+          trivy image \
+            --format table \
+            --severity CRITICAL,HIGH \
+            --ignore-unfixed \
+            --vuln-type os,library \
+            --exit-code 1 \
+            "img2txt:${{ github.sha }}"
