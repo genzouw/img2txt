@@ -26,7 +26,16 @@ jobs:
           persist-credentials: false
 
       # 1 ファイルでも syntax error があれば赤にする。元実装は `|| true` で常に成功扱いだった。
+      # `php:7.4-cli` (debian) のデフォルトシェルは dash で `pipefail` 非対応のため
+      # bash を明示し、bash が無い場合は apt で入れる。
+      - name: Install bash (for pipefail)
+        run: |
+          set -eu
+          if ! command -v bash >/dev/null 2>&1; then
+            apt-get update && apt-get install -y --no-install-recommends bash
+          fi
       - name: PHP Lint
+        shell: bash
         run: |
           set -euo pipefail
           fail=0
