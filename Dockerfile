@@ -38,10 +38,25 @@ RUN apk add \
     ; \
   sed -i '/#LoadModule deflate_module modules\/mod_deflate.so/s/^#//' /etc/apache2/httpd.conf
 
+RUN addgroup -g 1000 -S appgroup \
+  && adduser -u 1000 -S -G appgroup appuser \
+  && sed -i 's/^Listen 80$/Listen 8080/' /etc/apache2/httpd.conf \
+  && sed -i 's/^User apache$/# User apache/' /etc/apache2/httpd.conf \
+  && sed -i 's/^Group apache$/# Group apache/' /etc/apache2/httpd.conf \
+  && mkdir -p /run/apache2 \
+  && chown -R appuser:appgroup \
+       /var/www/localhost \
+       /var/log/apache2 \
+       /run/apache2
+
 COPY --from=ansize-builder /out/ansize /usr/local/bin/ansize
 
+EXPOSE 8080
+
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost/ || exit 1
+  CMD curl -f http://localhost:8080/ || exit 1
+
+USER appuser
 
 ENTRYPOINT ["/usr/sbin/httpd"]
 CMD ["-D", "FOREGROUND"]
