@@ -5,8 +5,8 @@ useDefault = true
 
 [[rules]]
 id = "gcp-project-id"
-description = "Hardcoded GCP Project ID (toique-app-prod) is not allowed"
-regex = '''(?i)(toique-app-prod)'''
+description = "Hardcoded GCP Project ID (toique-app-*) is not allowed"
+regex = '''(?i)(toique-app-[a-z0-9-]+)'''
 tags = ["gcp", "project-id", "custom"]
 
 [[rules]]
