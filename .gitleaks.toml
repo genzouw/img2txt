@@ -12,5 +12,5 @@ tags = ["gcp", "project-id", "custom"]
 [[rules]]
 id = "neon-postgres-endpoint"
 description = "Hardcoded Neon Postgres endpoints are not allowed"
-regex = '''(?i)(ep-[a-z0-9-]+\.us-east-2\.aws\.neon\.tech)'''
+regex = '''(?i)(ep-[a-z0-9-]+\.[a-z0-9-]+\.aws\.neon\.tech)'''
 tags = ["neon", "database", "custom"]
