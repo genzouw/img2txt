@@ -5,12 +5,12 @@ $dbDir = dirname(__DIR__) . '/db';
 $url = urldecode($_GET['url'] ?? '');
 
 if (isset($_GET['url']) && parse_url($url)) {
-    $width = (int)($_GET['w'] ?? 100);
+    $width = max(1, (int)($_GET['w'] ?? 100));
     $char = $_GET['c'] ?? '0';
-    $trimLeft = (int)($_GET['tl'] ?? 0);
-    $trimRight = (int)($_GET['tr'] ?? 0);
-    $trimTop = (int)($_GET['tt'] ?? 0) + 1;
-    $trimBottom = (int)($_GET['tb'] ?? 0);
+    $trimLeft = max(0, (int)($_GET['tl'] ?? 0));
+    $trimRight = max(0, (int)($_GET['tr'] ?? 0));
+    $trimTop = max(0, (int)($_GET['tt'] ?? 0)) + 1;
+    $trimBottom = max(0, (int)($_GET['tb'] ?? 0));
 
     if ($width > 200) {
         $width = 200;
