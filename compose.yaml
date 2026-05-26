@@ -7,4 +7,4 @@ services:
       - ./db:/var/www/localhost/db
     restart: always
     ports:
-      - 10001:80
+      - 10001:8080
