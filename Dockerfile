@@ -41,8 +41,8 @@ RUN apk add \
 RUN addgroup -g 1000 -S appgroup \
   && adduser -u 1000 -S -G appgroup appuser \
   && sed -i 's/^Listen 80$/Listen 8080/' /etc/apache2/httpd.conf \
-  && sed -i 's/^User apache$/User appuser/' /etc/apache2/httpd.conf \
-  && sed -i 's/^Group apache$/Group appgroup/' /etc/apache2/httpd.conf \
+  && sed -i 's/^User apache$/# User apache/' /etc/apache2/httpd.conf \
+  && sed -i 's/^Group apache$/# Group apache/' /etc/apache2/httpd.conf \
   && mkdir -p /run/apache2 \
   && chown -R appuser:appgroup \
        /var/www/localhost \
