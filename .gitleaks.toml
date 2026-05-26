@@ -1,0 +1,16 @@
+title = "Custom rules for img2txt project"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "gcp-project-id"
+description = "Hardcoded GCP Project ID (toique-app-prod) is not allowed"
+regex = '''(?i)(toique-app-prod)'''
+tags = ["gcp", "project-id", "custom"]
+
+[[rules]]
+id = "neon-postgres-endpoint"
+description = "Hardcoded Neon Postgres endpoints are not allowed"
+regex = '''(?i)(ep-[a-z0-9-]+\.us-east-2\.aws\.neon\.tech)'''
+tags = ["neon", "database", "custom"]
