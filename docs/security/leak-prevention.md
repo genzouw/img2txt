@@ -12,7 +12,7 @@
 
 1. **CI 検知（GitHub Actions環境）**:
    - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks) および `.github/workflows/trufflehog.yml` (TruffleHog)
-   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします。
+   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします（検証非対応のシークレットは検知されないため、gitleaks 等での多層防御が前提となります）。
 
 1. **定期監査（スケジュール実行）**:
    - ツール: `.github/workflows/gitleaks.yml` 内の `schedule` トリガー
