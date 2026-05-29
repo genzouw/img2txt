@@ -42,5 +42,6 @@ jobs:
       - name: Run TruffleHog
         run: |
           trufflehog git file://. \
+            --no-update \
             --only-verified \
             --fail
