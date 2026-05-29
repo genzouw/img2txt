@@ -16,7 +16,7 @@ RUN git clone --depth=1 https://github.com/jhchen/ansize.git . \
   && go mod tidy \
   && CGO_ENABLED=0 go build -ldflags='-s -w' -o /out/ansize .
 
-# Stage 2: ランタイムは alpine 3.22 (現行サポート) + Apache + PHP 8.2
+# Stage 2: ランタイムは alpine 3.23 + Apache + PHP 8.5 (alpine 3.23 で提供される唯一の PHP)
 FROM alpine:3.23
 
 LABEL maintainer="genzouw <genzouw@gmail.com>"
@@ -28,11 +28,11 @@ RUN apk add \
     bash \
     curl \
     openssl \
-    php82 \
-    php82-apache2 \
-    php82-iconv \
-    php82-openssl \
-    php82-phar \
+    php85 \
+    php85-apache2 \
+    php85-iconv \
+    php85-openssl \
+    php85-phar \
     tzdata \
     unzip \
     ; \
