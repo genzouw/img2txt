@@ -11,8 +11,8 @@
    - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント等のハードコードを検知・拒否する独自ルールを追加しています。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。
 
 1. **CI 検知（GitHub Actions環境）**:
-   - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks)
-   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。
+   - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks) および `.github/workflows/trufflehog.yml` (TruffleHog)
+   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします。
 
 1. **定期監査（スケジュール実行）**:
    - ツール: `.github/workflows/gitleaks.yml` 内の `schedule` トリガー
