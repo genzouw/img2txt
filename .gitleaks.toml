@@ -14,3 +14,21 @@ id = "neon-postgres-endpoint"
 description = "Hardcoded Neon Postgres endpoints are not allowed"
 regex = '''(?i)(ep-[a-z0-9-]+\.[a-z0-9-]+\.aws\.neon\.tech)'''
 tags = ["neon", "database", "custom"]
+
+[[rules]]
+id = "forbidden-file-env"
+description = "Detects .env files which should not be committed"
+path = '''(?i)(^|/)\.env(?:[.-].*)?$'''
+tags = ["custom", "forbidden-file"]
+
+[[rules]]
+id = "forbidden-file-ai-agent"
+description = "Detects AI agent workspace files"
+path = '''(?i)(^|/)\.(cursor|claude|aider)(?:/|$)'''
+tags = ["custom", "forbidden-file"]
+
+[[rules]]
+id = "forbidden-file-credentials"
+description = "Detects credentials files"
+path = '''(?i)(?:credentials\.json|\.pem|\.key)$'''
+tags = ["custom", "forbidden-file"]
