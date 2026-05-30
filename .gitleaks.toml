@@ -18,20 +18,17 @@ tags = ["neon", "database", "custom"]
 [[rules]]
 id = "forbidden-file-env"
 description = "Detects .env files which should not be committed"
-regex = '''(?s).*'''
-path = '''(?i)\.env(?:[.-].*)?'''
+path = '''(?i)(^|/)\.env(?:[.-].*)?$'''
 tags = ["custom", "forbidden-file"]
 
 [[rules]]
 id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace files"
-regex = '''(?s).*'''
-path = '''(?i)\.(cursor|claude|aider).*'''
+path = '''(?i)(^|/)\.(cursor|claude|aider)(?:/|$)'''
 tags = ["custom", "forbidden-file"]
 
 [[rules]]
 id = "forbidden-file-credentials"
 description = "Detects credentials files"
-regex = '''(?s).*'''
-path = '''(?i).*(credentials\.json|\.pem|\.key)$'''
+path = '''(?i)(?:credentials\.json|\.pem|\.key)$'''
 tags = ["custom", "forbidden-file"]
