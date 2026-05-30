@@ -8,7 +8,7 @@
    - ツール: `pre-commit` framework + `gitleaks` hook + `pre-commit-hooks` (`detect-private-key` 等), および `.gitignore` の厳格な除外設定
    - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。また、`.gitignore` を用いて、環境変数ファイルや秘密鍵が意図せずコミットされるのを防ぎ、`detect-private-key` などのフックによって水際対策を強化します。
    - 責任: 各開発者およびAIエージェントのローカル環境での水際対策。
-   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント等のハードコードを検知・拒否する独自ルールを追加しています。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。
+   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント等のハードコードを検知・拒否する独自ルールを追加しています。また、AI エージェントの作業跡（`.cursor/`, `.claude/` 等）や `.env` ファイル、`credentials.json` などの秘匿性が高いファイルそのものがコミットされることを防ぐため、ファイルパスベースの検知ルールを導入しています。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。
 
 1. **CI 検知（GitHub Actions環境）**:
    - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks) および `.github/workflows/trufflehog.yml` (TruffleHog)
