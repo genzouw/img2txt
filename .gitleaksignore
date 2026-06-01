@@ -1,0 +1,7 @@
+# Ignore existing author emails in history to prevent CI failure on old commits
+# We only care about new additions of PII emails.
+4c32cae4231b39ba42f20077eb719571ee73d4dd:Dockerfile:pii-email:3
+24d5bda0f90f7d1a2fd8053b5ea25f02e3300ae3:Dockerfile:pii-email:22
+b1ffdafd573e48d497b93c7536068ce2e517318d:Dockerfile:pii-email:22
+24d5bda0f90f7d1a2fd8053b5ea25f02e3300ae3:html/index.php:pii-email:249
+b1ffdafd573e48d497b93c7536068ce2e517318d:html/index.php:pii-email:249

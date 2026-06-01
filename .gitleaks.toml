@@ -32,3 +32,39 @@ id = "forbidden-file-credentials"
 description = "Detects credentials files"
 path = '''(?i)(?:credentials\.json|\.pem|\.key)$'''
 tags = ["custom", "forbidden-file"]
+
+[[rules]]
+id = "gcp-service-account"
+description = "GCP Service Account emails are not allowed"
+regex = '''(?i)([\w.-]+@[\w.-]+\.iam\.gserviceaccount\.com)'''
+tags = ["gcp", "service-account", "custom"]
+
+[[rules]]
+id = "gcp-project-number"
+description = "Hardcoded GCP Project Numbers (12 digits) are not allowed"
+regex = '''\b(\d{12})\b'''
+tags = ["gcp", "project-number", "custom"]
+
+[[rules]]
+id = "internal-ip"
+description = "Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed"
+regex = '''\b(10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3})\b'''
+tags = ["network", "internal-ip", "custom"]
+
+[[rules]]
+id = "pii-email"
+description = "Real email addresses (PII) are not allowed. Use @example.com/org for dummies."
+regex = '''(?i)([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})'''
+tags = ["pii", "email", "custom"]
+[rules.allowlist]
+regexTarget = "match"
+regexes = [
+    '''(?i)(@example\.(com|org|net)$)''',
+    '''(?i)(@test\.(com|org|net)$)'''
+]
+
+[[rules]]
+id = "resend-api-key"
+description = "Resend API keys are not allowed"
+regex = '''\bre_[a-zA-Z0-9]{24,}\b'''
+tags = ["resend", "api-key", "custom"]
