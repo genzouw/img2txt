@@ -44,6 +44,14 @@ id = "gcp-project-number"
 description = "Hardcoded GCP Project Numbers (12 digits) are not allowed"
 regex = '''\b(\d{12})\b'''
 tags = ["gcp", "project-number", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)package-lock\.json$''',
+    '''(?i)yarn\.lock$''',
+    '''(?i)pnpm-lock\.yaml$''',
+    '''(?i)composer\.lock$''',
+    '''(?i)Gemfile\.lock$'''
+]
 
 [[rules]]
 id = "internal-ip"
