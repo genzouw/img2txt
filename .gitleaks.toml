@@ -70,6 +70,10 @@ regexes = [
     '''(?i)(@example\.(com|org|net)$)''',
     '''(?i)(@test\.(com|org|net)$)'''
 ]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
 
 [[rules]]
 id = "resend-api-key"
