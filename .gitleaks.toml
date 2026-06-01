@@ -66,5 +66,5 @@ regexes = [
 [[rules]]
 id = "resend-api-key"
 description = "Resend API keys are not allowed"
-regex = '''\bre_[a-zA-Z0-9]{24,}\b'''
+regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
 tags = ["resend", "api-key", "custom"]
