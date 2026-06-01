@@ -1,0 +1,17 @@
+{
+  "files.exclude": {
+    "**/.cursor": true,
+    "**/.claude": true,
+    "**/.aider*": true
+  },
+  "search.exclude": {
+    "**/.env": true,
+    "**/.env.*": true,
+    "**/*.pem": true,
+    "**/*.key": true,
+    "**/credentials.json": true,
+    "**/.cursor": true,
+    "**/.claude": true,
+    "**/.aider*": true
+  }
+}
