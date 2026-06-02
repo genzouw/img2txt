@@ -8,7 +8,7 @@
    - ツール: `pre-commit` framework + `gitleaks` hook + `pre-commit-hooks` (`detect-private-key` 等), および `.gitignore` の厳格な除外設定
    - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。また、`.gitignore` を用いて、環境変数ファイルや秘密鍵が意図せずコミットされるのを防ぎ、`detect-private-key` などのフックによって水際対策を強化します。
    - 責任: 各開発者およびAIエージェントのローカル環境での水際対策。
-   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント等のハードコードを検知・拒否する独自ルールを追加しています。また、追加のクラウド識別子（GCP Project Number, Service Account メールアドレス）、内部 IP アドレス、PII（本物のメールアドレス）、特定の API キー（Resend）についてもハードコードを禁止し、AI エージェントの作業跡（`.cursor/`, `.claude/` 等）や `.env` ファイル、`credentials.json` などの秘匿性が高いファイルそのものがコミットされることを防ぐため、ファイルパスベースの検知ルールを導入しています。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。
+   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント、Cloud Run エンドポイント（`*.run.app`）、Cloudflare Pages エンドポイント（`*.pages.dev`）、Workload Identity Federation プロバイダ文字列等のインフラ構成の過剰露出を検知・拒否する独自ルールを追加しています。また、追加のクラウド識別子（GCP Project Number, Service Account メールアドレス）、内部 IP アドレス、PII（本物のメールアドレス）、特定の API キー（Resend）についてもハードコードを禁止し、AI エージェントの作業跡（`.cursor/`, `.claude/` 等）や `.env` ファイル、`credentials.json` などの秘匿性が高いファイルそのものがコミットされることを防ぐため、また IaC の state ファイル（`cdktf.out/`, `*.tfstate` 等）を除外するため、ファイルパスベースの検知ルールを導入しています。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。
    - VS Code / Cursor 用の安全側プリセット: ローカルでの誤操作や AI エージェントへの意図せぬコンテキスト混入を防ぐため、`.vscode/settings.json` にて `.env` などのファイルがエクスプローラや検索結果から除外されるように設定しています。
 
 1. **CI 検知（GitHub Actions環境）**:
