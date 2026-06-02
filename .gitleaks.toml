@@ -93,19 +93,19 @@ tags = ["resend", "api-key", "custom"]
 [[rules]]
 id = "cloud-run-url"
 description = "Hardcoded Cloud Run URLs (*.run.app) are not allowed"
-regex = '''(?i)(https?://[a-z0-9-]+\.run\.app)'''
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+run\.app)'''
 tags = ["gcp", "cloud-run", "custom"]
 
 [[rules]]
 id = "cloudflare-pages-url"
 description = "Hardcoded Cloudflare Pages URLs (*.pages.dev) are not allowed"
-regex = '''(?i)(https?://[a-z0-9-]+\.pages\.dev)'''
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+pages\.dev)'''
 tags = ["cloudflare", "pages", "custom"]
 
 [[rules]]
 id = "gcp-workload-identity"
 description = "Hardcoded GCP Workload Identity Federation provider strings are not allowed"
-regex = '''(?i)(projects/\d{12}/locations/global/workloadIdentityPools/[a-z0-9-]+/providers/[a-z0-9-]+)'''
+regex = '''(?i)(projects/\d{11,12}/locations/global/workloadIdentityPools/[a-z0-9-]+/providers/[a-z0-9-]+)'''
 tags = ["gcp", "workload-identity", "custom"]
 
 [[rules]]
