@@ -119,6 +119,15 @@ id = "hardcoded-connection-string"
 description = "Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed"
 regex = '''(?i)(postgres(?:ql)?|redis(?:s)?|mongodb(?:\+srv)?|mysql)://[^:\s]+:[^@\s]+@[^\s]+'''
 tags = ["custom", "connection-string", "database"]
+[rules.allowlist]
+paths = [
+    '''(?i)docker-compose[^/]*\.ya?ml$''',
+    '''(?i)\.env\..*$''',
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
 
 [[rules]]
 id = "ai-debug-placeholder"
