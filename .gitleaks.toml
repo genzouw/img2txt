@@ -113,3 +113,29 @@ id = "forbidden-file-tfstate"
 description = "Detects IaC state and build artifact directories which should not be committed"
 path = '''(?i)(^|/)(?:cdktf\.out|\.terraform)(?:/|$)|\.tfstate(?:\.backup)?$'''
 tags = ["custom", "forbidden-file", "iac"]
+
+[[rules]]
+id = "hardcoded-connection-string"
+description = "Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed"
+regex = '''(?i)(postgres(?:ql)?|redis(?:s)?|mongodb(?:\+srv)?|mysql)://[^:\s]+:[^@\s]+@[^\s]+'''
+tags = ["custom", "connection-string", "database"]
+[rules.allowlist]
+paths = [
+    '''(?i)docker-compose[^/]*\.ya?ml$''',
+    '''(?i)\.env\..*$''',
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
+
+[[rules]]
+id = "ai-debug-placeholder"
+description = "AI agent debug placeholders (YOUR_API_KEY, dummy_secret, etc.) are not allowed. Use <REDACTED> instead."
+regex = '''(?i)(YOUR_API_KEY|dummy_secret|placeholder_token|secret_goes_here)'''
+tags = ["custom", "ai-placeholder"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
