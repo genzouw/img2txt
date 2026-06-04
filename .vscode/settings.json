@@ -2,7 +2,11 @@
   "files.exclude": {
     "**/.cursor": true,
     "**/.claude": true,
-    "**/.aider*": true
+    "**/.aider*": true,
+    "**/cdktf.out": true,
+    "**/.terraform": true,
+    "**/*.tfstate*": true,
+    "**/*.tfvars*": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -12,6 +16,10 @@
     "**/credentials.json": true,
     "**/.cursor": true,
     "**/.claude": true,
-    "**/.aider*": true
+    "**/.aider*": true,
+    "**/cdktf.out": true,
+    "**/.terraform": true,
+    "**/*.tfstate*": true,
+    "**/*.tfvars*": true
   }
 }
