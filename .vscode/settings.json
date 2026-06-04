@@ -5,8 +5,10 @@
     "**/.aider*": true,
     "**/cdktf.out": true,
     "**/.terraform": true,
-    "**/*.tfstate*": true,
-    "**/*.tfvars*": true
+    "**/*.tfstate": true,
+    "**/*.tfstate.backup": true,
+    "**/*.tfvars": true,
+    "**/*.tfvars.json": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -19,7 +21,9 @@
     "**/.aider*": true,
     "**/cdktf.out": true,
     "**/.terraform": true,
-    "**/*.tfstate*": true,
-    "**/*.tfvars*": true
+    "**/*.tfstate": true,
+    "**/*.tfstate.backup": true,
+    "**/*.tfvars": true,
+    "**/*.tfvars.json": true
   }
 }
