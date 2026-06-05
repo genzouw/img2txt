@@ -110,8 +110,8 @@ tags = ["gcp", "workload-identity", "custom"]
 
 [[rules]]
 id = "forbidden-file-tfstate"
-description = "Detects IaC state and build artifact directories which should not be committed"
-path = '''(?i)(^|/)(?:cdktf\.out|\.terraform)(?:/|$)|\.tfstate(?:\.backup)?$'''
+description = "Detects IaC state, variable files, and build artifact directories which should not be committed"
+path = '''(?i)(^|/)(?:cdktf\.out|\.terraform)(?:/|$)|\.tfstate(?:\.backup)?$|\.tfvars(?:\.json)?$'''
 tags = ["custom", "forbidden-file", "iac"]
 
 [[rules]]

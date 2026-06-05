@@ -20,3 +20,11 @@ credentials.json
 # OS hidden files
 .DS_Store
 Thumbs.db
+
+# IaC (CDKTF / Terraform) states and vars
+cdktf.out/
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
