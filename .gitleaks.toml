@@ -24,7 +24,7 @@ tags = ["custom", "forbidden-file"]
 [[rules]]
 id = "forbidden-file-ssh-keys"
 description = "Detects SSH private keys which should not be committed"
-path = '''(?i)(^|/)(?:id_rsa|id_dsa|id_ed25519|id_ecdsa)(?:\.pub)?$'''
+path = '''(?i)(^|/)(?:id_rsa|id_dsa|id_ed25519|id_ecdsa)$'''
 tags = ["custom", "forbidden-file", "ssh"]
 
 [[rules]]
