@@ -22,6 +22,18 @@ path = '''(?i)(^|/)\.env(?:[.-].*)?$'''
 tags = ["custom", "forbidden-file"]
 
 [[rules]]
+id = "forbidden-file-ssh-keys"
+description = "Detects SSH private keys which should not be committed"
+path = '''(?i)(^|/)(?:id_rsa|id_dsa|id_ed25519|id_ecdsa)$'''
+tags = ["custom", "forbidden-file", "ssh"]
+
+[[rules]]
+id = "forbidden-file-local-auth"
+description = "Detects local authentication or configuration files (.npmrc, .netrc, .aws/credentials, etc.)"
+path = '''(?i)(^|/)(?:\.npmrc|\.netrc|\.aws/(?:credentials|config)|\.git-credentials)$'''
+tags = ["custom", "forbidden-file", "auth"]
+
+[[rules]]
 id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace files"
 path = '''(?i)(^|/)\.(cursor|claude|aider)(?:/|$)'''
