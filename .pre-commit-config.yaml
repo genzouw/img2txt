@@ -10,3 +10,7 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
       - id: no-commit-to-branch
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.81.9
+    hooks:
+      - id: trufflehog

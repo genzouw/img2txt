@@ -1,0 +1,19 @@
+# セキュリティ：意図せずコミットされた場合の diff 露出を防ぐため、秘匿性の高いファイルは -diff を指定
+*.env* -diff
+*.env.example diff
+*.env.sample diff
+*.env.template diff
+*.pem -diff
+*.key -diff
+credentials.json -diff
+*.tfvars -diff
+*.tfvars.json -diff
+*id_rsa -diff
+*id_ed25519 -diff
+
+# セキュリティ：AI エージェントの作業跡や内部情報がリリースアーカイブに含まれないようにする
+.cursor/ export-ignore
+.claude/ export-ignore
+.aider* export-ignore
+.gemini/ export-ignore
+.github/ export-ignore
