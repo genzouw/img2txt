@@ -1,5 +1,8 @@
 # セキュリティ：意図せずコミットされた場合の diff 露出を防ぐため、秘匿性の高いファイルは -diff を指定
 *.env* -diff
+*.env.example diff
+*.env.sample diff
+*.env.template diff
 *.pem -diff
 *.key -diff
 credentials.json -diff
