@@ -154,8 +154,8 @@ paths = [
 
 [[rules]]
 id = "internal-domain"
-description = "Internal domain names (*.internal, *.corp, *.local, *.svc.cluster.local) are not allowed to prevent infrastructure exposure"
-regex = '''(?i)\b([a-z0-9-]+\.(?:internal|corp|local|svc\.cluster\.local))\b'''
+description = "Internal domain names (*.internal, *.corp, *.local) are not allowed to prevent infrastructure exposure"
+regex = '''(?i)\b(?:[a-z0-9-]+\.)+(?:internal|corp|local)\b'''
 tags = ["network", "internal-domain", "custom"]
 [rules.allowlist]
 paths = [
