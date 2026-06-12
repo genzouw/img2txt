@@ -175,7 +175,9 @@ tags = ["network", "basic-auth", "custom"]
 [rules.allowlist]
 paths = [
     '''(?i)\.(md|txt)$''',
-    '''(?i)^LICENSE$'''
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
 ]
 
 [[rules]]
