@@ -159,8 +159,12 @@ regex = '''(?i)\b(?:[a-z0-9-]+\.)+(?:internal|corp|local)\b'''
 tags = ["network", "internal-domain", "custom"]
 [rules.allowlist]
 paths = [
+    '''(?i)docker-compose[^/]*\.ya?ml$''',
+    '''(?i)\.env\..*$''',
     '''(?i)\.(md|txt)$''',
-    '''(?i)^LICENSE$'''
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
 ]
 
 [[rules]]
