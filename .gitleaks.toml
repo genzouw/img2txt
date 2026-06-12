@@ -151,3 +151,36 @@ paths = [
     '''(?i)\.(md|txt)$''',
     '''(?i)^LICENSE$'''
 ]
+
+[[rules]]
+id = "internal-domain"
+description = "Internal domain names (*.internal, *.corp, *.local, *.svc.cluster.local) are not allowed to prevent infrastructure exposure"
+regex = '''(?i)\b([a-z0-9-]+\.(?:internal|corp|local|svc\.cluster\.local))\b'''
+tags = ["network", "internal-domain", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
+
+[[rules]]
+id = "http-basic-auth"
+description = "HTTP/HTTPS URLs with embedded basic auth credentials are not allowed"
+regex = '''(?i)(https?://)[^:\s/]+:[^@\s/]+@([a-z0-9.-]+)'''
+tags = ["network", "basic-auth", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
+
+[[rules]]
+id = "ai-debug-placeholder-extended"
+description = "Extended AI agent debug placeholders (CHANGE_ME, XXX_SECRET_XXX, etc.) are not allowed"
+regex = '''(?i)(CHANGE_ME|INSERT_KEY_HERE|XXX_SECRET_XXX|<YOUR_[A-Z0-9_]+>)'''
+tags = ["custom", "ai-placeholder"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
