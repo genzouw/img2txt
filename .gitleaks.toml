@@ -156,7 +156,7 @@ tags = ["custom", "forbidden-file", "auth"]
 [[rules]]
 id = "internal-domain"
 description = "Internal domains (*.corp.*, *.internal.*) are not allowed"
-regex = '''(?i)([a-z0-9-]+\.(?:corp|internal)\.[a-z0-9-]+)'''
+regex = '''(?i)([a-z0-9-]+\.(?:corp|internal)(?:\.[a-z0-9-]+)?)'''
 tags = ["network", "internal-domain", "custom"]
 [rules.allowlist]
 paths = [
