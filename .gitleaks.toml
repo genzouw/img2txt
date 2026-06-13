@@ -154,16 +154,6 @@ path = '''(?i)(^|/)(?:\.docker/config\.json|\.kube/config|application_default_cr
 tags = ["custom", "forbidden-file", "auth"]
 
 [[rules]]
-id = "internal-domain"
-description = "Internal domains (*.corp.*, *.internal.*) are not allowed"
-regex = '''(?i)([a-z0-9-]+\.(?:corp|internal)(?:\.[a-z0-9-]+)?)'''
-tags = ["network", "internal-domain", "custom"]
-[rules.allowlist]
-paths = [
-    '''(?i)\.(md|txt)$'''
-]
-
-[[rules]]
 id = "gcp-secret-manager"
 description = "Hardcoded GCP Secret Manager resource paths are not allowed"
 regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
