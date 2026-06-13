@@ -14,7 +14,7 @@ credentials.json -diff
 *.jks -diff
 *.keystore -diff
 *.kdbx -diff
-htpasswd -diff
+*htpasswd -diff
 application_default_credentials.json -diff
 
 # セキュリティ：AI エージェントの作業跡や内部情報がリリースアーカイブに含まれないようにする
