@@ -144,7 +144,7 @@ paths = [
 [[rules]]
 id = "forbidden-file-keystore"
 description = "Detects keystores and certificates which should not be committed"
-path = '''(?i)(^|/)(?:.*\.p12|.*\.jks|.*\.keystore|.*\.kdbx|htpasswd)$'''
+path = '''(?i)(^|/)(?:.*\.p12|.*\.jks|.*\.keystore|.*\.kdbx|\.?htpasswd)$'''
 tags = ["custom", "forbidden-file", "keystore"]
 
 [[rules]]
