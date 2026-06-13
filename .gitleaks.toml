@@ -142,9 +142,37 @@ paths = [
 ]
 
 [[rules]]
+id = "forbidden-file-keystore"
+description = "Detects keystores and certificates which should not be committed"
+path = '''(?i)(^|/)(?:.*\.p12|.*\.jks|.*\.keystore|.*\.kdbx|\.?htpasswd)$'''
+tags = ["custom", "forbidden-file", "keystore"]
+
+[[rules]]
+id = "forbidden-file-cloud-config"
+description = "Detects cloud and tool auth configs which should not be committed"
+path = '''(?i)(^|/)(?:\.docker/config\.json|\.kube/config|application_default_credentials\.json)$'''
+tags = ["custom", "forbidden-file", "auth"]
+
+[[rules]]
+id = "internal-domain"
+description = "Internal domains (*.corp.*, *.internal.*) are not allowed"
+regex = '''(?i)([a-z0-9-]+\.(?:corp|internal)(?:\.[a-z0-9-]+)?)'''
+tags = ["network", "internal-domain", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$'''
+]
+
+[[rules]]
+id = "gcp-secret-manager"
+description = "Hardcoded GCP Secret Manager resource paths are not allowed"
+regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
+tags = ["gcp", "secret-manager", "custom"]
+
+[[rules]]
 id = "ai-debug-placeholder"
-description = "AI agent debug placeholders (YOUR_API_KEY, dummy_secret, etc.) are not allowed. Use <REDACTED> instead."
-regex = '''(?i)(YOUR_API_KEY|dummy_secret|placeholder_token|secret_goes_here)'''
+description = "AI agent debug placeholders (YOUR_API_KEY, dummy_secret, CHANGEME, REPLACE_ME, etc.) are not allowed. Use <REDACTED> instead."
+regex = '''(?i)(YOUR_API_KEY|dummy_secret|placeholder_token|secret_goes_here|CHANGEME|REPLACE_ME)'''
 tags = ["custom", "ai-placeholder"]
 [rules.allowlist]
 paths = [

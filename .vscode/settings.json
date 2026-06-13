@@ -8,7 +8,13 @@
     "**/*.tfstate": true,
     "**/*.tfstate.backup": true,
     "**/*.tfvars": true,
-    "**/*.tfvars.json": true
+    "**/*.tfvars.json": true,
+    "**/*.p12": true,
+    "**/*.jks": true,
+    "**/*.keystore": true,
+    "**/*.kdbx": true,
+    "**/*htpasswd": true,
+    "**/application_default_credentials.json": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -24,6 +30,12 @@
     "**/*.tfstate": true,
     "**/*.tfstate.backup": true,
     "**/*.tfvars": true,
-    "**/*.tfvars.json": true
+    "**/*.tfvars.json": true,
+    "**/*.p12": true,
+    "**/*.jks": true,
+    "**/*.keystore": true,
+    "**/*.kdbx": true,
+    "**/*htpasswd": true,
+    "**/application_default_credentials.json": true
   }
 }
