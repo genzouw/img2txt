@@ -166,7 +166,7 @@ paths = [
 [[rules]]
 id = "gcp-secret-manager"
 description = "Hardcoded GCP Secret Manager resource paths are not allowed"
-regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9-]+/versions/\w+)'''
+regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
 tags = ["gcp", "secret-manager", "custom"]
 
 [[rules]]
