@@ -154,16 +154,6 @@ path = '''(?i)(^|/)(?:\.docker/config\.json|\.kube/config|application_default_cr
 tags = ["custom", "forbidden-file", "auth"]
 
 [[rules]]
-id = "internal-domain"
-description = "Internal domains (*.corp.*, *.internal.*) are not allowed"
-regex = '''(?i)([a-z0-9-]+\.(?:corp|internal)(?:\.[a-z0-9-]+)?)'''
-tags = ["network", "internal-domain", "custom"]
-[rules.allowlist]
-paths = [
-    '''(?i)\.(md|txt)$'''
-]
-
-[[rules]]
 id = "gcp-secret-manager"
 description = "Hardcoded GCP Secret Manager resource paths are not allowed"
 regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
@@ -173,6 +163,45 @@ tags = ["gcp", "secret-manager", "custom"]
 id = "ai-debug-placeholder"
 description = "AI agent debug placeholders (YOUR_API_KEY, dummy_secret, CHANGEME, REPLACE_ME, etc.) are not allowed. Use <REDACTED> instead."
 regex = '''(?i)(YOUR_API_KEY|dummy_secret|placeholder_token|secret_goes_here|CHANGEME|REPLACE_ME)'''
+tags = ["custom", "ai-placeholder"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
+
+[[rules]]
+id = "internal-domain"
+description = "Internal domain names (*.internal, *.corp, *.local) are not allowed to prevent infrastructure exposure"
+regex = '''(?i)\b(?:[a-z0-9-]+\.)+(?:internal|corp|local)\b'''
+tags = ["network", "internal-domain", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)docker-compose[^/]*\.ya?ml$''',
+    '''(?i)\.env\..*$''',
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
+
+[[rules]]
+id = "http-basic-auth"
+description = "HTTP/HTTPS URLs with embedded basic auth credentials are not allowed"
+regex = '''(?i)(https?://)[^:\s/]+:[^@\s/]+@([a-z0-9.-]+)'''
+tags = ["network", "basic-auth", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
+
+[[rules]]
+id = "ai-debug-placeholder-extended"
+description = "Extended AI agent debug placeholders (CHANGE_ME, XXX_SECRET_XXX, etc.) are not allowed"
+regex = '''(?i)(CHANGE_ME|INSERT_KEY_HERE|XXX_SECRET_XXX|<YOUR_[A-Z0-9_]+>)'''
 tags = ["custom", "ai-placeholder"]
 [rules.allowlist]
 paths = [
