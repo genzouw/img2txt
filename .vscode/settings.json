@@ -13,7 +13,7 @@
     "**/*.jks": true,
     "**/*.keystore": true,
     "**/*.kdbx": true,
-    "**/htpasswd": true,
+    "**/*htpasswd": true,
     "**/application_default_credentials.json": true
   },
   "search.exclude": {
@@ -35,7 +35,7 @@
     "**/*.jks": true,
     "**/*.keystore": true,
     "**/*.kdbx": true,
-    "**/htpasswd": true,
+    "**/*htpasswd": true,
     "**/application_default_credentials.json": true
   }
 }
