@@ -17,7 +17,7 @@ RUN git clone --depth=1 https://github.com/jhchen/ansize.git . \
   && CGO_ENABLED=0 go build -ldflags='-s -w' -o /out/ansize .
 
 # Stage 2: ランタイムは alpine 3.23 + Apache + PHP 8.5 (alpine 3.23 で提供される唯一の PHP)
-FROM alpine:3.23
+FROM alpine:3.24
 
 LABEL maintainer="genzouw <genzouw@gmail.com>"
 
