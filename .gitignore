@@ -28,3 +28,24 @@ cdktf.out/
 *.tfstate.backup
 *.tfvars
 *.tfvars.json
+
+# Local auth and config files
+.npmrc
+.netrc
+.aws/
+.docker/
+.kube/
+.git-credentials
+
+# Keystores
+*.p12
+*.jks
+*.keystore
+*.kdbx
+*htpasswd
+
+# SSH Keys
+*id_rsa
+*id_dsa
+*id_ed25519
+*id_ecdsa
