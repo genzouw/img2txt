@@ -20,10 +20,10 @@ credentials.json -diff
 application_default_credentials.json -diff
 .npmrc -diff
 .netrc -diff
-.aws/credentials -diff
-.aws/config -diff
-.docker/config.json -diff
-.kube/config -diff
+**/.aws/credentials -diff
+**/.aws/config -diff
+**/.docker/config.json -diff
+**/.kube/config -diff
 .git-credentials -diff
 
 # セキュリティ：AI エージェントの作業跡や内部情報がリリースアーカイブに含まれないようにする
