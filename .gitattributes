@@ -10,12 +10,21 @@ credentials.json -diff
 *.tfvars.json -diff
 *id_rsa -diff
 *id_ed25519 -diff
+*id_dsa -diff
+*id_ecdsa -diff
 *.p12 -diff
 *.jks -diff
 *.keystore -diff
 *.kdbx -diff
 *htpasswd -diff
 application_default_credentials.json -diff
+.npmrc -diff
+.netrc -diff
+**/.aws/credentials -diff
+**/.aws/config -diff
+**/.docker/config.json -diff
+**/.kube/config -diff
+.git-credentials -diff
 
 # セキュリティ：AI エージェントの作業跡や内部情報がリリースアーカイブに含まれないようにする
 .cursor/ export-ignore
