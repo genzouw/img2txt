@@ -3,6 +3,12 @@ title = "Custom rules for img2txt project"
 [extend]
 useDefault = true
 
+[allowlist]
+description = "Exclude Git SHA-1 hashes (40-char lowercase hex) to prevent false positives on GitHub Actions pinned SHAs"
+regexes = [
+    '''^[0-9a-f]{40}$'''
+]
+
 [[rules]]
 id = "gcp-project-id"
 description = "Hardcoded GCP Project ID (toique-app-*) is not allowed"
@@ -101,6 +107,12 @@ id = "resend-api-key"
 description = "Resend API keys are not allowed"
 regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
 tags = ["resend", "api-key", "custom"]
+
+[[rules]]
+id = "stripe-api-key"
+description = "Stripe API keys are not allowed"
+regex = '''(?i)(?:sk|rk)_(?:test|live)_[a-zA-Z0-9]{24,}'''
+tags = ["stripe", "api-key", "custom"]
 
 [[rules]]
 id = "cloud-run-url"
