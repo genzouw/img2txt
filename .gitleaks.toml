@@ -3,6 +3,12 @@ title = "Custom rules for img2txt project"
 [extend]
 useDefault = true
 
+[allowlist]
+description = "Exclude Git SHA-1 hashes (40-char lowercase hex) to prevent false positives on GitHub Actions pinned SHAs"
+regexes = [
+    '''^[0-9a-f]{40}$'''
+]
+
 [[rules]]
 id = "gcp-project-id"
 description = "Hardcoded GCP Project ID (toique-app-*) is not allowed"
