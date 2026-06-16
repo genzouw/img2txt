@@ -103,6 +103,18 @@ regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
 tags = ["resend", "api-key", "custom"]
 
 [[rules]]
+id = "stripe-api-key"
+description = "Stripe API keys are not allowed"
+regex = '''(?i)(?:sk|rk)_(?:test|live)_[a-zA-Z0-9]+'''
+tags = ["stripe", "api-key", "custom"]
+
+[[rules]]
+id = "cloudflare-api-token"
+description = "Cloudflare API Tokens are not allowed"
+regex = '''\b[a-zA-Z0-9_]{40}\b'''
+tags = ["cloudflare", "api-token", "custom"]
+
+[[rules]]
 id = "cloud-run-url"
 description = "Hardcoded Cloud Run URLs (*.run.app) are not allowed"
 regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+run\.app)'''
