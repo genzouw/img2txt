@@ -13,8 +13,8 @@
    - VS Code / Cursor 用の安全側プリセット: ローカルでの誤操作や AI エージェントへの意図せぬコンテキスト混入を防ぐため、`.vscode/settings.json` にて `.env` や上記の各種秘密鍵・認証設定ファイルがエクスプローラや検索結果から除外されるように設定しています。
 
 1. **CI 検知（GitHub Actions環境）**:
-   - ツール: `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks) および `.github/workflows/trufflehog.yml` (TruffleHog)
-   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします（検証非対応のシークレットは検知されないため、gitleaks 等での多層防御が前提となります）。
+   - ツール: `.github/workflows/pre-commit.yml` (GitHub Actions 上の pre-commit), `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks) および `.github/workflows/trufflehog.yml` (TruffleHog)
+   - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。特に `.github/workflows/pre-commit.yml` によって CI 環境でも `pre-commit run --all-files` を実行し、開発者がローカルで `--no-verify` を用いてコミットを強制した場合でも、確実に追加のフック（`detect-private-key` など）が適用される水際対策の確実なブロックを構成しています。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします（検証非対応のシークレットは検知されないため、gitleaks 等での多層防御が前提となります）。
 
 1. **定期監査（スケジュール実行）**:
    - ツール: `.github/workflows/gitleaks.yml` 内の `schedule` トリガー
