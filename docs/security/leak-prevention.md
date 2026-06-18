@@ -60,6 +60,6 @@ pre-commit install
 
 ### 新規追加の対策（マージ前手動作業）
 
-今回、新たに追加された `detect-aws-credentials` フックの実行や Cloudflare API Token などの漏洩防止をローカルで効果的に行うため、開発者は各自のローカル環境にて必ず再度 `pre-commit install` を実行してください。
+今回、新たに追加された `detect-aws-credentials` フックの実行や Cloudflare API Token などの漏洩防止をローカルで効果的に行うため、設定ファイルの変更は次回のコミット時に自動的に適用されます（すでに `pre-commit install` を実施済みの場合は、再インストールの必要はありません）。
 
 また、GitHub リポジトリの **Settings → Code security and analysis** より、**Secret scanning** と **Push protection** が有効になっていることを確認してください。
