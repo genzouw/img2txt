@@ -57,3 +57,9 @@ pre-commit install
 - 本物のシークレット値や接続情報を誤ってコミットしてしまった場合は、GitHubにプッシュする前にローカルの履歴から修正・削除してください。
 - どうしてもコミットをスキップしたい場合（誤検知など）は、セキュリティ担当に相談したうえで `SKIP=gitleaks git commit` を使用してください。これにより gitleaks のみをスキップし、他の pre-commit フック（静的解析・フォーマッタなど）の品質チェックは維持できます。
 - 最終手段として `git commit --no-verify` も利用可能ですが、すべての pre-commit フックをスキップしてしまうため、原則として使用しないでください。
+
+### 新規追加の対策（マージ前手動作業）
+
+今回、新たに追加された `detect-aws-credentials` フックの実行や Cloudflare API Token などの漏洩防止をローカルで効果的に行うため、開発者は各自のローカル環境にて必ず再度 `pre-commit install` を実行してください。
+
+また、GitHub リポジトリの **Settings → Code security and analysis** より、**Secret scanning** と **Push protection** が有効になっていることを確認してください。

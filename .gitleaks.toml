@@ -103,6 +103,18 @@ paths = [
 ]
 
 [[rules]]
+id = "cloudflare-api-key"
+description = "Cloudflare API Keys and Tokens are not allowed"
+regex = '''(?i)(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{37,40}['"]?'''
+tags = ["cloudflare", "api-key", "custom"]
+
+[[rules]]
+id = "forbidden-file-gcp-sa-key"
+description = "Detects GCP Service Account JSON key files"
+path = '''(?i)(^|/)[a-z0-9-]+-[a-f0-9]{12}\.json$'''
+tags = ["custom", "forbidden-file", "gcp"]
+
+[[rules]]
 id = "resend-api-key"
 description = "Resend API keys are not allowed"
 regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
