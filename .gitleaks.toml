@@ -105,7 +105,7 @@ paths = [
 [[rules]]
 id = "cloudflare-api-key"
 description = "Cloudflare API Keys and Tokens are not allowed"
-regex = '''(?i)(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{37,40}['"]?'''
+regex = '''(?i)\b(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{37,40}['"]?'''
 tags = ["cloudflare", "api-key", "custom"]
 
 [[rules]]
