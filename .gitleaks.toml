@@ -103,6 +103,12 @@ paths = [
 ]
 
 [[rules]]
+id = "cloudflare-api-key"
+description = "Cloudflare API Keys and Tokens are not allowed"
+regex = '''(?i)\b(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{37,40}['"]?'''
+tags = ["cloudflare", "api-key", "custom"]
+
+[[rules]]
 id = "resend-api-key"
 description = "Resend API keys are not allowed"
 regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
@@ -188,6 +194,10 @@ description = "Internal domain names (*.internal, *.corp, *.local) are not allow
 regex = '''(?i)\b(?:[a-z0-9-]+\.)+(?:internal|corp|local)\b'''
 tags = ["network", "internal-domain", "custom"]
 [rules.allowlist]
+regexes = [
+    # ".env.local" 等の環境ファイル名 glob 参照を内部ドメイン (*.local) と誤検知しないよう除外
+    '''(?i)\benv\.local\b'''
+]
 paths = [
     '''(?i)docker-compose[^/]*\.ya?ml$''',
     '''(?i)\.env\..*$''',
