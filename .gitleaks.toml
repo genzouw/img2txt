@@ -240,7 +240,7 @@ tags = ["gemini", "api-key", "custom", "ai"]
 [[rules]]
 id = "openai-api-key-strict"
 description = "OpenAI API Keys are not allowed (AI Agent protection)"
-regex = '''\bsk-[a-zA-Z0-9]{48}\b'''
+regex = '''\bsk-(?:proj-)?[a-zA-Z0-9\-_]{48,}\b'''
 tags = ["openai", "api-key", "custom", "ai"]
 
 [[rules]]
