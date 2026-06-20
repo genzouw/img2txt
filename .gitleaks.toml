@@ -230,3 +230,33 @@ paths = [
     '''(?i)\.(md|txt)$''',
     '''(?i)^LICENSE$'''
 ]
+
+[[rules]]
+id = "gemini-api-key"
+description = "Gemini API Keys are not allowed (AI Agent protection)"
+regex = '''\bAIza[0-9A-Za-z\-_]{35}\b'''
+tags = ["gemini", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "openai-api-key-strict"
+description = "OpenAI API Keys are not allowed (AI Agent protection)"
+regex = '''\bsk-[a-zA-Z0-9]{48}\b'''
+tags = ["openai", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "anthropic-api-key"
+description = "Anthropic API Keys are not allowed (AI Agent protection)"
+regex = '''\bsk-ant-api03-[a-zA-Z0-9\-_]{70,}\b'''
+tags = ["anthropic", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "huggingface-token"
+description = "HuggingFace Access Tokens are not allowed (AI Agent protection)"
+regex = '''\bhf_[a-zA-Z0-9]{34}\b'''
+tags = ["huggingface", "token", "custom", "ai"]
+
+[[rules]]
+id = "github-pat-strict"
+description = "GitHub Personal Access Tokens are strictly not allowed"
+regex = '''\b(ghp|gho|ghu|ghs|ghr)_[a-zA-Z0-9]{36}\b'''
+tags = ["github", "pat", "custom"]
