@@ -30,6 +30,6 @@
 
 ## 参考情報
 
-- 公式ドキュメント: https://docs.github.com/ja/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql
+- 公式ドキュメント: <https://docs.github.com/ja/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql>
 - 漏洩防止の全体像: `docs/security/leak-prevention.md`
 - 比較検討した他案: 新規のサードパーティ製アクションの導入も検討しましたが、公式ツールであり無料で利用できる CodeQL の言語設定を拡張する方針を選択しました。
