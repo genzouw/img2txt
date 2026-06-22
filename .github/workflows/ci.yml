@@ -114,7 +114,7 @@ jobs:
             --output trivy-image.sarif \
             --severity CRITICAL,HIGH \
             --ignore-unfixed \
-            --vuln-type os,library \
+            --scanners vuln,secret \
             --exit-code 1 \
             "img2txt:${{ github.sha }}"
 

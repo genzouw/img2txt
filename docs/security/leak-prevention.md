@@ -16,6 +16,7 @@
    - ツール: `.github/workflows/pre-commit.yml` (GitHub Actions 上の pre-commit), `.github/workflows/gitleaks.yml` (GitHub Actions 上の gitleaks), `.github/workflows/trufflehog.yml` (TruffleHog) および `.github/workflows/codeql.yml` (CodeQL)
    - 目的: プルリクエスト作成時やブランチプッシュ時に、リモートリポジトリ側でシークレット混入がないかチェックします。特に `.github/workflows/pre-commit.yml` によって CI 環境でも `pre-commit run --all-files` を実行し、開発者がローカルで `--no-verify` を用いてコミットを強制した場合でも、確実に追加のフック（`detect-private-key` など）が適用される水際対策の確実なブロックを構成しています。TruffleHog は `--only-verified` を用い、実際に有効なクレデンシャルのみを厳格に検知・ブロックします（検証非対応のシークレットは検知されないため、gitleaks 等での多層防御が前提となります）。
    - CodeQL: さらに、JavaScript / TypeScript のコード（フロントエンドおよびインフラの CDKTF コード等）を対象に、CodeQL によるセマンティック解析を実行します。これにより、変数へのシークレットのハードコードや、外部へのデータフローなど、静的なパターンマッチング（gitleaks等）では検知が難しいロジックレベルの漏洩リスクを検知します。
+   - Trivy (コンテナイメージスキャン): `ci.yml` にて、ビルドされた Docker イメージに対して Trivy を実行し、OS パッケージやライブラリの脆弱性だけでなく、イメージ内に混入したシークレット（`.env` ファイルの誤ったコピーやハードコードされた認証情報など）をスキャンしてブロックします。
 
 1. **定期監査（スケジュール実行）**:
    - ツール: `.github/workflows/gitleaks.yml` 内の `schedule` トリガー
