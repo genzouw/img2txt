@@ -31,4 +31,4 @@
 
 ## 参考情報
 
-- 公式ドキュメント: https://aquasecurity.github.io/trivy/
+- 公式ドキュメント: <https://aquasecurity.github.io/trivy/>
