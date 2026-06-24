@@ -32,3 +32,10 @@ application_default_credentials.json -diff
 .aider* export-ignore
 .gemini/ export-ignore
 .github/ export-ignore
+
+# セキュリティ：DBファイルやログファイルのローカルデータ漏洩防止
+*.log -diff
+*.sqlite -diff
+*.sqlite3 -diff
+*.db -diff
+*.dump -diff

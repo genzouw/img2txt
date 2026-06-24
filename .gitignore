@@ -49,3 +49,10 @@ cdktf.out/
 *id_dsa
 *id_ed25519
 *id_ecdsa
+
+# Local databases and logs (to prevent PII and secrets leakage)
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.dump
