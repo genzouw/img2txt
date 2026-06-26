@@ -11,6 +11,9 @@ on:
     paths:
       - ".github/workflows/**"
       - ".github/actionlint*"
+  schedule:
+    # 毎週月曜 03:00 JST (= 日曜 18:00 UTC) にワークフローの脆弱性を定期監査
+    - cron: "0 18 * * 0"
 
 concurrency:
   group: actionlint-${{ github.ref }}
