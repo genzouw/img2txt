@@ -264,7 +264,7 @@ tags = ["github", "pat", "custom"]
 [[rules]]
 id = "forbidden-file-database-dump"
 description = "Detects database dumps, local SQLite DBs, and log files which should not be committed as they often contain PII or secrets"
-path = '''(?i)(^|/)(?:.*\.sqlite|.*\.sqlite3|.*\.db|.*\.dump|.*\.log)$'''
+path = '''(?i)(^|/)(?:.*\.(?:sqlite3?|db|dump|log)(?:-journal|-wal|-shm)?)$'''
 tags = ["custom", "forbidden-file", "database", "log"]
 
 [[rules]]
