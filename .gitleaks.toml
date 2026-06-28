@@ -316,7 +316,7 @@ tags = ["supabase", "api-key", "custom"]
 [[rules]]
 id = "pii-japanese-phone"
 description = "Japanese phone numbers (PII) are not allowed"
-regex = '''(?i)\b(?:0\d{1,4}[-(]?\d{1,4}[-)]?\d{3,4}|0[789]0[-]?\d{4}[-]?\d{4})\b'''
+regex = '''(?i)\b(?:0[789]0-\d{4}-\d{4}|0[5789]0\d{8}|0\d{1,4}-\d{1,4}-\d{3,4})\b'''
 tags = ["pii", "phone", "custom"]
 [rules.allowlist]
 paths = [
