@@ -288,6 +288,11 @@ id = "saas-backend-url"
 description = "Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed"
 regex = '''(?i)(https?://[a-z0-9-]+\.(supabase\.co|firebaseapp\.com|vercel\.app|netlify\.app))'''
 tags = ["saas", "backend-url", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(ts|tsx|js|jsx|json|yml|yaml|toml|xml|md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
 
 [[rules]]
 id = "aws-internal-endpoint"
