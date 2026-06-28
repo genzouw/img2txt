@@ -44,6 +44,10 @@ id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace files"
 path = '''(?i)(^|/)\.(cursor|claude|aider)(?:/|$)'''
 tags = ["custom", "forbidden-file"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.cursor/rules/.*$'''
+]
 
 [[rules]]
 id = "forbidden-file-credentials"
@@ -278,3 +282,55 @@ id = "discord-webhook"
 description = "Discord Webhook URLs are not allowed"
 regex = '''(?i)(https://discord\.com/api/webhooks/[0-9]{17,19}/[a-zA-Z0-9_-]{68})'''
 tags = ["discord", "webhook", "custom"]
+
+[[rules]]
+id = "saas-backend-url"
+description = "Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed"
+regex = '''(?i)(https?://[a-z0-9-]+\.(supabase\.co|firebaseapp\.com|vercel\.app|netlify\.app))'''
+tags = ["saas", "backend-url", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(ts|tsx|js|jsx|json|yml|yaml|toml|xml|md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
+
+[[rules]]
+id = "aws-internal-endpoint"
+description = "Hardcoded AWS internal endpoints (e.g. *.rds.amazonaws.com, *.cache.amazonaws.com) are not allowed"
+regex = '''(?i)([a-z0-9-]+\.(rds|cache|es|mq)\.amazonaws\.com)'''
+tags = ["aws", "internal-endpoint", "custom"]
+
+[[rules]]
+id = "notion-api-key"
+description = "Notion API keys are not allowed"
+regex = '''(?i)secret_[a-zA-Z0-9]{43}'''
+tags = ["notion", "api-key", "custom"]
+
+[[rules]]
+id = "sendgrid-api-key"
+description = "SendGrid API keys are not allowed"
+regex = '''(?i)SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}'''
+tags = ["sendgrid", "api-key", "custom"]
+
+[[rules]]
+id = "supabase-api-key"
+description = "Supabase API keys (JWT tokens) are not allowed"
+regex = '''(?i)eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+'''
+tags = ["supabase", "api-key", "custom"]
+
+[[rules]]
+id = "pii-japanese-phone"
+description = "Japanese phone numbers (PII) are not allowed"
+regex = '''(?i)\b(?:0[789]0-\d{4}-\d{4}|0[5789]0\d{8}|0\d{1,4}-\d{1,4}-\d{3,4})\b'''
+tags = ["pii", "phone", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$'''
+]
+
+[[rules]]
+id = "forbidden-file-api-client"
+description = "Detects API client export files (Postman, Insomnia) which should not be committed"
+path = '''(?i)(^|/)(?:.*postman_collection\.json|.*postman_environment\.json|.*insomnia\.json)$'''
+tags = ["custom", "forbidden-file", "api-client"]
