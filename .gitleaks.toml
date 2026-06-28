@@ -260,3 +260,21 @@ id = "github-pat-strict"
 description = "GitHub Personal Access Tokens are strictly not allowed"
 regex = '''\b(ghp|gho|ghu|ghs|ghr)_[a-zA-Z0-9]{36}\b'''
 tags = ["github", "pat", "custom"]
+
+[[rules]]
+id = "forbidden-file-database-dump"
+description = "Detects database dumps, local SQLite DBs, and log files which should not be committed as they often contain PII or secrets"
+path = '''(?i)(^|/)(?:.*\.(?:sqlite3?|db|dump|log)(?:-journal|-wal|-shm)?)$'''
+tags = ["custom", "forbidden-file", "database", "log"]
+
+[[rules]]
+id = "slack-webhook"
+description = "Slack Webhook URLs are not allowed"
+regex = '''(?i)(https://hooks\.slack\.com/services/T[a-zA-Z0-9_]{8,}/B[a-zA-Z0-9_]{8,}/[a-zA-Z0-9_]{24})'''
+tags = ["slack", "webhook", "custom"]
+
+[[rules]]
+id = "discord-webhook"
+description = "Discord Webhook URLs are not allowed"
+regex = '''(?i)(https://discord\.com/api/webhooks/[0-9]{17,19}/[a-zA-Z0-9_-]{68})'''
+tags = ["discord", "webhook", "custom"]
