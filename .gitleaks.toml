@@ -334,3 +334,21 @@ id = "forbidden-file-api-client"
 description = "Detects API client export files (Postman, Insomnia) which should not be committed"
 path = '''(?i)(^|/)(?:.*postman_collection\.json|.*postman_environment\.json|.*insomnia\.json)$'''
 tags = ["custom", "forbidden-file", "api-client"]
+
+[[rules]]
+id = "npm-access-token"
+description = "NPM access tokens are not allowed"
+regex = '''(?i)\b(npm_[a-zA-Z0-9]{36})\b'''
+tags = ["npm", "token", "custom"]
+
+[[rules]]
+id = "pypi-api-token"
+description = "PyPI API tokens are not allowed"
+regex = '''(?i)\b(pypi-AgEIcHlwaS5vcmc[a-zA-Z0-9\-_]{50,})\b'''
+tags = ["pypi", "token", "custom"]
+
+[[rules]]
+id = "telegram-bot-token"
+description = "Telegram Bot tokens are not allowed"
+regex = '''(?i)\b([0-9]{8,16}:[a-zA-Z0-9_-]{35})\b'''
+tags = ["telegram", "token", "custom"]
