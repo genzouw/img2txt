@@ -344,7 +344,7 @@ tags = ["npm", "token", "custom"]
 [[rules]]
 id = "pypi-api-token"
 description = "PyPI API tokens are not allowed"
-regex = '''(?i)\b(pypi-AgEIcHlwaS5vcmc[a-zA-Z0-9\-_]{50,})\b'''
+regex = '''\b(pypi-AgEIcHlwaS5vcmc[a-zA-Z0-9\-_]{50,})\b'''
 tags = ["pypi", "token", "custom"]
 
 [[rules]]
