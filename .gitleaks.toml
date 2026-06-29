@@ -338,7 +338,7 @@ tags = ["custom", "forbidden-file", "api-client"]
 [[rules]]
 id = "npm-access-token"
 description = "NPM access tokens are not allowed"
-regex = '''(?i)\b(npm_[a-zA-Z0-9]{36})\b'''
+regex = '''\b(npm_[a-zA-Z0-9]{36})\b'''
 tags = ["npm", "token", "custom"]
 
 [[rules]]
