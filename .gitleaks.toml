@@ -350,5 +350,5 @@ tags = ["pypi", "token", "custom"]
 [[rules]]
 id = "telegram-bot-token"
 description = "Telegram Bot tokens are not allowed"
-regex = '''(?i)\b([0-9]{8,16}:[a-zA-Z0-9_-]{35})\b'''
+regex = '''\b([0-9]{8,16}:[a-zA-Z0-9_-]{35})\b'''
 tags = ["telegram", "token", "custom"]
