@@ -380,6 +380,13 @@ id = "aws-resource-arn"
 description = "Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed"
 regex = '''(?i)(arn:aws:[a-z0-9-]+:[a-z0-9-]+:\d{12}:[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*)'''
 tags = ["aws", "arn", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
 
 [[rules]]
 id = "forbidden-file-shell-history"
