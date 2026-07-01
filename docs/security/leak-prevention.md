@@ -65,3 +65,15 @@ pre-commit install
 今回、新たに追加された `detect-aws-credentials` フックの実行や Cloudflare API Token などの漏洩防止をローカルで効果的に行うため、設定ファイルの変更は次回のコミット時に自動的に適用されます（すでに `pre-commit install` を実施済みの場合は、再インストールの必要はありません）。
 
 また、GitHub リポジトリの **Settings → Code security and analysis** より、**Secret scanning** と **Push protection** が有効になっていることを確認してください。
+
+### 今回の追加対策（マージ前手動作業）
+
+今回、新たに以下の漏洩検知・保護ルールを追加しました。
+
+1. **GitHub Fine-grained PAT の検知強化**: 従来の classic PAT に加え、`github_pat_` で始まる Fine-grained PAT を厳格に検知対象としました。
+2. **GCP OAuth クライアントシークレットの検知**: `GOCSPX-` で始まる GCP OAuth のシークレットを検知対象としました。
+3. **クレジットカード情報（PII）の検知**: 主要なクレジットカード番号形式のハードコードを検知対象としました。
+4. **AWS リソース ARN（12桁のAWSアカウントID）の検知**: インフラ構成の過剰露出を防ぐため、12桁のアカウントIDを含む ARN のハードコードを検知対象としました。
+5. **ローカル履歴・上書きファイルの保護**: シェル履歴ファイル（`.*_history`）およびローカルの Docker Compose 上書きファイル（`docker-compose.override.yml`, `docker-compose.override.yaml`）が誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。

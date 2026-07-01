@@ -37,7 +37,10 @@
     "**/*.sqlite": true,
     "**/*.sqlite3": true,
     "**/*.db": true,
-    "**/*.dump": true
+    "**/*.dump": true,
+    "**/.*_history": true,
+    "**/docker-compose.override.yml": true,
+    "**/docker-compose.override.yaml": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -77,6 +80,9 @@
     "**/*.sqlite": true,
     "**/*.sqlite3": true,
     "**/*.db": true,
-    "**/*.dump": true
+    "**/*.dump": true,
+    "**/.*_history": true,
+    "**/docker-compose.override.yml": true,
+    "**/docker-compose.override.yaml": true
   }
 }
