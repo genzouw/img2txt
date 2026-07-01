@@ -262,7 +262,7 @@ tags = ["huggingface", "token", "custom", "ai"]
 [[rules]]
 id = "github-pat-strict"
 description = "GitHub Personal Access Tokens are strictly not allowed"
-regex = '''\b(ghp|gho|ghu|ghs|ghr)_[a-zA-Z0-9]{36}\b'''
+regex = '''\b(ghp|gho|ghu|ghs|ghr)_[a-zA-Z0-9]{36}\b|\bgithub_pat_[a-zA-Z0-9_]{82}\b'''
 tags = ["github", "pat", "custom"]
 
 [[rules]]
@@ -352,3 +352,33 @@ id = "telegram-bot-token"
 description = "Telegram Bot tokens are not allowed"
 regex = '''\b([0-9]{8,16}:[a-zA-Z0-9_-]{35})\b'''
 tags = ["telegram", "token", "custom"]
+
+[[rules]]
+id = "gcp-oauth-client-secret"
+description = "GCP OAuth Client Secrets are not allowed"
+regex = '''\bGOCSPX-[a-zA-Z0-9_-]{28,34}\b'''
+tags = ["gcp", "oauth", "custom"]
+
+[[rules]]
+id = "pii-credit-card"
+description = "Credit Card Numbers (PII) are not allowed"
+regex = '''\b(?:4[0-9]{12}(?:[0-9]{3})?|(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})\b'''
+tags = ["pii", "credit-card", "custom"]
+
+[[rules]]
+id = "aws-resource-arn"
+description = "Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed"
+regex = '''(?i)(arn:aws:[a-z0-9-]+:[a-z0-9-]+:\d{12}:[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*)'''
+tags = ["aws", "arn", "custom"]
+
+[[rules]]
+id = "forbidden-file-shell-history"
+description = "Detects shell history files which should not be committed"
+path = '''(?i)(^|/)\.(bash|zsh|mysql|psql|node)_history$'''
+tags = ["custom", "forbidden-file", "history"]
+
+[[rules]]
+id = "forbidden-file-local-overrides"
+description = "Detects local Docker overrides which should not be committed"
+path = '''(?i)(^|/)docker-compose\.override\.ya?ml$'''
+tags = ["custom", "forbidden-file", "docker"]

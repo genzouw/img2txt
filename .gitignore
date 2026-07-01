@@ -65,3 +65,10 @@ cdktf.out/
 *.db-wal
 *.db-shm
 *.dump
+
+# セキュリティ：シェル履歴ファイルの漏洩防止
+.*_history
+
+# セキュリティ：ローカルDocker上書きファイルの漏洩防止
+docker-compose.override.yml
+docker-compose.override.yaml
