@@ -75,6 +75,6 @@ pre-commit install
 3. **クレジットカード情報（PII）の検知**: 主要なクレジットカード番号形式のハードコードを検知対象としました。
 4. **AWS リソース ARN（12桁のAWSアカウントID）の検知**: インフラ構成の過剰露出を防ぐため、12桁のアカウントIDを含む ARN のハードコードを検知対象としました。
 5. **ローカル履歴・上書きファイルの保護**: シェル履歴ファイル（`.*_history`）およびローカルの Docker Compose 上書きファイル（`docker-compose.override.yml`, `docker-compose.override.yaml`）が誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
-6. **Dependabot による定期監査の強化**: 依存パッケージの脆弱性や情報漏洩リスクに迅速に対応するため、Dependabot の実行間隔を `weekly` から `daily` に変更し、同時に PR の肥大化を防ぐために `groups` 機能を導入して定期監査の頻度と品質を向上させました。
+6. **Dependabot による定期監査の強化**: 依存パッケージの脆弱性や情報漏洩リスクに迅速に対応するため、Dependabot の実行間隔を `weekly` から `daily` に変更し、同時に PR の乱立を防ぐために `groups` 機能を導入して定期監査の頻度と品質を向上させました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
