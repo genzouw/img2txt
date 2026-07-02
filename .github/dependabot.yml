@@ -3,17 +3,29 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
       - "docker"
+    groups:
+      docker-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
       - "github-actions"
+    groups:
+      actions-dependencies:
+        patterns:
+          - "*"
