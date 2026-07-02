@@ -11,7 +11,12 @@ updates:
       - "dependencies"
       - "docker"
     groups:
-      docker-dependencies:
+      docker-version-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      docker-security-dependencies:
+        applies-to: security-updates
         patterns:
           - "*"
 
@@ -26,6 +31,11 @@ updates:
       - "dependencies"
       - "github-actions"
     groups:
-      actions-dependencies:
+      actions-version-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      actions-security-dependencies:
+        applies-to: security-updates
         patterns:
           - "*"
