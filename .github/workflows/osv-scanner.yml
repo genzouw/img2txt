@@ -43,4 +43,12 @@ jobs:
 
       - name: Run OSV-Scanner
         run: |
+          set +e
           osv-scanner -r .
+          exit_code=$?
+          set -e
+          if [ "$exit_code" -eq 128 ]; then
+            echo "No package sources found. Scan skipped."
+          elif [ "$exit_code" -ne 0 ]; then
+            exit "$exit_code"
+          fi
