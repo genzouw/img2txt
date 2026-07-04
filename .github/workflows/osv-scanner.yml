@@ -1,0 +1,46 @@
+name: OSV-Scanner
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # 毎週月曜 04:00 JST (= 日曜 19:00 UTC) に定期スキャン
+    - cron: "0 19 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: osv-scanner-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  osv-scanner:
+    name: Scan for vulnerabilities with OSV-Scanner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Install OSV-Scanner
+        env:
+          OSV_SCANNER_VERSION: v2.4.0
+        run: |
+          set -euo pipefail
+          BASE_URL="https://github.com/google/osv-scanner/releases/download/${OSV_SCANNER_VERSION}"
+
+          curl -sSfL -o /tmp/osv-scanner "${BASE_URL}/osv-scanner_linux_amd64"
+          curl -sSfL -o /tmp/osv-scanner_SHA256SUMS "${BASE_URL}/osv-scanner_SHA256SUMS"
+
+          cd /tmp
+          grep "osv-scanner_linux_amd64" osv-scanner_SHA256SUMS | sha256sum -c -
+          chmod +x osv-scanner
+          sudo mv osv-scanner /usr/local/bin/osv-scanner
+
+      - name: Run OSV-Scanner
+        run: |
+          osv-scanner -r .
