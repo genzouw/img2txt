@@ -19,8 +19,12 @@
    - Trivy (コンテナイメージスキャン): `ci.yml` にて、ビルドされた Docker イメージに対して Trivy を実行し、OS パッケージやライブラリの脆弱性だけでなく、イメージ内に混入したシークレット（`.env` ファイルの誤ったコピーやハードコードされた認証情報など）をスキャンしてブロックします。
 
 1. **定期監査（スケジュール実行）**:
-   - ツール: `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml` 内の `schedule` トリガー
-   - 目的: 定期的にリポジトリ全体（過去の履歴も含む）を再スキャンし、過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知がないかを確認します。TruffleHog および Trivy のスケジュール実行により、外部依存関係の新たな脆弱性や漏洩リスクの検知も行います。また、Dependabot の日次スケジュール（Daily）とグループ化機能により、依存パッケージの定期的な棚卸しと更新を高い頻度かつ低いノイズで実施します。さらに、`actionlint` を用いた GitHub Actions ワークフロー自体の定期 lint により、シークレット漏洩につながるような不適切なインジェクションや過剰な権限設定がないかを継続的に監視します。新たに導入した `osv-scanner` により、ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査と PR 時の検知も実施し、依存関係の脆弱性を迅速に把握・対応できる体制を強化しています。
+   - ツール: `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml`, `.github/workflows/zizmor.yml` 内の `schedule` トリガー
+   - 目的: 定期的にリポジトリ全体（過去の履歴も含む）を再スキャンし、セキュリティリスクを継続的に監視します。
+     - Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。
+     - Dependabot: 日次スケジュール（Daily）とグループ化機能による、依存パッケージの定期的な棚卸しと更新。
+     - actionlint / zizmor: GitHub Actions ワークフロー自体の定期 lint や、ワークフローのセキュリティ脆弱性パターンの定期監視（不適切なインジェクションや過剰な権限設定の検知）。
+     - osv-scanner: ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査。
 
 ## その他の推奨対策
 
