@@ -16,6 +16,8 @@ credentials.json
 !.cursor/rules/
 .aider*
 .claude/
+.gemini/*
+!.gemini/config.yaml
 
 # OS hidden files
 .DS_Store
@@ -65,6 +67,7 @@ cdktf.out/
 *.db-wal
 *.db-shm
 *.dump
+*.sql
 
 # セキュリティ：シェル履歴ファイルの漏洩防止
 .*_history

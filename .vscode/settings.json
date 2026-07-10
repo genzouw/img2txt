@@ -40,7 +40,8 @@
     "**/*.dump": true,
     "**/.*_history": true,
     "**/docker-compose.override.yml": true,
-    "**/docker-compose.override.yaml": true
+    "**/docker-compose.override.yaml": true,
+    "**/*.sql": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -83,6 +84,7 @@
     "**/*.dump": true,
     "**/.*_history": true,
     "**/docker-compose.override.yml": true,
-    "**/docker-compose.override.yaml": true
+    "**/docker-compose.override.yaml": true,
+    "**/*.sql": true
   }
 }

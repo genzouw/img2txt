@@ -42,11 +42,12 @@ tags = ["custom", "forbidden-file", "auth"]
 [[rules]]
 id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace files"
-path = '''(?i)(^|/)\.(cursor|claude|aider)(?:/|$)'''
+path = '''(?i)(^|/)\.(cursor|claude|aider|gemini)(?:/|$)'''
 tags = ["custom", "forbidden-file"]
 [rules.allowlist]
 paths = [
-    '''(?i)\.cursor/rules/.*$'''
+    '''(?i)\.cursor/rules/.*$''',
+    '''(?i)\.gemini/config\.yaml$'''
 ]
 
 [[rules]]
@@ -268,7 +269,7 @@ tags = ["github", "pat", "custom"]
 [[rules]]
 id = "forbidden-file-database-dump"
 description = "Detects database dumps, local SQLite DBs, and log files which should not be committed as they often contain PII or secrets"
-path = '''(?i)(^|/)(?:.*\.(?:sqlite3?|db|dump|log)(?:-journal|-wal|-shm)?)$'''
+path = '''(?i)(^|/)(?:.*\.(?:sqlite3?|db|dump|log|sql)(?:-journal|-wal|-shm)?)$'''
 tags = ["custom", "forbidden-file", "database", "log"]
 
 [[rules]]
@@ -399,3 +400,28 @@ id = "forbidden-file-local-overrides"
 description = "Detects local Docker overrides which should not be committed"
 path = '''(?i)(^|/)docker-compose\.override\.ya?ml$'''
 tags = ["custom", "forbidden-file", "docker"]
+
+
+[[rules]]
+id = "slack-api-token"
+description = "Slack API tokens (xoxb, xoxp, xapp) are not allowed"
+regex = '''(?i)(xox[bpa]-[0-9]{10,13}-[0-9]{10,13}[a-zA-Z0-9-]*)'''
+tags = ["slack", "token", "custom"]
+
+[[rules]]
+id = "discord-bot-token"
+description = "Discord Bot tokens are not allowed"
+regex = '''(?i)(M[a-zA-Z0-9_-]{23,27}\.[a-zA-Z0-9_-]{6}\.[a-zA-Z0-9_-]{27,})'''
+tags = ["discord", "token", "custom"]
+
+[[rules]]
+id = "gitlab-pat"
+description = "GitLab Personal Access Tokens are not allowed"
+regex = '''(?i)glpat-[0-9a-zA-Z_-]{20}'''
+tags = ["gitlab", "pat", "custom"]
+
+[[rules]]
+id = "linear-api-key"
+description = "Linear API keys are not allowed"
+regex = '''(?i)lin_api_[a-zA-Z0-9]{40}'''
+tags = ["linear", "api-key", "custom"]
