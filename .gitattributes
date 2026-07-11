@@ -31,6 +31,8 @@ application_default_credentials.json -diff
 .claude/ export-ignore
 .aider* export-ignore
 .gemini/ export-ignore
+.gemini/* -diff
+.gemini/config.yaml diff
 .github/ export-ignore
 
 # セキュリティ：DBファイルやログファイルのローカルデータ漏洩防止
@@ -48,6 +50,7 @@ application_default_credentials.json -diff
 *.db-wal -diff
 *.db-shm -diff
 *.dump -diff
+*.sql -diff
 
 # セキュリティ：ローカル履歴や上書きファイルの漏洩防止
 .*_history -diff
