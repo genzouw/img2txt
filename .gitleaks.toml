@@ -411,7 +411,7 @@ tags = ["slack", "token", "custom"]
 [[rules]]
 id = "discord-bot-token"
 description = "Discord Bot tokens are not allowed"
-regex = '''(?i)(M[a-zA-Z0-9_-]{23,27}\.[a-zA-Z0-9_-]{6}\.[a-zA-Z0-9_-]{27,})'''
+regex = '''([M-O][a-zA-Z0-9_-]{23,27}\.[a-zA-Z0-9_-]{6}\.[a-zA-Z0-9_-]{27,})'''
 tags = ["discord", "token", "custom"]
 
 [[rules]]
