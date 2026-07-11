@@ -405,7 +405,7 @@ tags = ["custom", "forbidden-file", "docker"]
 [[rules]]
 id = "slack-api-token"
 description = "Slack API tokens (xoxb, xoxp, xapp) are not allowed"
-regex = '''(?i)(xox[bpa]-[0-9]{10,13}-[0-9]{10,13}[a-zA-Z0-9-]*)'''
+regex = '''(xox[bpa]-[0-9]{10,13}-[0-9]{10,13}[a-zA-Z0-9-]*|xapp-[0-9]-[a-zA-Z0-9-]+)'''
 tags = ["slack", "token", "custom"]
 
 [[rules]]
