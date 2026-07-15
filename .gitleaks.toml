@@ -441,7 +441,7 @@ tags = ["twilio", "api-key", "custom"]
 [[rules]]
 id = "ngrok-auth-token"
 description = "Ngrok Auth Tokens are not allowed"
-regex = '''(?i)(?:ngrok)[-_]?(?:auth)?[-_]?(?:token|key)[\s:=]+['"]?[0-9a-zA-Z]{43,50}['"]?'''
+regex = '''(?i)(?:ngrok)[-_]?(?:auth)?[-_]?(?:token|key)[\s:=]+['"]?\b[0-9a-z]{43,50}\b['"]?'''
 tags = ["ngrok", "token", "custom"]
 
 [[rules]]
