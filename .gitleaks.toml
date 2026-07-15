@@ -429,7 +429,7 @@ tags = ["linear", "api-key", "custom"]
 [[rules]]
 id = "datadog-access-token"
 description = "Datadog Access Tokens and API Keys are not allowed"
-regex = '''(?i)(?:datadog|dd)[-_]?(?:api|app|access)?[-_]?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9]{32,40}['"]?'''
+regex = '''(?i)(?:datadog|dd)[-_]?(?:api|app|access)?[-_]?(?:key|token)[\s:=]+['"]?\b[a-z0-9]{32,40}\b['"]?'''
 tags = ["datadog", "api-key", "custom"]
 
 [[rules]]
