@@ -447,5 +447,5 @@ tags = ["ngrok", "token", "custom"]
 [[rules]]
 id = "sentry-auth-token"
 description = "Sentry Auth Tokens are not allowed"
-regex = '''(?i)(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key)[\s:=]+['"]?[a-zA-Z0-9]{64}['"]?|sntrys_[a-zA-Z0-9_-]{32,}_[a-zA-Z0-9_-]{32,}'''
+regex = '''(?i:(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key))[\s:=]+['"]?\b[a-zA-Z0-9]{64}\b['"]?|\bsntrys_[a-zA-Z0-9_-]{32,}_[a-zA-Z0-9_-]{32,}\b'''
 tags = ["sentry", "token", "custom"]
