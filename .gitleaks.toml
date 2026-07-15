@@ -435,7 +435,7 @@ tags = ["datadog", "api-key", "custom"]
 [[rules]]
 id = "twilio-api-key"
 description = "Twilio API Keys are not allowed"
-regex = '''(?i)SK[0-9a-fA-F]{32}'''
+regex = '''\bSK[0-9a-fA-F]{32}\b'''
 tags = ["twilio", "api-key", "custom"]
 
 [[rules]]
