@@ -425,3 +425,27 @@ id = "linear-api-key"
 description = "Linear API keys are not allowed"
 regex = '''(?i)lin_api_[a-zA-Z0-9]{40}'''
 tags = ["linear", "api-key", "custom"]
+
+[[rules]]
+id = "datadog-access-token"
+description = "Datadog Access Tokens and API Keys are not allowed"
+regex = '''(?i)(?:datadog|dd)[-_]?(?:api|app|access)?[-_]?(?:key|token)[\s:=]+['"]?\b[a-z0-9]{32,40}\b['"]?'''
+tags = ["datadog", "api-key", "custom"]
+
+[[rules]]
+id = "twilio-api-key"
+description = "Twilio API Keys are not allowed"
+regex = '''\bSK[0-9a-fA-F]{32}\b'''
+tags = ["twilio", "api-key", "custom"]
+
+[[rules]]
+id = "ngrok-auth-token"
+description = "Ngrok Auth Tokens are not allowed"
+regex = '''(?i)(?:ngrok)[-_]?(?:auth)?[-_]?(?:token|key)[\s:=]+['"]?\b[0-9a-z]{43,50}\b['"]?'''
+tags = ["ngrok", "token", "custom"]
+
+[[rules]]
+id = "sentry-auth-token"
+description = "Sentry Auth Tokens are not allowed"
+regex = '''(?i:(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key))[\s:=]+['"]?\b[a-zA-Z0-9]{64}\b['"]?|\bsntrys_[a-zA-Z0-9_-]{32,}_[a-zA-Z0-9_-]{32,}\b'''
+tags = ["sentry", "token", "custom"]
