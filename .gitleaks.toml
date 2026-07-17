@@ -449,3 +449,15 @@ id = "sentry-auth-token"
 description = "Sentry Auth Tokens are not allowed"
 regex = '''(?i:(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key))[\s:=]+['"]?\b[a-zA-Z0-9]{64}\b['"]?|\bsntrys_[a-zA-Z0-9_-]{32,}_[a-zA-Z0-9_-]{32,}\b'''
 tags = ["sentry", "token", "custom"]
+
+[[rules]]
+id = "jwt-token"
+description = "Generic JWT Tokens are not allowed"
+regex = '''(?i)eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}'''
+tags = ["jwt", "token", "custom"]
+
+[[rules]]
+id = "github-runner-token"
+description = "GitHub Actions Runner Tokens are not allowed"
+regex = '''(?i)ghs_[a-zA-Z0-9]{36}'''
+tags = ["github", "runner", "token", "custom"]
