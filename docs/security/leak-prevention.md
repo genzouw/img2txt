@@ -87,3 +87,13 @@ pre-commit install
 11. **GitHub Runner トークンの検知**: GitHub Actions Runner の登録や実行に使用されるトークン (`ghs_` で始まるもの) を検知対象としました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
+
+### 今回（最新）の追加対策（マージ前手動作業）
+
+今回、ファイル拡張子や名前に依存しない、ファイル内容（構造）ベースの漏洩検知ルールを `.gitleaks.toml` に追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **GCP Service Account Key の内容検知**: ファイル名が `credentials.json` でない場合でも、JSON 内の構造（`"type": "service_account"` 等）からサービスアカウントキーを確実に検知・拒否します。
+2. **汎用的な Private Key の内容検知**: `-----BEGIN ... PRIVATE KEY-----` などのヘッダを持つ RSA/DSA/EC/OPENSSH/PGP の秘密鍵ファイルを、ファイル名や拡張子に関わらず検知・拒否します（`detect-private-key` フックとの多層防御）。
+3. **汎用 URI 認証情報の検知**: `http(s)` に限らず、`ftp`, `sftp`, `amqp`, `amqps` などの汎用プロトコルスキームでハードコードされた Basic 認証情報（例: `ftp://user:pass@domain`）を検知・拒否します。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
