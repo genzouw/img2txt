@@ -83,6 +83,8 @@ pre-commit install
 7. **チャットボットトークンと各種APIキーの検知**: Slack API トークン、Discord Bot トークン、GitLab PAT、Linear API キー、Datadog アクセストークン、Twilio API キー、Ngrok 認証トークン、Sentry 認証トークンを検知対象としました。
 8. **AI エージェントワークスペースの保護強化**: `.gemini/` ディレクトリ (ただし `config.yaml` を除く) の除外ルールを強化し、`.gitattributes` による diff 保護を明示しました。
 9. **データベースダンプの保護拡張**: `*.sql` ファイルについてもコミット前ブロック、diff非表示、および VS Code 上の非表示設定を行いました。
+10. **汎用JWTトークンの検知**: 汎用的な JSON Web Token (JWT) の漏洩を防ぐため、`eyJ` から始まる一般的なJWTの形式を検知対象としました。
+11. **GitHub Runner トークンの検知**: GitHub Actions Runner の登録や実行に使用されるトークン (`ghs_` で始まるもの) を検知対象としました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 

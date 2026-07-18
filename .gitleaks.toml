@@ -451,6 +451,18 @@ regex = '''(?i:(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key))[\s:=]+['"]?\b[a-z
 tags = ["sentry", "token", "custom"]
 
 [[rules]]
+id = "jwt-token"
+description = "Generic JWT Tokens are not allowed"
+regex = '''(?i)eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}'''
+tags = ["jwt", "token", "custom"]
+
+[[rules]]
+id = "github-runner-token"
+description = "GitHub Actions Runner Tokens are not allowed"
+regex = '''(?i)ghs_[a-zA-Z0-9]{36}'''
+tags = ["github", "runner", "token", "custom"]
+
+[[rules]]
 id = "gcp-service-account-key-json"
 description = "GCP Service Account Key JSON files are not allowed, regardless of filename"
 regex = '''(?is)(?:"type"\s*:\s*"service_account".*?"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----|"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----.*?"type"\s*:\s*"service_account")'''
