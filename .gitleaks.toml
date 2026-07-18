@@ -459,7 +459,7 @@ tags = ["gcp", "service-account", "key", "custom"]
 [[rules]]
 id = "generic-private-key-content"
 description = "Private keys are not allowed (detects content, overriding filename obfuscation)"
-regex = '''(?i)-----BEGIN (?:RSA |DSA |EC |OPENSSH |PGP )?PRIVATE KEY-----'''
+regex = '''(?i)-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----'''
 tags = ["key", "private-key", "custom"]
 [rules.allowlist]
 paths = [
