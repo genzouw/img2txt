@@ -453,7 +453,7 @@ tags = ["sentry", "token", "custom"]
 [[rules]]
 id = "gcp-service-account-key-json"
 description = "GCP Service Account Key JSON files are not allowed, regardless of filename"
-regex = '''(?i)"type"\s*:\s*"service_account"\s*,\s*"project_id"\s*:\s*"[^"]+"\s*,\s*"private_key_id"\s*:\s*"[^"]+"\s*,\s*"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----'''
+regex = '''(?is)(?:"type"\s*:\s*"service_account".*?"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----|"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----.*?"type"\s*:\s*"service_account")'''
 tags = ["gcp", "service-account", "key", "custom"]
 
 [[rules]]
