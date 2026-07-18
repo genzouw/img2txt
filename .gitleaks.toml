@@ -449,3 +449,33 @@ id = "sentry-auth-token"
 description = "Sentry Auth Tokens are not allowed"
 regex = '''(?i:(?:sentry)[-_]?(?:auth|api)?[-_]?(?:token|key))[\s:=]+['"]?\b[a-zA-Z0-9]{64}\b['"]?|\bsntrys_[a-zA-Z0-9_-]{32,}_[a-zA-Z0-9_-]{32,}\b'''
 tags = ["sentry", "token", "custom"]
+
+[[rules]]
+id = "gcp-service-account-key-json"
+description = "GCP Service Account Key JSON files are not allowed, regardless of filename"
+regex = '''(?is)(?:"type"\s*:\s*"service_account".*?"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----|"private_key"\s*:\s*"-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----.*?"type"\s*:\s*"service_account")'''
+tags = ["gcp", "service-account", "key", "custom"]
+
+[[rules]]
+id = "generic-private-key-content"
+description = "Private keys are not allowed (detects content, overriding filename obfuscation)"
+regex = '''(?i)-----BEGIN [A-Z0-9 _-]*PRIVATE KEY-----'''
+tags = ["key", "private-key", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^test[s]?/'''
+]
+
+[[rules]]
+id = "generic-uri-credentials"
+description = "Hardcoded credentials in generic URIs (ftp, amqp, etc.) are not allowed"
+regex = '''(?i)(?:ftp|sftp|amqp|amqps)://[^:\s/]+:[^@\s/]+@([a-z0-9.-]+)'''
+tags = ["network", "credentials", "uri", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)\.(md|txt)$''',
+    '''(?i)^LICENSE$''',
+    '''(?i)(^|/)test[s]?/''',
+    '''(?i)(^|/)spec[s]?/'''
+]
