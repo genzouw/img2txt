@@ -491,3 +491,39 @@ paths = [
     '''(?i)(^|/)test[s]?/''',
     '''(?i)(^|/)spec[s]?/'''
 ]
+
+[[rules]]
+id = "docker-hub-pat"
+description = "Docker Hub Personal Access Tokens are not allowed"
+regex = '''(?i)dckr_pat_[a-zA-Z0-9_-]{20,}'''
+tags = ["docker", "pat", "custom"]
+
+[[rules]]
+id = "figma-pat"
+description = "Figma Personal Access Tokens are not allowed"
+regex = '''(?i)figd_[a-zA-Z0-9_-]{30,}'''
+tags = ["figma", "pat", "custom"]
+
+[[rules]]
+id = "postman-api-key"
+description = "Postman API Keys are not allowed"
+regex = '''(?i)PMAK-[a-zA-Z0-9_-]{20,}-[a-zA-Z0-9_-]{30,}'''
+tags = ["postman", "api-key", "custom"]
+
+[[rules]]
+id = "pulumi-access-token"
+description = "Pulumi Access Tokens are not allowed"
+regex = '''(?i)pul-[a-f0-9]{40}'''
+tags = ["pulumi", "token", "custom"]
+
+[[rules]]
+id = "forbidden-file-vpn-network"
+description = "Detects VPN configurations and network captures which should not be committed"
+path = '''(?i)(^|/)(?:.*\.(?:ovpn|pcap|pcapng))$'''
+tags = ["custom", "forbidden-file", "network"]
+
+[[rules]]
+id = "forbidden-file-macos-keychain"
+description = "Detects macOS Keychain files which should not be committed"
+path = '''(?i)(^|/)(?:.*\.(?:keychain|keychain-db))$'''
+tags = ["custom", "forbidden-file", "keychain"]

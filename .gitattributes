@@ -56,3 +56,12 @@ application_default_credentials.json -diff
 .*_history -diff
 docker-compose.override.yml -diff
 docker-compose.override.yaml -diff
+
+# セキュリティ：ネットワーク設定・パケットキャプチャの漏洩防止
+*.ovpn -diff
+*.pcap -diff
+*.pcapng -diff
+
+# セキュリティ：macOSキーチェーンの漏洩防止
+*.keychain -diff
+*.keychain-db -diff

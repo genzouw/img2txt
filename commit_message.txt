@@ -1,0 +1,38 @@
+## 背景
+
+公開リポジトリにおいて、開発者のローカル環境にあるツール群（Docker, Figma, Postman, Pulumiなど）のAPIキーや、VPN設定ファイル・パケットキャプチャ、macOSキーチェーンなどのファイルが意図せずコミットされ、漏洩するリスクがありました。これを未然に防ぐため、水際での対策（コミット前検知）を強化します。
+
+## このPRで導入するもの
+
+- ツール名: gitleaks (既存の pre-commit 連携) および .gitignore / .gitattributes
+- 導入箇所: `.gitleaks.toml`, `.gitignore`, `.gitattributes`, `.vscode/settings.json`, `docs/security/leak-prevention.md`
+- 期待される効果:
+  - Docker Hub, Figma, Postman, Pulumiのアクセストークンをコミット前にローカルで検出・ブロック
+  - VPN設定(`.ovpn`)、パケットキャプチャ(`.pcap`, `.pcapng`)、macOSキーチェーン(`.keychain`, `.keychain-db`)のコミットブロックおよびdiff非表示化
+
+## 検知漏れリスクと補完策
+
+- 検知できないケース: 上記ルールに該当しない形式のシークレット、あるいはファイル名を巧妙に偽装したバイナリファイル
+- 補完策: GitHub Actions上でのTruffleHog（検証可能なシークレットのブロック）および定期的なリポジトリ走査との多重防御
+
+## マージ前に必要な手動作業（チェックリスト）
+
+レビュアーは PR をマージする前に必ず以下を実施してください。
+本 PR の CI は手動作業完了を前提に通る設計です。
+
+- [ ] GitHub repo settings → Code security → Push protection を有効化
+- [ ] 各自のローカルで `pre-commit install` が設定されていることの周知
+
+## マージ後の確認手順
+
+- [ ] 次の push / PR で導入した workflow が green になることを確認
+- [ ] ローカルで `.ovpn` ファイル等を追加しようとした際、gitleaks によってブロックされることを確認
+
+## ロールバック手順
+
+万一正規ファイルが誤検知された場合は、本 PR を revert することで設定を以前の状態に戻します。必要であれば `.gitleaks.toml` の `rules.allowlist` に例外パスを追加する別PRを作成します。
+
+## 参考情報
+
+- 比較検討した他案: 新規に `detect-secrets` などの別ツールを導入することも検討しましたが、重複を避けるため既存の `gitleaks` ルール拡張で対応しました。
+- 直近の関連 PR / Issue: 過去の `gitleaks` ルール強化 PR
