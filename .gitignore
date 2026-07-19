@@ -75,3 +75,12 @@ cdktf.out/
 # セキュリティ：ローカルDocker上書きファイルの漏洩防止
 docker-compose.override.yml
 docker-compose.override.yaml
+
+# セキュリティ：ネットワーク設定・パケットキャプチャの漏洩防止
+*.ovpn
+*.pcap
+*.pcapng
+
+# セキュリティ：macOSキーチェーンの漏洩防止
+*.keychain
+*.keychain-db

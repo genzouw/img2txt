@@ -88,12 +88,25 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 
-### 今回（最新）の追加対策（マージ前手動作業）
+### 前回の追加対策（マージ前手動作業）
 
 今回、ファイル拡張子や名前に依存しない、ファイル内容（構造）ベースの漏洩検知ルールを `.gitleaks.toml` に追加し、コミット前検知の水際対策をさらに強化しました。
 
 1. **GCP Service Account Key の内容検知**: ファイル名が `credentials.json` でない場合でも、JSON 内の構造（`"type": "service_account"` 等）からサービスアカウントキーを確実に検知・拒否します。
 2. **汎用的な Private Key の内容検知**: `-----BEGIN ... PRIVATE KEY-----` などのヘッダを持つ RSA/DSA/EC/OPENSSH/PGP の秘密鍵ファイルを、ファイル名や拡張子に関わらず検知・拒否します（`detect-private-key` フックとの多層防御）。
 3. **汎用 URI 認証情報の検知**: `http(s)` に限らず、`ftp`, `sftp`, `amqp`, `amqps` などの汎用プロトコルスキームでハードコードされた Basic 認証情報（例: `ftp://user:pass@domain`）を検知・拒否します。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
+
+### 今回（最新）の追加対策（マージ前手動作業）
+
+今回、特定の開発ツールにおけるパーソナルアクセストークンや、VPN設定・ネットワークキャプチャファイルの漏洩を防ぐため、さらにルールを追加しました。
+
+1. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
+2. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
+3. **Postman API Key の検知**: `PMAK-` で始まる Postman の API Key を検知対象としました。
+4. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
+5. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+6. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。

@@ -41,7 +41,12 @@
     "**/.*_history": true,
     "**/docker-compose.override.yml": true,
     "**/docker-compose.override.yaml": true,
-    "**/*.sql": true
+    "**/*.sql": true,
+    "**/*.ovpn": true,
+    "**/*.pcap": true,
+    "**/*.pcapng": true,
+    "**/*.keychain": true,
+    "**/*.keychain-db": true
   },
   "search.exclude": {
     "**/.env": true,
@@ -85,6 +90,11 @@
     "**/.*_history": true,
     "**/docker-compose.override.yml": true,
     "**/docker-compose.override.yaml": true,
-    "**/*.sql": true
+    "**/*.sql": true,
+    "**/*.ovpn": true,
+    "**/*.pcap": true,
+    "**/*.pcapng": true,
+    "**/*.keychain": true,
+    "**/*.keychain-db": true
   }
 }
