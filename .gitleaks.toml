@@ -531,7 +531,7 @@ tags = ["custom", "forbidden-file", "keychain"]
 [[rules]]
 id = "terraform-cloud-api-token"
 description = "Terraform Cloud API Tokens are not allowed"
-regex = '''(?i)[a-zA-Z0-9_-]{14}\.atlasv1\.[a-zA-Z0-9_-]{60,}'''
+regex = '''\b[a-zA-Z0-9_-]{14}\.atlasv1\.[a-zA-Z0-9_-]{60,}\b'''
 tags = ["terraform", "token", "custom", "iac"]
 
 [[rules]]
