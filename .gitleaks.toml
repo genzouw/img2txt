@@ -527,3 +527,39 @@ id = "forbidden-file-macos-keychain"
 description = "Detects macOS Keychain files which should not be committed"
 path = '''(?i)(^|/)(?:.*\.(?:keychain|keychain-db))$'''
 tags = ["custom", "forbidden-file", "keychain"]
+
+[[rules]]
+id = "terraform-cloud-api-token"
+description = "Terraform Cloud API Tokens are not allowed"
+regex = '''\b[a-zA-Z0-9_-]{14}\.atlasv1\.[a-zA-Z0-9_-]{60,}\b'''
+tags = ["terraform", "token", "custom", "iac"]
+
+[[rules]]
+id = "hashicorp-vault-token"
+description = "HashiCorp Vault Tokens are not allowed"
+regex = '''\b(?:hvs|hva)\.[a-zA-Z0-9_-]{90,}\b'''
+tags = ["vault", "token", "custom", "iac"]
+
+[[rules]]
+id = "fly-io-api-token"
+description = "Fly.io API Tokens are not allowed"
+regex = '''\bfly_v1_[a-zA-Z0-9_-]{32,}\b'''
+tags = ["flyio", "token", "custom", "paas"]
+
+[[rules]]
+id = "render-api-key"
+description = "Render API Keys are not allowed"
+regex = '''\brnd_[a-zA-Z0-9]{32,}\b'''
+tags = ["render", "api-key", "custom", "paas"]
+
+[[rules]]
+id = "tailscale-auth-key"
+description = "Tailscale Auth Keys are not allowed"
+regex = '''\btskey-(?:auth-)?[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{32,}\b'''
+tags = ["tailscale", "key", "custom", "network"]
+
+[[rules]]
+id = "clerk-secret-key"
+description = "Clerk Secret Keys are not allowed"
+regex = '''\bsk_(?:test|live)_[a-zA-Z0-9]{30,}\b'''
+tags = ["clerk", "key", "custom", "auth"]
