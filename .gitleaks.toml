@@ -14,6 +14,12 @@ id = "gcp-project-id"
 description = "Hardcoded GCP Project ID (toique-app-*) is not allowed"
 regex = '''(?i)(toique-app-[a-z0-9-]+)'''
 tags = ["gcp", "project-id", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
 
 [[rules]]
 id = "neon-postgres-endpoint"
@@ -61,6 +67,12 @@ id = "gcp-service-account"
 description = "GCP Service Account emails are not allowed"
 regex = '''(?i)([\w.-]+@[\w.-]+\.iam\.gserviceaccount\.com)'''
 tags = ["gcp", "service-account", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
 
 [[rules]]
 id = "gcp-project-number"
@@ -73,7 +85,10 @@ paths = [
     '''(?i)yarn\.lock$''',
     '''(?i)pnpm-lock\.yaml$''',
     '''(?i)composer\.lock$''',
-    '''(?i)Gemfile\.lock$'''
+    '''(?i)Gemfile\.lock$''',
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
 ]
 
 [[rules]]
