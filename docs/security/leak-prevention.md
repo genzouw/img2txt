@@ -100,13 +100,14 @@ pre-commit install
 
 ### 今回（最新）の追加対策（マージ前手動作業）
 
-今回、特定の開発ツールにおけるパーソナルアクセストークンや、VPN設定・ネットワークキャプチャファイルの漏洩を防ぐため、さらにルールを追加しました。
+今回、インフラ構成情報とシークレットの峻別（仕様上公開して問題ないものと秘匿すべきものの分離）を強化するため、ルールの精緻化を行いました。また、特定の開発ツールにおけるパーソナルアクセストークン等の保護も引き続き維持されます。
 
-1. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
-2. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
-3. **Postman API Key の検知**: `PMAK-` で始まる Postman の API Key を検知対象としました。
-4. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
-5. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
-6. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+1. **GCP識別子の峻別強化**: GCP Project ID（`toique-app-*`）、Project Number（12桁）、Service Account（`*.iam.gserviceaccount.com`）のハードコード検知ルールに対して `allowlist` を追加し、IaC（`infra/` 配下の TypeScript ファイル）およびドキュメント（`docs/` 配下の Markdown ファイル、`README.md`）での記述を許可しました。これにより、アプリケーションコードへの誤混入は引き続きブロックしつつ、必要なインフラ構成ファイルでの仕様上の記載は許容されるようになります。
+2. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
+3. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
+4. **Postman API Key の検知**: `PMAK-` で始まる Postman の API Key を検知対象としました。
+5. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
+6. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+7. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
