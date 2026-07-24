@@ -19,9 +19,9 @@
    - Trivy (コンテナイメージスキャン): `ci.yml` にて、ビルドされた Docker イメージに対して Trivy を実行し、OS パッケージやライブラリの脆弱性だけでなく、イメージ内に混入したシークレット（`.env` ファイルの誤ったコピーやハードコードされた認証情報など）をスキャンしてブロックします。
 
 1. **定期監査（スケジュール実行）**:
-   - ツール: `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml`, `.github/workflows/zizmor.yml` 内の `schedule` トリガー
+   - ツール: `.github/workflows/pre-commit.yml`, `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml`, `.github/workflows/zizmor.yml` 内の `schedule` トリガー
    - 目的: 定期的にリポジトリ全体（過去の履歴も含む）を再スキャンし、セキュリティリスクを継続的に監視します。
-     - Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。
+     - pre-commit / Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。特に pre-commit ワークフローのスケジュール実行により、リポジトリの最新状態に対する各種フックによる漏洩チェックが定期的に自動実行されます。
      - Dependabot: 日次スケジュール（Daily）とグループ化機能による、依存パッケージの定期的な棚卸しと更新。
      - actionlint / zizmor: GitHub Actions ワークフロー自体の定期 lint や、ワークフローのセキュリティ脆弱性パターンの定期監視（不適切なインジェクションや過剰な権限設定の検知）。
      - osv-scanner: ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査。
@@ -100,14 +100,21 @@ pre-commit install
 
 ### 今回（最新）の追加対策（マージ前手動作業）
 
-今回、インフラ構成情報とシークレットの峻別（仕様上公開して問題ないものと秘匿すべきものの分離）を強化するため、ルールの精緻化を行いました。また、特定の開発ツールにおけるパーソナルアクセストークン等の保護も引き続き維持されます。
+今回、インフラ構成情報とシークレットの峻別（仕様上公開して問題ないものと秘匿すべきものの分離）を強化するため、ルールの精緻化を行いました。また、CIの定期監査機能として `pre-commit` ワークフローに schedule トリガーを追加し、リポジトリの最新状態に対する漏洩チェックを自動化しました。
 
-1. **GCP識別子の峻別強化**: GCP Project ID（`toique-app-*`）、Project Number（12桁）、Service Account（`*.iam.gserviceaccount.com`）のハードコード検知ルールに対して `allowlist` を追加し、IaC（`infra/` 配下の TypeScript ファイル）およびドキュメント（`docs/` 配下の Markdown ファイル、`README.md`）での記述を許可しました。これにより、アプリケーションコードへの誤混入は引き続きブロックしつつ、必要なインフラ構成ファイルでの仕様上の記載は許容されるようになります。
-2. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
-3. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
-4. **Postman API Key の検知**: `PMAK-` で始まる Postman の API Key を検知対象としました。
-5. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
-6. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
-7. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+さらに、以下の主要クラウド・SaaSの識別子検知ルールを厳格化しました。
+1. **Neon Postgres エンドポイント**: 接続文字列を含むパターンや境界判定を厳格化しました。
+2. **Cloudflare API Key**: 判定条件を厳格化し、漏れを防ぎます。
+3. **Resend API Key**: 判定条件を厳格化し、漏れを防ぎます。
+4. **Stripe API Key**: `sk_` および `rk_` キーの境界判定を厳格化しました。
+
+また、特定の開発ツールにおけるパーソナルアクセストークン等の保護も引き続き維持されます。
+5. **GCP識別子の峻別強化**: GCP Project ID（`toique-app-*`）、Project Number（12桁）、Service Account（`*.iam.gserviceaccount.com`）のハードコード検知ルールに対して `allowlist` を追加し、IaC（`infra/` 配下の TypeScript ファイル）およびドキュメント（`docs/` 配下の Markdown ファイル、`README.md`）での記述を許可しました。これにより、アプリケーションコードへの誤混入は引き続きブロックしつつ、必要なインフラ構成ファイルでの仕様上の記載は許容されるようになります。
+6. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
+7. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
+8. **Postman API Key の検知**: `PMAK-` で始まる Postman の API Key を検知対象としました。
+9. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
+10. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+11. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
