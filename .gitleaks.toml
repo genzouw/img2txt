@@ -23,8 +23,8 @@ paths = [
 
 [[rules]]
 id = "neon-postgres-endpoint"
-description = "Hardcoded Neon Postgres endpoints are not allowed"
-regex = '''(?i)(ep-[a-z0-9-]+\.[a-z0-9-]+\.aws\.neon\.tech)'''
+description = "Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed"
+regex = '''(?i)(?:postgres(?:ql)?://[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+@)?\b(ep-[a-z0-9-]+\.[a-z0-9-]+\.aws\.neon\.tech)\b'''
 tags = ["neon", "database", "custom"]
 
 [[rules]]
@@ -124,20 +124,20 @@ paths = [
 
 [[rules]]
 id = "cloudflare-api-key"
-description = "Cloudflare API Keys and Tokens are not allowed"
-regex = '''(?i)\b(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{37,40}['"]?'''
+description = "Cloudflare API Keys and Tokens are strictly not allowed"
+regex = '''(?i)\b(?:cloudflare|cf)[-_]?(?:api[-_]?)?(?:key|token)[\s:=]+['"]?[a-zA-Z0-9_-]{35,45}['"]?'''
 tags = ["cloudflare", "api-key", "custom"]
 
 [[rules]]
 id = "resend-api-key"
-description = "Resend API keys are not allowed"
-regex = '''\bre_[a-zA-Z0-9_]{24,}\b'''
+description = "Resend API keys are strictly not allowed"
+regex = '''\bre_[a-zA-Z0-9_]{24,36}\b'''
 tags = ["resend", "api-key", "custom"]
 
 [[rules]]
 id = "stripe-api-key"
-description = "Stripe API keys are not allowed"
-regex = '''(?i)(?:sk|rk)_(?:test|live)_[a-zA-Z0-9]{24,}'''
+description = "Stripe API keys (Secret and Restricted) are strictly not allowed"
+regex = '''(?i)\b(?:sk|rk)_(?:test|live)_[a-zA-Z0-9]{24,}\b'''
 tags = ["stripe", "api-key", "custom"]
 
 [[rules]]
