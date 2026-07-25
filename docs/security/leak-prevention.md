@@ -102,13 +102,12 @@ pre-commit install
 
 今回、インフラ構成情報とシークレットの峻別（仕様上公開して問題ないものと秘匿すべきものの分離）を強化するため、ルールの精緻化を行いました。また、CIの定期監査機能として `pre-commit` ワークフローに schedule トリガーを追加し、リポジトリの最新状態に対する漏洩チェックを自動化しました。
 
-さらに、以下の主要クラウド・SaaSの識別子検知ルールを厳格化しました。
+さらに、以下の主要クラウド・SaaSの識別子検知ルールを厳格化しました。また、特定の開発ツールにおけるパーソナルアクセストークン等の保護も引き続き維持されます。
+
 1. **Neon Postgres エンドポイント**: 接続文字列を含むパターンや境界判定を厳格化しました。
 2. **Cloudflare API Key**: 判定条件を厳格化し、漏れを防ぎます。
 3. **Resend API Key**: 判定条件を厳格化し、漏れを防ぎます。
 4. **Stripe API Key**: `sk_` および `rk_` キーの境界判定を厳格化しました。
-
-また、特定の開発ツールにおけるパーソナルアクセストークン等の保護も引き続き維持されます。
 5. **GCP識別子の峻別強化**: GCP Project ID（`toique-app-*`）、Project Number（12桁）、Service Account（`*.iam.gserviceaccount.com`）のハードコード検知ルールに対して `allowlist` を追加し、IaC（`infra/` 配下の TypeScript ファイル）およびドキュメント（`docs/` 配下の Markdown ファイル、`README.md`）での記述を許可しました。これにより、アプリケーションコードへの誤混入は引き続きブロックしつつ、必要なインフラ構成ファイルでの仕様上の記載は許容されるようになります。
 6. **Docker Hub PAT の検知**: `dckr_pat_` で始まる Docker Hub の Personal Access Token を厳格に検知対象としました。
 7. **Figma PAT の検知**: `figd_` で始まる Figma の Personal Access Token を検知対象としました。
