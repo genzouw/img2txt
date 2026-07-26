@@ -11,6 +11,18 @@ db/
 *.key
 credentials.json
 
+# IDE workspaces and local history
+.idea/
+.history/
+.vscode/sftp.json
+.vscode/ftp-sync.json
+
+# Modern API client workspaces
+thunder-tests/
+thunder-environment.json
+bruno.json
+.bruno/
+
 # AI agent directories
 .cursor/*
 !.cursor/rules/
@@ -18,6 +30,10 @@ credentials.json
 .claude/
 .gemini/*
 !.gemini/config.yaml
+.windsurf/
+.cline/
+.roo/
+.codeium/
 
 # OS hidden files
 .DS_Store
