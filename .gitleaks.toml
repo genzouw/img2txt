@@ -578,3 +578,21 @@ id = "clerk-secret-key"
 description = "Clerk Secret Keys are not allowed"
 regex = '''\bsk_(?:test|live)_[a-zA-Z0-9]{30,}\b'''
 tags = ["clerk", "key", "custom", "auth"]
+
+[[rules]]
+id = "stripe-webhook-secret"
+description = "Stripe Webhook Secrets are strictly not allowed"
+regex = '''(?i)\bwhsec_[a-zA-Z0-9]{24,}\b'''
+tags = ["stripe", "webhook", "custom"]
+
+[[rules]]
+id = "vercel-access-token"
+description = "Vercel Access Tokens are not allowed"
+regex = '''(?i)\bvc1_[a-zA-Z0-9]{24}\b'''
+tags = ["vercel", "token", "custom", "paas"]
+
+[[rules]]
+id = "heroku-api-key"
+description = "Heroku API Keys are not allowed"
+regex = '''(?i)(?:heroku)[-_]?(?:api)?[-_]?(?:key|token)[\s:=]+['"]?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}['"]?'''
+tags = ["heroku", "api-key", "custom", "paas"]
