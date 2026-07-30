@@ -582,13 +582,13 @@ tags = ["clerk", "key", "custom", "auth"]
 [[rules]]
 id = "gcp-app-engine-url"
 description = "Hardcoded GCP App Engine URLs (*.appspot.com) are not allowed"
-regex = '''(?i)(https?://(?:[a-z0-9-]+\.)*appspot\.com)'''
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+appspot\.com)'''
 tags = ["gcp", "app-engine", "custom"]
 
 [[rules]]
 id = "gcp-cloud-functions-url"
 description = "Hardcoded GCP Cloud Functions URLs (*.cloudfunctions.net) are not allowed"
-regex = '''(?i)(https?://(?:[a-z0-9-]+\.)*cloudfunctions\.net)'''
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+cloudfunctions\.net)'''
 tags = ["gcp", "cloud-functions", "custom"]
 
 [[rules]]
