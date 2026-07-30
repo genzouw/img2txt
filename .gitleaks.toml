@@ -578,3 +578,27 @@ id = "clerk-secret-key"
 description = "Clerk Secret Keys are not allowed"
 regex = '''\bsk_(?:test|live)_[a-zA-Z0-9]{30,}\b'''
 tags = ["clerk", "key", "custom", "auth"]
+
+[[rules]]
+id = "gcp-app-engine-url"
+description = "Hardcoded GCP App Engine URLs (*.appspot.com) are not allowed"
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)*appspot\.com)'''
+tags = ["gcp", "app-engine", "custom"]
+
+[[rules]]
+id = "gcp-cloud-functions-url"
+description = "Hardcoded GCP Cloud Functions URLs (*.cloudfunctions.net) are not allowed"
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)*cloudfunctions\.net)'''
+tags = ["gcp", "cloud-functions", "custom"]
+
+[[rules]]
+id = "gcp-storage-url"
+description = "Hardcoded GCS Bucket URLs (storage.googleapis.com/*) are not allowed"
+regex = '''(?i)(https?://storage\.googleapis\.com/[a-z0-9_-]+)'''
+tags = ["gcp", "gcs", "custom"]
+
+[[rules]]
+id = "gcp-cloud-sql-unix-socket"
+description = "Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed"
+regex = '''(?i)(/cloudsql/[a-z0-9-]+:[a-z0-9-]+:[a-z0-9-]+)'''
+tags = ["gcp", "cloud-sql", "custom"]

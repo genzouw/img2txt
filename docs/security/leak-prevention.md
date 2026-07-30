@@ -115,5 +115,6 @@ pre-commit install
 9. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
 10. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 11. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+12. **GCPインフラ構成の過剰露出防止**: 内部や未公開のインフラエンドポイントが露出するのを防ぐため、Cloud Run (`*.run.app`) に加えて、App Engine (`*.appspot.com`)、Cloud Functions (`*.cloudfunctions.net`)、GCS バケット (`storage.googleapis.com/*`)、および Cloud SQL の Unix ソケットパス (`/cloudsql/...`) のハードコードを検知対象として追加しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
