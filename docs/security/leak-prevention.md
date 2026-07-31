@@ -8,7 +8,7 @@
    - ツール: `pre-commit` framework + `gitleaks` hook + `TruffleHog` hook + `pre-commit-hooks` (`detect-private-key` 等), および `.gitignore` と `.gitattributes` の厳格な除外・保護設定
    - 目的: 開発者がローカル環境で `git commit` を実行するタイミングで、gitleaks および TruffleHog を用いてシークレットの混入をチェックし、検出された場合はコミットをブロックします。また、`.gitignore` を用いて環境変数ファイルや秘密鍵が意図せずコミットされるのを防ぎ、`.gitattributes` により万が一コミットされた場合でも diff が露出しないように保護します。さらに `detect-private-key` などのフックによって水際対策を強化します。
    - 責任: 各開発者およびAIエージェントのローカル環境での水際対策。
-   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント、Cloud Run エンドポイント（`*.run.app`）、Cloudflare Pages エンドポイント（`*.pages.dev`）、Workload Identity Federation プロバイダ文字列等のインフラ構成の過剰露出を検知・拒否する独自ルールを追加しています。また、追加のクラウド識別子（GCP Project Number, Service Account メールアドレス）、内部 IP アドレス、内部ドメイン (`*.corp.*`, `*.internal.*`)、PII（本物のメールアドレスや日本の電話番号）、特定の API キー（Resend, Stripe, Cloudflare, Notion, SendGrid, Supabase, Datadog, Twilio, Ngrok, Sentry, Terraform Cloud, HashiCorp Vault, Fly.io, Render, Tailscale, Clerk等）、GCP Secret Manager のリソースパスについてもハードコードを禁止し、AI エージェントの作業跡（`.cursor/`, `.claude/` 等）や `.env` ファイル、`credentials.json` などの秘匿性が高いファイルそのものがコミットされることを防ぐため、また IaC の state ファイル（`cdktf.out/`, `*.tfstate` 等）や変数ファイル（`*.tfvars` 等）を除外するため、ファイルパスベースの検知ルールを導入しています（ただし `.cursor/rules/` のみ AI への指示用として許可）。今回、新たに SSH 秘密鍵（`id_rsa`, `id_ed25519` 等）、ローカル認証設定ファイル（`.npmrc`, `.netrc`, `.aws/credentials`, `.docker/config.json`, `.kube/config`, `application_default_credentials.json` 等）、キーストアと証明書（`*.p12`, `*.jks`, `*.keystore`, `*.kdbx`, `htpasswd`）、およびPostmanやInsomniaなどのAPIクライアントエクスポートファイルの混入を厳格に防ぐカスタムルールを追記しました。さらに、Postgres や Redis などの完全な接続文字列、SaaSバックエンドURL（Supabase, Firebase, Vercel等）やAWS内部エンドポイントのハードコードを禁止し、AI エージェントが残しがちなデバッグ用の一時値（`YOUR_API_KEY` や `dummy_secret`, `CHANGEME`, `CHANGE_ME`, `REPLACE_ME`, `XXX_SECRET_XXX` など）も検知・拒否対象としています。直近のアップデートにて、**HTTP/HTTPS URLへのBasic認証情報の埋め込み（`https://user:pass@domain`）**、**Stripe / Cloudflare API キー**、**各種AIプロバイダーAPIキー（OpenAI, Anthropic, Gemini, HuggingFace）**、**GitHub Personal Access Tokens (PAT)**、および開発ツールやボットの認証情報である **NPM トークン**、**PyPI トークン**、**Telegram ボットトークン**、**Slack API トークン**、**Discord Bot トークン**、**GitLab PAT**、**Linear API キー** を厳格に検知・拒否するルールを追加しました。ダミー値やマスクが必要な場合は、プレースホルダーとして `<REDACTED>` を使用してください。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。また、AI エージェントが作業中に生成しがちなローカルデータベースファイル（`.sqlite`, `.db` など）やログファイル、ダンプファイル（`.dump`, `.sql`）についても、`.gitignore` と `.gitattributes` によって追跡・diff 表示を厳格に除外し、`.gitleaks.toml` のパスベースルールによってコミット前検知でブロックするように設定しています。
+   - カスタムルール: リポジトリルートの `.gitleaks.toml` にて、GCP Project ID（例: `<REDACTED>` 等）や Neon Postgres エンドポイント、Cloud Run エンドポイント（`*.run.app`）、Cloudflare Pages エンドポイント（`*.pages.dev`）、Workload Identity Federation プロバイダ文字列等のインフラ構成の過剰露出を検知・拒否する独自ルールを追加しています。また、追加のクラウド識別子（GCP Project Number, Service Account メールアドレス）、内部 IP アドレス、内部ドメイン (`*.corp.*`, `*.internal.*`)、PII（本物のメールアドレスや日本の電話番号）、特定の API キー（Resend, Stripe, Cloudflare, Notion, SendGrid, Supabase, Datadog, Twilio, Ngrok, Sentry, Terraform Cloud, HashiCorp Vault, Fly.io, Render, Tailscale, Clerk等）、GCP Secret Manager のリソースパスについてもハードコードを禁止し、AI エージェントの作業跡（`.cursor/`, `.claude/`, `.windsurf/`, `.cline/`, `.roo/`, `.codeium/` 等）や `.env` ファイル、`credentials.json` などの秘匿性が高いファイルそのものがコミットされることを防ぐため、また IaC の state ファイル（`cdktf.out/`, `*.tfstate` 等）や変数ファイル（`*.tfvars` 等）を除外するため、ファイルパスベースの検知ルールを導入しています（ただし `.cursor/rules/` のみ AI への指示用として許可）。今回、新たに SSH 秘密鍵（`id_rsa`, `id_ed25519` 等）、ローカル認証設定ファイル（`.npmrc`, `.netrc`, `.aws/credentials`, `.docker/config.json`, `.kube/config`, `application_default_credentials.json` 等）、キーストアと証明書（`*.p12`, `*.jks`, `*.keystore`, `*.kdbx`, `htpasswd`）、および IDEのローカル履歴・設定（`.idea/`, `.history/`, `.vscode/sftp.json` 等）、近代的なAPIクライアント（Thunder Client, Bruno）ならびにPostmanやInsomniaなどのエクスポートファイルの混入を厳格に防ぐカスタムルールを追記しました。さらに、Postgres や Redis などの完全な接続文字列、SaaSバックエンドURL（Supabase, Firebase, Vercel等）やAWS内部エンドポイントのハードコードを禁止し、AI エージェントが残しがちなデバッグ用の一時値（`YOUR_API_KEY` や `dummy_secret`, `CHANGEME`, `CHANGE_ME`, `REPLACE_ME`, `XXX_SECRET_XXX` など）も検知・拒否対象としています。直近のアップデートにて、**HTTP/HTTPS URLへのBasic認証情報の埋め込み（`https://user:pass@domain`）**、**Stripe / Cloudflare API キー**、**各種AIプロバイダーAPIキー（OpenAI, Anthropic, Gemini, HuggingFace）**、**GitHub Personal Access Tokens (PAT)**、および開発ツールやボットの認証情報である **NPM トークン**、**PyPI トークン**、**Telegram ボットトークン**、**Slack API トークン**、**Discord Bot トークン**、**GitLab PAT**、**Linear API キー** を厳格に検知・拒否するルールを追加しました。ダミー値やマスクが必要な場合は、プレースホルダーとして `<REDACTED>` を使用してください。開発時はこれらの識別子を直接コードに書かず、環境変数やシークレット管理サービスを経由して参照するようにしてください。また、AI エージェントが作業中に生成しがちなローカルデータベースファイル（`.sqlite`, `.db` など）やログファイル、ダンプファイル（`.dump`, `.sql`）についても、`.gitignore` と `.gitattributes` によって追跡・diff 表示を厳格に除外し、`.gitleaks.toml` のパスベースルールによってコミット前検知でブロックするように設定しています。
    - `.gitignore` と `.gitattributes`: 環境変数ファイルや秘密鍵に加えて、新たにSSH秘密鍵、ローカル認証・クラウド設定ファイル（`.npmrc`, `.netrc`, `.aws/`, `.docker/`, `.kube/`, `.git-credentials` 等）、各種キーストアも追跡および diff 表示の対象から厳密に除外しています。これにより、万が一誤操作が発生した場合の多重防御を強化しています。
    - VS Code / Cursor 用の安全側プリセット: ローカルでの誤操作や AI エージェントへの意図せぬコンテキスト混入を防ぐため、`.vscode/settings.json` にて `.env` や上記の各種秘密鍵・認証設定ファイルがエクスプローラや検索結果から除外されるように設定しています。
 
@@ -100,16 +100,20 @@ pre-commit install
 
 ### 今回（最新）の追加対策（マージ前手動作業）
 
-今回、特定 SaaS の Webhook シークレットおよび PaaS プラットフォームの API トークンに関する漏洩検知の隙を埋めるため、`.gitleaks.toml` へカスタムルールを拡充し、コミット前検知の水際対策をさらに強化しました。
+今回、IDEやモダンなAPIクライアント、および最新のAIエージェントの作業跡や内部情報が意図せず公開リポジトリへコミット・pushされることを防ぐため、ファイルパスベースの検知ルールを拡充しました。あわせて、特定 SaaS の Webhook シークレットおよび PaaS プラットフォームの API トークンに関する漏洩検知の隙を埋めるため、`.gitleaks.toml` へカスタムルールをさらに拡充し、コミット前検知の水際対策を強化しました。
 
-1. **Stripe Webhook Secret の検知**: 既存の Stripe API Key（`sk_`, `rk_`）に加え、Stripe の Webhook シークレット（`whsec_`）を厳格に検知・拒否するルールを追加しました。
-2. **Vercel Access Token の検知**: Vercel の API アクセストークン（`vc1_`）を検知対象としました。
-3. **Heroku API Key の検知**: Heroku の API キー（UUID形式）を検知対象としました。
+1. **IDEのワークスペース・ローカル履歴の保護**: `.idea/`, `.history/` などのローカル履歴ディレクトリ、および `.vscode/sftp.json`, `.vscode/ftp-sync.json` 等の認証情報を含みうる設定ファイルをコミット対象から除外・検知・ブロック対象としました。
+2. **モダンAPIクライアントの保護**: Thunder Client (`thunder-tests/`, `thunder-environment.json`) や Bruno (`bruno.json`, `.bruno/`) などのモダンAPIクライアントのワークスペース設定やエクスポートファイルを除外・検知対象とし、機密情報の漏洩を防ぎました。
+3. **新規AIエージェントの保護拡充**: Cursor や Claude に加え、Windsurf (`.windsurf/`), Cline (`.cline/`), Roo (`.roo/`), Codeium (`.codeium/`) などの作業ディレクトリを除外・検知・ブロック対象に追加し、AIのコンテキストデータや一時ファイルが流出するのを防ぎました。
+4. **Stripe Webhook Secret の検知**: 既存の Stripe API Key（`sk_`, `rk_`）に加え、Stripe の Webhook シークレット（`whsec_`）を厳格に検知・拒否するルールを追加しました。
+5. **Vercel Access Token の検知**: Vercel の API アクセストークン（`vc1_`）を検知対象としました。
+6. **Heroku API Key の検知**: Heroku の API キー（UUID形式）を検知対象としました。
 
-これらのルールにより、PaaS および決済プロバイダーの重要なシークレットが誤って公開リポジトリへ混入するリスクを未然に防ぎます。
-レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを引き続き周知してください。
+これらのファイル・ディレクトリ群は `.gitleaks.toml` によるコミット前検知（ブロック）だけでなく、`.gitignore` でのコミット防止、`.gitattributes` による diff 保護（`-diff`）とリリースアーカイブからの除外（`export-ignore`）、および `.vscode/settings.json` でのエクスプローラ・検索結果からの除外によって多層的に保護されています。また、これらのルールにより、PaaS および決済プロバイダーの重要なシークレットが誤って公開リポジトリへ混入するリスクも未然に防ぎます。
 
-### 前回の追加対策：クラウド識別子の峻別強化（マージ前手動作業）
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
+
+### 過去の追加対策（マージ前手動作業）
 
 インフラ構成情報とシークレットの峻別（仕様上公開して問題ないものと秘匿すべきものの分離）を強化するため、ルールの精緻化を行いました。また、CIの定期監査機能として `pre-commit` ワークフローに schedule トリガーを追加し、リポジトリの最新状態に対する漏洩チェックを自動化しました。
 

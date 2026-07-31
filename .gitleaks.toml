@@ -54,13 +54,25 @@ tags = ["custom", "forbidden-file", "auth"]
 [[rules]]
 id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace files"
-path = '''(?i)(^|/)\.(cursor|claude|aider|gemini)(?:/|$)'''
+path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/|$)'''
 tags = ["custom", "forbidden-file"]
 [rules.allowlist]
 paths = [
     '''(?i)\.cursor/rules/.*$''',
     '''(?i)\.gemini/config\.yaml$'''
 ]
+
+[[rules]]
+id = "forbidden-file-ide-history"
+description = "Detects IDE workspaces and local history directories which should not be committed"
+path = '''(?i)(^|/)(?:\.idea|\.history|\.vscode/(?:sftp\.json|ftp-sync\.json))(?:/|$)'''
+tags = ["custom", "forbidden-file", "ide"]
+
+[[rules]]
+id = "forbidden-file-api-client-modern"
+description = "Detects modern API client workspaces (Thunder Client, Bruno) which should not be committed"
+path = '''(?i)(^|/)(?:thunder-tests|thunder-environment\.json|bruno\.json|\.bruno)(?:/|$)'''
+tags = ["custom", "forbidden-file", "api-client"]
 
 [[rules]]
 id = "forbidden-file-credentials"

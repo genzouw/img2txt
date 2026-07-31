@@ -26,14 +26,32 @@ application_default_credentials.json -diff
 **/.kube/config -diff
 .git-credentials -diff
 
-# セキュリティ：AI エージェントの作業跡や内部情報がリリースアーカイブに含まれないようにする
+# セキュリティ：IDE、APIクライアント、AI エージェントの作業跡や内部情報がリリースアーカイブやdiffに含まれないようにする
 .cursor/ export-ignore
 .claude/ export-ignore
 .aider* export-ignore
 .gemini/ export-ignore
 .gemini/* -diff
 .gemini/config.yaml diff
+.windsurf/ export-ignore
+.windsurf/* -diff
+.cline/ export-ignore
+.cline/* -diff
+.roo/ export-ignore
+.roo/* -diff
+.codeium/ export-ignore
+.codeium/* -diff
 .github/ export-ignore
+.idea/ export-ignore
+.idea/* -diff
+.history/ export-ignore
+.history/* -diff
+thunder-tests/ export-ignore
+thunder-tests/* -diff
+thunder-environment.json -diff
+bruno.json -diff
+.bruno/ export-ignore
+.bruno/* -diff
 
 # セキュリティ：DBファイルやログファイルのローカルデータ漏洩防止
 *.log -diff
