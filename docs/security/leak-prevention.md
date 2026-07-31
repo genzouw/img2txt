@@ -127,5 +127,6 @@ pre-commit install
 10. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 11. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 12. **GCPインフラ構成の過剰露出防止**: 内部や未公開のインフラエンドポイントが露出するのを防ぐため、Cloud Run (`*.run.app`) に加えて、App Engine (`*.appspot.com`)、Cloud Functions (`*.cloudfunctions.net`)、GCS バケット (`storage.googleapis.com/*`)、および Cloud SQL の Unix ソケットパス (`/cloudsql/...`) のハードコードを検知対象として追加しました。
+13. **ローカル環境変数のサンプル化漏れ防止**: AI エージェントの作業跡として意図せず生成・残存しがちな `.env.local`, `.env.development.local`, `.env.test.local` 等（およびそれらの `.sample` 化されたもの）を `.gitleaks.toml` 上でより明示的かつ厳密にブロックする専用ルールを追加し、意図せぬ環境変数の漏洩水際対策を強化しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。

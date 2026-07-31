@@ -34,6 +34,12 @@ path = '''(?i)(^|/)\.env(?:[.-].*)?$'''
 tags = ["custom", "forbidden-file"]
 
 [[rules]]
+id = "forbidden-file-env-local"
+description = "Detects local environment variable files (e.g., .env.local, .env.development.local, .env.test.local) specifically to prevent AI agent sample leaks"
+path = '''(?i)(^|/)\.env\.(?:local|development\.local|test\.local|production\.local)(?:\.sample|\.example)?$'''
+tags = ["custom", "forbidden-file", "ai-placeholder"]
+
+[[rules]]
 id = "forbidden-file-ssh-keys"
 description = "Detects SSH private keys which should not be committed"
 path = '''(?i)(^|/)(?:id_rsa|id_dsa|id_ed25519|id_ecdsa)$'''
