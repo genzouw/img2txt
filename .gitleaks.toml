@@ -34,6 +34,12 @@ path = '''(?i)(^|/)\.env(?:[.-].*)?$'''
 tags = ["custom", "forbidden-file"]
 
 [[rules]]
+id = "forbidden-file-env-local"
+description = "Detects local environment variable files (e.g., .env.local, .env.development.local, .env.test.local) specifically to prevent AI agent sample leaks"
+path = '''(?i)(^|/)\.env\.(?:local|development\.local|test\.local|production\.local)(?:\.sample|\.example)?$'''
+tags = ["custom", "forbidden-file", "ai-placeholder"]
+
+[[rules]]
 id = "forbidden-file-ssh-keys"
 description = "Detects SSH private keys which should not be committed"
 path = '''(?i)(^|/)(?:id_rsa|id_dsa|id_ed25519|id_ecdsa)$'''
@@ -590,3 +596,45 @@ id = "clerk-secret-key"
 description = "Clerk Secret Keys are not allowed"
 regex = '''\bsk_(?:test|live)_[a-zA-Z0-9]{30,}\b'''
 tags = ["clerk", "key", "custom", "auth"]
+
+[[rules]]
+id = "stripe-webhook-secret"
+description = "Stripe Webhook Secrets are strictly not allowed"
+regex = '''(?i)\bwhsec_[a-zA-Z0-9]{24,}\b'''
+tags = ["stripe", "webhook", "custom"]
+
+[[rules]]
+id = "vercel-access-token"
+description = "Vercel Access Tokens are not allowed"
+regex = '''(?i)\bvc1_[a-zA-Z0-9]{24}\b'''
+tags = ["vercel", "token", "custom", "paas"]
+
+[[rules]]
+id = "heroku-api-key"
+description = "Heroku API Keys are not allowed"
+regex = '''(?i)(?:heroku)[-_]?(?:api)?[-_]?(?:key|token)[\s:=]+['"]?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}['"]?'''
+tags = ["heroku", "api-key", "custom", "paas"]
+
+[[rules]]
+id = "gcp-app-engine-url"
+description = "Hardcoded GCP App Engine URLs (*.appspot.com) are not allowed"
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+appspot\.com)'''
+tags = ["gcp", "app-engine", "custom"]
+
+[[rules]]
+id = "gcp-cloud-functions-url"
+description = "Hardcoded GCP Cloud Functions URLs (*.cloudfunctions.net) are not allowed"
+regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+cloudfunctions\.net)'''
+tags = ["gcp", "cloud-functions", "custom"]
+
+[[rules]]
+id = "gcp-storage-url"
+description = "Hardcoded GCS Bucket URLs (storage.googleapis.com/*) are not allowed"
+regex = '''(?i)(https?://storage\.googleapis\.com/[a-z0-9_-]+)'''
+tags = ["gcp", "gcs", "custom"]
+
+[[rules]]
+id = "gcp-cloud-sql-unix-socket"
+description = "Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed"
+regex = '''(?i)(/cloudsql/[a-z0-9-]+:[a-z0-9-]+:[a-z0-9-]+)'''
+tags = ["gcp", "cloud-sql", "custom"]

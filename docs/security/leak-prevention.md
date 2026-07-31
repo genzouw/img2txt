@@ -100,13 +100,16 @@ pre-commit install
 
 ### 今回（最新）の追加対策（マージ前手動作業）
 
-今回、IDEやモダンなAPIクライアント、および最新のAIエージェントの作業跡や内部情報が意図せず公開リポジトリへコミット・pushされることを防ぐため、ファイルパスベースの検知ルールを拡充しました。
+今回、IDEやモダンなAPIクライアント、および最新のAIエージェントの作業跡や内部情報が意図せず公開リポジトリへコミット・pushされることを防ぐため、ファイルパスベースの検知ルールを拡充しました。あわせて、特定 SaaS の Webhook シークレットおよび PaaS プラットフォームの API トークンに関する漏洩検知の隙を埋めるため、`.gitleaks.toml` へカスタムルールをさらに拡充し、コミット前検知の水際対策を強化しました。
 
 1. **IDEのワークスペース・ローカル履歴の保護**: `.idea/`, `.history/` などのローカル履歴ディレクトリ、および `.vscode/sftp.json`, `.vscode/ftp-sync.json` 等の認証情報を含みうる設定ファイルをコミット対象から除外・検知・ブロック対象としました。
 2. **モダンAPIクライアントの保護**: Thunder Client (`thunder-tests/`, `thunder-environment.json`) や Bruno (`bruno.json`, `.bruno/`) などのモダンAPIクライアントのワークスペース設定やエクスポートファイルを除外・検知対象とし、機密情報の漏洩を防ぎました。
 3. **新規AIエージェントの保護拡充**: Cursor や Claude に加え、Windsurf (`.windsurf/`), Cline (`.cline/`), Roo (`.roo/`), Codeium (`.codeium/`) などの作業ディレクトリを除外・検知・ブロック対象に追加し、AIのコンテキストデータや一時ファイルが流出するのを防ぎました。
+4. **Stripe Webhook Secret の検知**: 既存の Stripe API Key（`sk_`, `rk_`）に加え、Stripe の Webhook シークレット（`whsec_`）を厳格に検知・拒否するルールを追加しました。
+5. **Vercel Access Token の検知**: Vercel の API アクセストークン（`vc1_`）を検知対象としました。
+6. **Heroku API Key の検知**: Heroku の API キー（UUID形式）を検知対象としました。
 
-これらのファイル・ディレクトリ群は `.gitleaks.toml` によるコミット前検知（ブロック）だけでなく、`.gitignore` でのコミット防止、`.gitattributes` による diff 保護（`-diff`）とリリースアーカイブからの除外（`export-ignore`）、および `.vscode/settings.json` でのエクスプローラ・検索結果からの除外によって多層的に保護されています。
+これらのファイル・ディレクトリ群は `.gitleaks.toml` によるコミット前検知（ブロック）だけでなく、`.gitignore` でのコミット防止、`.gitattributes` による diff 保護（`-diff`）とリリースアーカイブからの除外（`export-ignore`）、および `.vscode/settings.json` でのエクスプローラ・検索結果からの除外によって多層的に保護されています。また、これらのルールにより、PaaS および決済プロバイダーの重要なシークレットが誤って公開リポジトリへ混入するリスクも未然に防ぎます。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 
@@ -127,5 +130,7 @@ pre-commit install
 9. **Pulumi Access Token の検知**: `pul-` で始まる Pulumi の Access Token を検知対象としました。
 10. **VPN設定・パケットキャプチャファイルの保護**: `.ovpn`, `.pcap`, `.pcapng` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 11. **macOSキーチェーンの保護**: `.keychain`, `.keychain-db` ファイルが誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
+12. **GCPインフラ構成の過剰露出防止**: 内部や未公開のインフラエンドポイントが露出するのを防ぐため、Cloud Run (`*.run.app`) に加えて、App Engine (`*.appspot.com`)、Cloud Functions (`*.cloudfunctions.net`)、GCS バケット (`storage.googleapis.com/*`)、および Cloud SQL の Unix ソケットパス (`/cloudsql/...`) のハードコードを検知対象として追加しました。
+13. **ローカル環境変数のサンプル化漏れ防止**: AI エージェントの作業跡として意図せず生成・残存しがちな `.env.local`, `.env.development.local`, `.env.test.local` 等（およびそれらの `.sample` 化されたもの）を `.gitleaks.toml` 上でより明示的かつ厳密にブロックする専用ルールを追加し、意図せぬ環境変数の漏洩水際対策を強化しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
