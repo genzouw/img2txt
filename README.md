@@ -49,9 +49,6 @@ docker compose up -d
 - **CodeRabbit**:
   - AIを利用した自動コードレビューを行います。レビューコメントは日本語で提供されます。
 
-- **Gemini Code Assist**:
-  - プルリクエスト作成時に、AIによるコードレビューを行い、中程度（MEDIUM）以上の重大度を持つ問題についてコメントを提供します。
-
 ## ディレクトリ構造
 
 - `html/`: Webアプリケーションのソースコード（PHPファイルなど）が含まれています。
@@ -61,7 +58,6 @@ docker compose up -d
 - `.github/workflows/ci.yml`: GitHub ActionsのCIワークフローを定義しています。
 - `.github/dependabot.yml`: Dependabotの設定ファイルです。
 - `.coderabbit.yaml`: CodeRabbitの設定ファイルです。
-- `.gemini/config.yaml`: Gemini Code Assistの設定ファイルです。
 
 ## ライセンス
 

@@ -58,8 +58,7 @@ path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/
 tags = ["custom", "forbidden-file"]
 [rules.allowlist]
 paths = [
-    '''(?i)\.cursor/rules/.*$''',
-    '''(?i)\.gemini/config\.yaml$'''
+    '''(?i)\.cursor/rules/.*$'''
 ]
 
 [[rules]]
