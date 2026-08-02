@@ -30,12 +30,14 @@ application_default_credentials.json -diff
 .cursor/ export-ignore
 .claude/ export-ignore
 .aider* export-ignore
+*.aider.chat.history.md -diff
 .gemini/ export-ignore
 .gemini/* -diff
 .windsurf/ export-ignore
 .windsurf/* -diff
 .cline/ export-ignore
 .cline/* -diff
+.cline_mcp_settings.json -diff
 .roo/ export-ignore
 .roo/* -diff
 .codeium/ export-ignore
@@ -51,6 +53,10 @@ thunder-environment.json -diff
 bruno.json -diff
 .bruno/ export-ignore
 .bruno/* -diff
+
+# セキュリティ：IaC (CDKTF) の内部設定や状態ディレクトリをリリースやdiffから除外
+.cdktf/ export-ignore
+.cdktf/* -diff
 
 # セキュリティ：DBファイルやログファイルのローカルデータ漏洩防止
 *.log -diff
