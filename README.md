@@ -58,7 +58,6 @@ docker compose up -d
 - `.github/workflows/ci.yml`: GitHub ActionsのCIワークフローを定義しています。
 - `.github/dependabot.yml`: Dependabotの設定ファイルです。
 - `.coderabbit.yaml`: CodeRabbitの設定ファイルです。
-- `.gemini/config.yaml`: Gemini Code Assistの設定ファイルです。
 
 ## ライセンス
 
