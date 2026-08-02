@@ -53,13 +53,19 @@ tags = ["custom", "forbidden-file", "auth"]
 
 [[rules]]
 id = "forbidden-file-ai-agent"
-description = "Detects AI agent workspace files and chat logs"
-path = '''(?i)(^|/)(?:\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/|$)|.*\.aider\.chat\.history\.md$|\.cline_mcp_settings\.json$)'''
+description = "Detects AI agent workspace directories"
+path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/|$)'''
 tags = ["custom", "forbidden-file", "ai"]
 [rules.allowlist]
 paths = [
     '''(?i)\.cursor/rules/.*$'''
 ]
+
+[[rules]]
+id = "forbidden-file-ai-agent-logs"
+description = "Detects AI agent chat logs and MCP settings files (no allowlist: must be blocked even under .cursor/rules/)"
+path = '''(?i)(^|/)(?:.*\.aider\.chat\.history\.md|\.cline_mcp_settings\.json)$'''
+tags = ["custom", "forbidden-file", "ai"]
 
 [[rules]]
 id = "forbidden-file-ide-history"
