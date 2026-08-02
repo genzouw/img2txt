@@ -55,8 +55,11 @@ bruno.json -diff
 .bruno/* -diff
 
 # セキュリティ：IaC (CDKTF) の内部設定や状態ディレクトリをリリースやdiffから除外
-.cdktf/ export-ignore
-.cdktf/* -diff
+# 注意: .gitattributes のパターンは .gitignore と異なり "dir/" 表記だけでは
+# ネストしたディレクトリ配下まで自動的に再帰しないため、"**/" を明示して
+# サブディレクトリ配下の .cdktf も確実に保護する
+**/.cdktf/** export-ignore
+**/.cdktf/** -diff
 
 # セキュリティ：DBファイルやログファイルのローカルデータ漏洩防止
 *.log -diff
