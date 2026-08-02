@@ -28,8 +28,7 @@ bruno.json
 !.cursor/rules/
 .aider*
 .claude/
-.gemini/*
-!.gemini/config.yaml
+.gemini/
 .windsurf/
 .cline/
 .roo/

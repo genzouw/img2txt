@@ -32,7 +32,6 @@ application_default_credentials.json -diff
 .aider* export-ignore
 .gemini/ export-ignore
 .gemini/* -diff
-.gemini/config.yaml diff
 .windsurf/ export-ignore
 .windsurf/* -diff
 .cline/ export-ignore

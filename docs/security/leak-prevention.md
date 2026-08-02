@@ -81,7 +81,7 @@ pre-commit install
 5. **ローカル履歴・上書きファイルの保護**: シェル履歴ファイル（`.*_history`）およびローカルの Docker Compose 上書きファイル（`docker-compose.override.yml`, `docker-compose.override.yaml`）が誤ってコミットされないよう、`.gitignore`、`.gitattributes`（diff非表示）、および VS Code / Cursor の設定（エクスプローラ非表示）で厳格に保護しました。
 6. **Dependabot による定期監査の強化**: 依存パッケージの脆弱性や情報漏洩リスクに迅速に対応するため、Dependabot の実行間隔を `weekly` から `daily` に変更し、同時に PR の乱立を防ぐために `groups` 機能を導入して定期監査の頻度と品質を向上させました。
 7. **チャットボットトークンと各種APIキーの検知**: Slack API トークン、Discord Bot トークン、GitLab PAT、Linear API キー、Datadog アクセストークン、Twilio API キー、Ngrok 認証トークン、Sentry 認証トークンに加え、PaaS トークン (Fly.io, Render)、IaC トークン (Terraform Cloud, HashiCorp Vault)、ネットワーク・認証系トークン (Tailscale, Clerk) を検知対象としました。
-8. **AI エージェントワークスペースの保護強化**: `.gemini/` ディレクトリ (ただし `config.yaml` を除く) の除外ルールを強化し、`.gitattributes` による diff 保護を明示しました。
+8. **AI エージェントワークスペースの保護強化**: `.gemini/` ディレクトリの除外ルールを強化し、`.gitattributes` による diff 保護を明示しました。
 9. **データベースダンプの保護拡張**: `*.sql` ファイルについてもコミット前ブロック、diff非表示、および VS Code 上の非表示設定を行いました。
 10. **汎用JWTトークンの検知**: 汎用的な JSON Web Token (JWT) の漏洩を防ぐため、`eyJ` から始まる一般的なJWTの形式を検知対象としました。
 11. **GitHub Runner トークンの検知**: GitHub Actions Runner の登録や実行に使用されるトークン (`ghs_` で始まるもの) を検知対象としました。
