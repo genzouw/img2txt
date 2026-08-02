@@ -31,6 +31,7 @@ application_default_credentials.json -diff
 .claude/ export-ignore
 .aider* export-ignore
 *.aider.chat.history.md -diff
+*.aider.chat.history.md export-ignore
 .gemini/ export-ignore
 .gemini/* -diff
 .windsurf/ export-ignore
@@ -38,6 +39,7 @@ application_default_credentials.json -diff
 .cline/ export-ignore
 .cline/* -diff
 .cline_mcp_settings.json -diff
+.cline_mcp_settings.json export-ignore
 .roo/ export-ignore
 .roo/* -diff
 .codeium/ export-ignore
