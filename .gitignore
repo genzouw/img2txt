@@ -27,10 +27,12 @@ bruno.json
 .cursor/*
 !.cursor/rules/
 .aider*
+*.aider.chat.history.md
 .claude/
 .gemini/
 .windsurf/
 .cline/
+.cline_mcp_settings.json
 .roo/
 .codeium/
 
@@ -40,6 +42,7 @@ Thumbs.db
 
 # IaC (CDKTF / Terraform) states and vars
 cdktf.out/
+.cdktf/
 .terraform/
 *.tfstate
 *.tfstate.backup

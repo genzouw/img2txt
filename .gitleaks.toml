@@ -53,13 +53,19 @@ tags = ["custom", "forbidden-file", "auth"]
 
 [[rules]]
 id = "forbidden-file-ai-agent"
-description = "Detects AI agent workspace files"
+description = "Detects AI agent workspace directories"
 path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/|$)'''
-tags = ["custom", "forbidden-file"]
+tags = ["custom", "forbidden-file", "ai"]
 [rules.allowlist]
 paths = [
     '''(?i)\.cursor/rules/.*$'''
 ]
+
+[[rules]]
+id = "forbidden-file-ai-agent-logs"
+description = "Detects AI agent chat logs and MCP settings files (no allowlist: must be blocked even under .cursor/rules/)"
+path = '''(?i)(^|/)(?:.*\.aider\.chat\.history\.md|\.cline_mcp_settings\.json)$'''
+tags = ["custom", "forbidden-file", "ai"]
 
 [[rules]]
 id = "forbidden-file-ide-history"
@@ -178,7 +184,7 @@ tags = ["gcp", "workload-identity", "custom"]
 [[rules]]
 id = "forbidden-file-tfstate"
 description = "Detects IaC state, variable files, and build artifact directories which should not be committed"
-path = '''(?i)(^|/)(?:cdktf\.out|\.terraform)(?:/|$)|\.tfstate(?:\.backup)?$|\.tfvars(?:\.json)?$'''
+path = '''(?i)(^|/)(?:cdktf\.out|\.cdktf|\.terraform)(?:/|$)|\.tfstate(?:\.backup)?$|\.tfvars(?:\.json)?$'''
 tags = ["custom", "forbidden-file", "iac"]
 
 [[rules]]
