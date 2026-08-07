@@ -72,6 +72,18 @@ pre-commit install
 
 ### 今回の追加対策（マージ前手動作業）
 
+今回、Zendesk、Okta、HubSpot、Grafana、および Shopify などの広く利用されている SaaS やプラットフォームの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Zendesk API Token の検知**: Zendesk の API トークンを検知・拒否するルールを追加しました。
+2. **Okta API Token の検知**: Okta の API トークンを検知対象としました。
+3. **HubSpot API Token の検知**: HubSpot の Personal Access Token (`pat-na1-...` 等) を検知対象としました。
+4. **Grafana API Token の検知**: Grafana Cloud API Key や Service Account Token を検知対象としました。
+5. **Shopify API Token の検知**: Shopify の API トークン (`shpat_...`) を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+### 前回の追加対策（マージ前手動作業）
+
 今回、新たに以下の漏洩検知・保護ルールを追加しました。
 
 1. **GitHub Fine-grained PAT の検知強化**: 従来の classic PAT に加え、`github_pat_` で始まる Fine-grained PAT を厳格に検知対象としました。
@@ -88,7 +100,7 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 
-### 前回の追加対策（マージ前手動作業）
+### 前回の追加対策その２（マージ前手動作業）
 
 今回、ファイル拡張子や名前に依存しない、ファイル内容（構造）ベースの漏洩検知ルールを `.gitleaks.toml` に追加し、コミット前検知の水際対策をさらに強化しました。
 
@@ -98,7 +110,7 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
 
-### 今回（最新）の追加対策（マージ前手動作業）
+### 前回の追加対策その３（マージ前手動作業）
 
 今回、Auth0、Algolia、および Mailgun などの各種 SaaS サービスの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策を強化しました。
 
@@ -108,7 +120,7 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
 
-### 前回の追加対策その２（マージ前手動作業）
+### 前回の追加対策その４（マージ前手動作業）
 
 今回、AI エージェントのログや設定ファイル、および IaC（CDKTF）のテンポラリディレクトリに関する漏洩リスクを未然に防ぐため、`.gitleaks.toml`、`.gitignore`、`.gitattributes`、および `.vscode/settings.json` のルールを拡充しました。これにより、より高度なコミット前検知と差分非表示設定による漏洩防止を強化しています。
 

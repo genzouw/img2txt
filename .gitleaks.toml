@@ -661,3 +661,33 @@ id = "mailgun-api-key"
 description = "Mailgun API Keys are not allowed"
 regex = '''(?i)(?:mailgun)[-_]?(?:api)?[-_]?(?:key)?[_]?[\s:=]+['"]?\b(key-[0-9a-zA-Z]{32})\b['"]?'''
 tags = ["mailgun", "api-key", "custom", "saas"]
+
+[[rules]]
+id = "zendesk-api-token"
+description = "Zendesk API Tokens are not allowed"
+regex = '''(?i)(?:zendesk)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?([a-zA-Z0-9]{40})['"]?'''
+tags = ["zendesk", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "okta-api-token"
+description = "Okta API Tokens are not allowed"
+regex = '''(?i)(?:okta)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?([a-zA-Z0-9_-]{42})['"]?'''
+tags = ["okta", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "hubspot-api-token"
+description = "HubSpot API Tokens are not allowed"
+regex = '''(?i)\b(pat-(?:na|eu)1-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b'''
+tags = ["hubspot", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "grafana-api-token"
+description = "Grafana API Tokens are not allowed"
+regex = '''(?i)\b(eyJrIjoi[a-zA-Z0-9]{72,85}==\"|glc_[A-Za-z0-9+/]{32,}_[A-Za-z0-9+/]{32,})\b'''
+tags = ["grafana", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "shopify-api-token"
+description = "Shopify API Tokens are not allowed"
+regex = '''(?i)\b(shpat_[a-fA-F0-9]{32})\b'''
+tags = ["shopify", "api-token", "custom", "saas"]
