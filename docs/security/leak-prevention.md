@@ -100,6 +100,16 @@ pre-commit install
 
 ### 今回（最新）の追加対策（マージ前手動作業）
 
+今回、Auth0、Algolia、および Mailgun などの各種 SaaS サービスの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策を強化しました。
+
+1. **Auth0 API Token の検知**: Auth0 Management API Token など（JWT 形式の `ey...` で始まるもの）を厳格に検知・拒否するルールを追加しました。
+2. **Algolia API Key の検知**: Algolia の API キー（32文字の英数字）を検知対象としました。
+3. **Mailgun API Key の検知**: Mailgun の API キー（`key-` から始まる32文字の英数字）を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+### 前回の追加対策その２（マージ前手動作業）
+
 今回、AI エージェントのログや設定ファイル、および IaC（CDKTF）のテンポラリディレクトリに関する漏洩リスクを未然に防ぐため、`.gitleaks.toml`、`.gitignore`、`.gitattributes`、および `.vscode/settings.json` のルールを拡充しました。これにより、より高度なコミット前検知と差分非表示設定による漏洩防止を強化しています。
 
 1. **AI エージェント関連ログの保護強化**: 既存の `.aider*` 等のワークスペースディレクトリに加え、生成されがちなチャット履歴ファイル (`*.aider.chat.history.md`) や、Cline の特定設定ファイル (`.cline_mcp_settings.json`) をコミット拒否・差分非表示の対象としました。
