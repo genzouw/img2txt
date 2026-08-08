@@ -683,7 +683,7 @@ tags = ["hubspot", "api-token", "custom", "saas"]
 [[rules]]
 id = "grafana-api-token"
 description = "Grafana API Tokens are not allowed"
-regex = '''(?i)\b(eyJrIjoi[a-zA-Z0-9]{72,85}==\"|glc_[A-Za-z0-9+/]{32,}_[A-Za-z0-9+/]{32,})\b'''
+regex = '''(?i)\b(eyJrIjoi[a-zA-Z0-9]{72,85}==|glc_[A-Za-z0-9+/]{32,}_[A-Za-z0-9+/]{32,})(?:['"]|[\s,;)\]}]|$)'''
 tags = ["grafana", "api-token", "custom", "saas"]
 
 [[rules]]
