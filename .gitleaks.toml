@@ -701,7 +701,7 @@ tags = ["atlassian", "api-token", "custom", "saas"]
 [[rules]]
 id = "asana-personal-access-token"
 description = "Asana Personal Access Tokens are not allowed"
-regex = '''(?i)0\/\d{15,}:[a-zA-Z0-9]{32,}'''
+regex = '''(?i)\b(0\/\d{15,}:[a-zA-Z0-9]{32,})(?:['"]|[\s,;)\]}]|$)'''
 tags = ["asana", "pat", "custom", "saas"]
 
 [[rules]]
