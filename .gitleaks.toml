@@ -691,3 +691,27 @@ id = "shopify-api-token"
 description = "Shopify API Tokens are not allowed"
 regex = '''(?i)\b(shpat_[a-fA-F0-9]{32})\b'''
 tags = ["shopify", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "atlassian-api-token"
+description = "Atlassian API Tokens (Jira, Confluence) are not allowed"
+regex = '''(?i)(?:atlassian|jira|confluence)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{24})\b['"]?'''
+tags = ["atlassian", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "asana-personal-access-token"
+description = "Asana Personal Access Tokens are not allowed"
+regex = '''(?i)0\/\d{15,}:[a-zA-Z0-9]{32,}'''
+tags = ["asana", "pat", "custom", "saas"]
+
+[[rules]]
+id = "trello-api-key"
+description = "Trello API Keys are not allowed"
+regex = '''(?i)(?:trello)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["trello", "api-key", "custom", "saas"]
+
+[[rules]]
+id = "trello-api-token"
+description = "Trello API Tokens are not allowed"
+regex = '''(?i)(?:trello)[-_]?(?:token)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{64})\b['"]?'''
+tags = ["trello", "api-token", "custom", "saas"]

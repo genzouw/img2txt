@@ -66,11 +66,23 @@ pre-commit install
 
 ### 新規追加の対策（マージ前手動作業）
 
+### 今回の追加対策（マージ前手動作業）
+
+今回、Atlassian (Jira, Confluence)、Asana、Trello などのプロジェクト管理・コラボレーションツールの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Atlassian API Token の検知**: Jira や Confluence で使用される Atlassian API トークンを検知・拒否するルールを追加しました。
+2. **Asana Personal Access Token の検知**: Asana の Personal Access Token (`0/` で始まるもの) を検知対象としました。
+3. **Trello API Key / Token の検知**: Trello の API キーおよびトークンを検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+
+
 今回、新たに追加された `detect-aws-credentials` フックの実行や Cloudflare API Token などの漏洩防止をローカルで効果的に行うため、設定ファイルの変更は次回のコミット時に自動的に適用されます（すでに `pre-commit install` を実施済みの場合は、再インストールの必要はありません）。
 
 また、GitHub リポジトリの **Settings → Code security and analysis** より、**Secret scanning** と **Push protection** が有効になっていることを確認してください。
 
-### 今回の追加対策（マージ前手動作業）
+### 前回の追加対策（SaaS API強化・マージ前手動作業）
 
 今回、Zendesk、Okta、HubSpot、Grafana、および Shopify などの広く利用されている SaaS やプラットフォームの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
 
