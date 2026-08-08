@@ -665,13 +665,13 @@ tags = ["mailgun", "api-key", "custom", "saas"]
 [[rules]]
 id = "zendesk-api-token"
 description = "Zendesk API Tokens are not allowed"
-regex = '''(?i)(?:zendesk)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?([a-zA-Z0-9]{40})['"]?'''
+regex = '''(?i)(?:zendesk)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
 tags = ["zendesk", "api-token", "custom", "saas"]
 
 [[rules]]
 id = "okta-api-token"
 description = "Okta API Tokens are not allowed"
-regex = '''(?i)(?:okta)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?([a-zA-Z0-9_-]{42})['"]?'''
+regex = '''(?i)(?:okta)[-_]?(?:api|token|key)?[_]?[\s:=]+['"]?([a-zA-Z0-9_-]{42})(?:['"]|[\s,;)\]}]|$)'''
 tags = ["okta", "api-token", "custom", "saas"]
 
 [[rules]]
