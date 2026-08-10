@@ -715,3 +715,45 @@ id = "trello-api-token"
 description = "Trello API Tokens are not allowed"
 regex = '''(?i)(?:trello)[-_]?(?:token)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{64})\b['"]?'''
 tags = ["trello", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "groq-api-key"
+description = "Groq API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)\bgsk_[a-zA-Z0-9]{52}\b'''
+tags = ["groq", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "mistral-api-key"
+description = "Mistral API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)(?:mistral)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["mistral", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "replicate-api-token"
+description = "Replicate API Tokens are not allowed (AI Agent protection)"
+regex = '''(?i)\br8_[a-zA-Z0-9]{37}\b'''
+tags = ["replicate", "api-token", "custom", "ai"]
+
+[[rules]]
+id = "cohere-api-key"
+description = "Cohere API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)(?:cohere)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+tags = ["cohere", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "tavily-api-key"
+description = "Tavily API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)\btvly-[a-zA-Z0-9]{32}\b'''
+tags = ["tavily", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "pinecone-api-key"
+description = "Pinecone API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)(?:pinecone)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b['"]?'''
+tags = ["pinecone", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "msteams-webhook"
+description = "Microsoft Teams Webhook URLs are not allowed"
+regex = '''(?i)(https://[a-zA-Z0-9.-]+\.webhook\.office\.com/webhookb2/[a-f0-9-]+@[a-f0-9-]+/IncomingWebhook/[a-f0-9]{32}/[a-f0-9-]+)'''
+tags = ["msteams", "webhook", "custom"]
