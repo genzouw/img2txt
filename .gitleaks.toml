@@ -725,7 +725,7 @@ tags = ["groq", "api-key", "custom", "ai"]
 [[rules]]
 id = "mistral-api-key"
 description = "Mistral API Keys are not allowed (AI Agent protection)"
-regex = '''(?i)(?:mistral)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+regex = '''(?i)(?:mistral)[-_]?(?:(?:api[-_]?key)|api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
 tags = ["mistral", "api-key", "custom", "ai"]
 
 [[rules]]
@@ -737,7 +737,7 @@ tags = ["replicate", "api-token", "custom", "ai"]
 [[rules]]
 id = "cohere-api-key"
 description = "Cohere API Keys are not allowed (AI Agent protection)"
-regex = '''(?i)(?:cohere)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+regex = '''(?i)(?:cohere)[-_]?(?:(?:api[-_]?key)|api|key)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
 tags = ["cohere", "api-key", "custom", "ai"]
 
 [[rules]]
@@ -749,7 +749,7 @@ tags = ["tavily", "api-key", "custom", "ai"]
 [[rules]]
 id = "pinecone-api-key"
 description = "Pinecone API Keys are not allowed (AI Agent protection)"
-regex = '''(?i)(?:pinecone)[-_]?(?:api|key)?[_]?[\s:=]+['"]?\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b['"]?'''
+regex = '''(?i)(?:pinecone)[-_]?(?:(?:api[-_]?key)|api|key)?[_]?[\s:=]+['"]?\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b['"]?'''
 tags = ["pinecone", "api-key", "custom", "ai"]
 
 [[rules]]
