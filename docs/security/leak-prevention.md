@@ -66,6 +66,15 @@ pre-commit install
 
 ### 今回の追加対策（マージ前手動作業）
 
+今回、新興のAI系サービス（Groq, Mistral, Replicate, Cohere, Tavily, Pinecone）の API キーや、Microsoft Teams の Webhook URL が意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **AI系 API Key の検知**: Groq (`gsk_...`), Mistral, Replicate (`r8_...`), Cohere, Tavily (`tvly-...`), Pinecone の各種APIキー・トークンを検知・拒否するルールを追加しました。
+2. **Microsoft Teams Webhook の検知**: Microsoft Teams の Incoming Webhook URL を厳密な形式で検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+### 前回の追加対策（プロジェクト管理SaaS強化・マージ前手動作業）
+
 今回、Atlassian (Jira, Confluence)、Asana、Trello などのプロジェクト管理・コラボレーションツールの API キーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
 
 1. **Atlassian API Token の検知**: Jira や Confluence で使用される Atlassian API トークンを検知・拒否するルールを追加しました。
