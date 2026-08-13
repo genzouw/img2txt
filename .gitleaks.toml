@@ -759,7 +759,14 @@ regex = '''(?i)(https://[a-zA-Z0-9.-]+\.webhook\.office\.com/webhookb2/[a-f0-9-]
 tags = ["msteams", "webhook", "custom"]
 
 [[rules]]
-id = "mapbox-api-token"
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）に
+# 同一IDの "mapbox-api-token" ルールが既に存在する（pk.<60文字>.<22文字> 形式かつ
+# 変数名に "mapbox" を含む場合のみ検知する狭い条件）。
+# `useDefault = true` により拡張する際、同一IDのルールが存在すると
+# このカスタムルールは黙って無効化され、デフォルトルールにシャドーイングされてしまう
+# （実測で確認済み。デフォルトルールの条件に合わない一般的な `pk./sk.` トークンは検知漏れになる）。
+# そのため、デフォルトルールと衝突しないIDを使用する。
+id = "mapbox-api-token-custom"
 description = "Mapbox API tokens are not allowed"
-regex = '''(?i)\b(?:pk|sk)\.eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\b'''
+regex = '''(?i)\b((?:pk|sk)\.eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+)(?:['"]|[\s,;)\]}]|$)'''
 tags = ["mapbox", "api-token", "custom", "saas"]
