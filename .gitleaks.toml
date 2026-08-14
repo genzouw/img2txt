@@ -154,7 +154,13 @@ tags = ["cloudflare", "api-key", "custom"]
 [[rules]]
 id = "resend-api-key"
 description = "Resend API keys are strictly not allowed"
-regex = '''\bre_[a-zA-Z0-9_]{24,36}\b'''
+regex = '''(?i)\bre_[a-zA-Z0-9_]{24,36}\b'''
+tags = ["resend", "api-key", "custom"]
+
+[[rules]]
+id = "resend-api-key-strict"
+description = "Resend API keys (strict detection) are strictly not allowed"
+regex = '''(?i)(?:resend)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b(re_[a-zA-Z0-9_]{24,36})\b['"]?'''
 tags = ["resend", "api-key", "custom"]
 
 [[rules]]
