@@ -776,3 +776,27 @@ id = "mapbox-api-token-custom"
 description = "Mapbox API tokens are not allowed"
 regex = '''(?i)\b((?:pk|sk)\.eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+)(?:['"]|[\s,;)\]}]|$)'''
 tags = ["mapbox", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "circleci-api-token"
+description = "CircleCI API Tokens are not allowed"
+regex = '''(?i)(?:circleci|circle)[-_]?(?:ci)?[-_]?(?:api|personal)?[-_]?(?:token|key)[\s:=]+['"]?\b[a-zA-Z0-9]{40}\b['"]?'''
+tags = ["circleci", "api-token", "custom", "ci"]
+
+[[rules]]
+id = "newrelic-api-key"
+description = "New Relic API Keys and License Keys are not allowed"
+regex = '''\b(NRAK-[A-Z0-9]{27})\b|(?i:newrelic|nr)[-_]?(?:api|license|insert|query)?[-_]?(?:key|token)[\s:=]+['"]?\b[a-zA-Z0-9]{40}\b['"]?'''
+tags = ["newrelic", "api-key", "custom", "monitoring"]
+
+[[rules]]
+id = "pagerduty-api-key"
+description = "PagerDuty API Keys are not allowed"
+regex = '''(?i)(?:pagerduty|pd)[-_]?(?:api|rest)?[-_]?(?:key|token)[\s:=]+['"]?\b[a-zA-Z0-9_-]{20}\b['"]?'''
+tags = ["pagerduty", "api-key", "custom", "monitoring"]
+
+[[rules]]
+id = "codecov-api-token"
+description = "Codecov API Tokens are not allowed"
+regex = '''(?i)(?:codecov)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b['"]?'''
+tags = ["codecov", "api-token", "custom", "ci"]
