@@ -9,3 +9,11 @@ b1ffdafd573e48d497b93c7536068ce2e517318d:html/index.php:pii-email:249
 1ba636bfb8e910a2452f15212e4901eff8d02e35:Dockerfile:pii-email:5
 64b3e120d8a22c3524d534e7aa277a4ddd5da06d:Dockerfile:pii-email:22
 0045312beb25380956fe910bd449592baedc596e:html/index.php:pii-email:231
+
+# pr_body.md に記載していたダミートークン例（40文字ダミー値）が
+# circleci-api-token ルールに誤検知された古い履歴コミット。
+# 該当コミットの時点では非マッチ表現に未修正だったため、gitleaks が
+# `--log-opts="--all"` で過去履歴を走査すると検知され続ける。
+# 最新コミットでは非マッチ表現（<REDACTED_40CHAR_TOKEN> 等）へ置換済みのため、
+# 実害のない過去履歴分のみを対象を絞ってignore する。
+fd50c03d5fbab7835f8d71ec984557e5ad3028bc:pr_body.md:circleci-api-token:27
