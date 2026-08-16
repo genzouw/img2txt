@@ -24,7 +24,7 @@
 ## マージ後の確認手順
 
 - [ ] 次の push / PR で既存の CI ワークフロー (pre-commit, gitleaks) が green になることを確認
-- [ ] ローカルでテスト的に `circleci_token = "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"` などのダミートークンをファイルに記述してコミットしようとした際、gitleaks フックによって正しくブロックされることを確認
+- [ ] ローカルでテスト的に `circleci_token = "<REDACTED_40CHAR_TOKEN>"`（40文字の英数字ダミー値）などのトークンをファイルに記述してコミットしようとした際、gitleaks フックによって正しくブロックされることを確認
 
 ## ロールバック手順
 
