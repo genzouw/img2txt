@@ -34,6 +34,18 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 
 リポジトリをクローン後、開発を開始する前に、必ずローカル環境で `pre-commit` のセットアップを行ってください。
 
+### 今回の追加対策（CI/CD・DevOps関連強化・マージ前手動作業）
+
+今回、DevOpsやコンテンツ管理で広く利用されている Snyk, SonarQube, TravisCI, Contentful, および Bitbucket のAPIキーやトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Snyk API Token の検知**: ソフトウェアの脆弱性スキャンツールである Snyk のAPIトークンを検知・拒否するルールを追加しました。
+2. **Sonar API Token の検知**: SonarQube / SonarCloud の API トークンを検知対象としました。
+3. **Travis CI Access Token の検知**: Travis CI の Access Token を検知対象としました。
+4. **Contentful Delivery API Token の検知**: Contentful の API トークンを検知対象としました。
+5. **Bitbucket Client ID / Secret の検知**: Bitbucket の Client ID および Client Secret を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
 ### 手順
 
 1. Python のパッケージマネージャ(`pip` など) または Homebrew を用いて `pre-commit` をインストールします。
