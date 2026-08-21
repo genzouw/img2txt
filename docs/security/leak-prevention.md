@@ -211,3 +211,14 @@ pre-commit install
 13. **ローカル環境変数のサンプル化漏れ防止**: AI エージェントの作業跡として意図せず生成・残存しがちな `.env.local`, `.env.development.local`, `.env.test.local` 等（およびそれらの `.sample` 化されたもの）を `.gitleaks.toml` 上でより明示的かつ厳密にブロックする専用ルールを追加し、意図せぬ環境変数の漏洩水際対策を強化しました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
+
+### 今回の追加対策（新興AIエージェント・APIキー強化・マージ前手動作業）
+
+今回、新興のAI系サービス（DeepSeek, Perplexity AI, Together AI）の API キーや、新しい AI エージェント（Continue, PearAI, Trae, Cody）の作業ディレクトリが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` をはじめとする各種設定ファイルへルールを新たに追加し、漏洩防止をさらに強化しました。
+
+1. **AI系 API Key の検知**: DeepSeek (`sk-...`), Perplexity AI (`pplx-...`), Together AI のAPIキーを検知・拒否するルールを追加しました。
+2. **AI エージェントワークスペースの保護拡充**: Continue (`.continue/`), PearAI (`.pearai/`), Trae (`.trae/`), Cody (`.cody/`) などの作業ディレクトリを除外・検知・ブロック対象に追加し、AIのコンテキストデータや一時ファイルが流出するのを防ぎました。
+
+これらのファイル・ディレクトリ群は `.gitleaks.toml` によるコミット前検知だけでなく、`.gitignore` でのコミット防止、`.gitattributes` による diff 保護（`-diff`）とリリースアーカイブからの除外（`export-ignore`）、および `.vscode/settings.json` でのエクスプローラ・検索結果からの除外によって多層的に保護されています。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル・ディレクトリ群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。

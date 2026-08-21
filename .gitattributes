@@ -44,6 +44,14 @@ application_default_credentials.json -diff
 .roo/* -diff
 .codeium/ export-ignore
 .codeium/* -diff
+.continue/ export-ignore
+.continue/* -diff
+.pearai/ export-ignore
+.pearai/* -diff
+.trae/ export-ignore
+.trae/* -diff
+.cody/ export-ignore
+.cody/* -diff
 .github/ export-ignore
 .idea/ export-ignore
 .idea/* -diff
