@@ -35,6 +35,10 @@ bruno.json
 .cline_mcp_settings.json
 .roo/
 .codeium/
+.continue/
+.pearai/
+.trae/
+.cody/
 
 # OS hidden files
 .DS_Store

@@ -54,7 +54,7 @@ tags = ["custom", "forbidden-file", "auth"]
 [[rules]]
 id = "forbidden-file-ai-agent"
 description = "Detects AI agent workspace directories"
-path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium)(?:/|$)'''
+path = '''(?i)(^|/)\.(cursor|claude|aider|gemini|windsurf|cline|roo|codeium|continue|pearai|trae|cody)(?:/|$)'''
 tags = ["custom", "forbidden-file", "ai"]
 [rules.allowlist]
 paths = [
@@ -801,7 +801,6 @@ description = "Codecov API Tokens are not allowed"
 regex = '''(?i)(?:codecov)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b['"]?'''
 tags = ["codecov", "api-token", "custom", "ci"]
 
-
 [[rules]]
 id = "bitbucket-client-id"
 description = "Discovered a potential Bitbucket Client ID, risking unauthorized repository access and potential codebase exposure."
@@ -838,3 +837,27 @@ id = "travisci-access-token"
 description = "Identified a Travis CI Access Token, potentially compromising continuous integration services and codebase security."
 regex = '''(?i)[\w.-]{0,50}?(?:travis)(?:[ \t\w.-]{0,20})[\s'"]{0,3}(?:=|>|:{1,3}=|\|\||:|=>|\?=|,)[\x60'"\s=]{0,5}([a-z0-9]{22})(?:[\x60'"\s;]|\\[nr]|$)'''
 tags = ["travis", "custom"]
+
+[[rules]]
+id = "deepseek-api-key"
+description = "DeepSeek API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)\bsk-[a-f0-9]{32}\b'''
+tags = ["deepseek", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "perplexity-api-key"
+description = "Perplexity AI API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)\bpplx-[a-zA-Z0-9_-]{30,50}\b'''
+tags = ["perplexity", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "together-api-key"
+description = "Together AI API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)(?:together)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{64})\b['"]?'''
+tags = ["together", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "doppler-api-token"
+description = "Doppler API Tokens are not allowed"
+regex = '''(?i)(?:dp\.pt\.)[a-zA-Z0-9]{43}'''
+tags = ["doppler", "api-token", "custom", "saas"]
