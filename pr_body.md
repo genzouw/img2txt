@@ -1,37 +1,37 @@
 ## 背景
 
-近年、多様なAI系サービス（DeepSeek, Perplexity AI, Together AI）や新しいAIエージェント（Continue, PearAI, Trae, Cody）の普及が進んでいますが、それに伴いAPIキーやローカルのコンテキストログが意図せず公開リポジトリへ漏洩するリスクが高まっています。既存の設定ファイルにはこれらの新興ツールに対する保護が含まれていなかったため、水際対策（コミット前検知および差分非表示）のギャップを埋める必要がありました。
+本プロジェクトは Google Cloud Platform (GCP) と Neon Postgres を基盤としており、これらのインフラ識別子（GCP Project ID や Neon エンドポイント）が意図せずアプリケーションコードにハードコードされて漏洩するリスクが存在します。現状の `.gitleaks.toml` のルールでは、正規表現の境界が緩いために一部のパターンで検知漏れや誤検知が発生する可能性がありました。
 
 ## このPRで導入するもの
 
-- ツール名: gitleaks v8.x, git (gitignore / gitattributes)
-- 導入箇所: `.gitleaks.toml`, `.gitignore`, `.gitattributes`, `.vscode/settings.json`, `docs/security/leak-prevention.md`
-- 期待される効果: コミット前にローカルで DeepSeek, Perplexity AI, Together AI の API キーを検出してブロック。さらに Continue, PearAI, Trae, Cody の作業跡がコミット・差分表示・リリースアーカイブに含まれることを防止。
+- ツール名: gitleaks v8.x (設定厳格化)
+- 導入箇所: `.gitleaks.toml`
+- 期待される効果:
+  - Neon Postgres エンドポイントの検知条件を汎用化（`*.aws.neon.tech` から `*.neon.tech` へ）し、プロバイダ非依存の厳格な検知を実現します。
+  - GCP Project ID (`toique-app-*`) の検知に単語境界 (`\b`) を導入し、部分一致による誤検知を防ぎつつハードコードを確実にブロックします。
 
 ## 検知漏れリスクと補完策
 
-- 検知できないケース: 正規表現にマッチしないカスタム形式のトークンや、未知の新しいAIエージェントの作業ディレクトリ。
-- 補完策: 既存の GitHub Secret Scanning および `trufflehog` によるCI検知と組み合わせて二重化し、定期的なルールの見直しを行う。
+- 検知できないケース: カスタム環境変数やエンコードされた状態でのハードコード。
+- 補完策: 既存の CodeQL による静的解析（データフロー分析）および GitHub Advanced Security (Secret Scanning) を用いた多層防御。
 
 ## マージ前に必要な手動作業（チェックリスト）
 
 レビュアーは PR をマージする前に必ず以下を実施してください。
 本 PR の CI は手動作業完了を前提に通る設計です。
 
-- [x] GitHub repo settings → Code security → Push protection を有効化
-- [ ] 各開発者のローカルで `pre-commit install` を実行し、追加されたルールを有効化する周知
+- [ ] 各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知する
 
 ## マージ後の確認手順
 
-- [ ] 次の push / PR で導入した pre-commit workflow が green になることを確認
-- [ ] ローカルで `.gitleaks.toml` の新規ルールがフックとして動作することを確認
+- [ ] 次の push / PR で `pre-commit` ワークフローが正常終了（green）することを確認する
+- [ ] ローカルで変更が有効に機能し、誤検知が発生しないことを確認する
 
 ## ロールバック手順
 
-問題が出た場合は、対象コミットを `git revert` して `.gitleaks.toml`, `.gitignore`, `.gitattributes`, `.vscode/settings.json`, `docs/security/leak-prevention.md` を元に戻してください。
+設定により CI や開発に支障が出た場合は、対象となるコミットを revert してください。
 
 ## 参考情報
 
 - 公式ドキュメント: https://github.com/gitleaks/gitleaks
-- 比較検討した他案: 新たな secret-scan ツールを導入する案も検討しましたが、すでに `gitleaks` と `pre-commit` が整備されているため、既存ルールの拡充と IDE 設定の追加を優先しました。
-- 直近の関連 PR / Issue: なし
+- 比較検討した他案: 新規ツールの導入（例: detect-secrets）も検討しましたが、プロジェクト方針（既存設定の厳格化優先）に基づき `.gitleaks.toml` の拡充を採用しました。
