@@ -861,3 +861,33 @@ id = "doppler-api-token"
 description = "Doppler API Tokens are not allowed"
 regex = '''(?i)(?:dp\.pt\.)[a-zA-Z0-9]{43}'''
 tags = ["doppler", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "databricks-api-token"
+description = "Databricks Personal Access Tokens are not allowed"
+regex = '''(?i)(?:databricks)[-_]?(?:api|personal)?[-_]?(?:token|key)[\s:=]+['"]?\b(dapi[a-f0-9]{32})\b['"]?'''
+tags = ["databricks", "api-token", "custom", "data"]
+
+[[rules]]
+id = "digitalocean-pat"
+description = "DigitalOcean Personal Access Tokens are not allowed"
+regex = '''(?i)(?:digitalocean|do)[-_]?(?:api|personal)?[-_]?(?:token|key)[\s:=]+['"]?\b(dop_v1_[a-f0-9]{64})\b['"]?'''
+tags = ["digitalocean", "api-token", "custom", "cloud"]
+
+[[rules]]
+id = "planetscale-password"
+description = "PlanetScale passwords or tokens are not allowed"
+regex = '''(?i)(?:planetscale|pscale)[-_]?(?:password|token|key)[\s:=]+['"]?(pscale_pw_[a-zA-Z0-9_\-]{43})['"]?'''
+tags = ["planetscale", "api-token", "custom", "database"]
+
+[[rules]]
+id = "upstash-api-token"
+description = "Upstash API tokens are not allowed"
+regex = '''(?i)(?:upstash)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b(ey[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)\b['"]?'''
+tags = ["upstash", "api-token", "custom", "database"]
+
+[[rules]]
+id = "snowflake-account-password"
+description = "Snowflake credentials or tokens are not allowed"
+regex = '''(?i)(?:snowflake)[-_]?(?:password|token)[\s:=]+['"]?([a-zA-Z0-9_\-]{16,})['"]?'''
+tags = ["snowflake", "api-token", "custom", "data"]

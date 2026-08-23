@@ -224,7 +224,7 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイルが正しく除外されていること、および `pre-commit install` が実施済みであることを引き続き周知してください。
 
-### 今回の追加対策（GCP/Neonインフラ識別子検知の厳格化・マージ前手動作業）
+### 前回の追加対策（GCP/Neonインフラ識別子検知の厳格化・マージ前手動作業）
 
 今回、本プロジェクトのインフラ基盤である Google Cloud Platform (GCP) および Neon Postgres データベースに対する認証情報やインフラ識別子が意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` のカスタムルールを見直し、検知精度と厳格性を向上させました。
 
@@ -243,3 +243,15 @@ pre-commit install
 これらのファイル・ディレクトリ群は `.gitleaks.toml` によるコミット前検知だけでなく、`.gitignore` でのコミット防止、`.gitattributes` による diff 保護（`-diff`）とリリースアーカイブからの除外（`export-ignore`）、および `.vscode/settings.json` でのエクスプローラ・検索結果からの除外によって多層的に保護されています。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル・ディレクトリ群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
+
+### 今回の追加対策（データプラットフォーム・クラウドインフラのトークン強化・マージ前手動作業）
+
+今回、Snowflake、Databricks、DigitalOcean、PlanetScale、および Upstash などのデータプラットフォームやクラウドインフラの認証情報が意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Snowflake アカウント・パスワードの検知**: Snowflake の認証情報やパスワードがハードコードされることを検知・拒否するルールを追加しました。
+2. **Databricks API Token の検知**: Databricks の Personal Access Token (`dapi...`) を検知対象としました。
+3. **DigitalOcean Personal Access Token の検知**: DigitalOcean の API トークン (`dop_v1_...`) を検知対象としました。
+4. **PlanetScale Password の検知**: PlanetScale の接続パスワードやサービストークン (`pscale_pw_...`) を検知対象としました。
+5. **Upstash API Token の検知**: Upstash の API トークン（JWT 形式の `ey...`）を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
