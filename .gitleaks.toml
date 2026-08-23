@@ -12,7 +12,7 @@ regexes = [
 [[rules]]
 id = "gcp-project-id"
 description = "Hardcoded GCP Project ID (toique-app-*) is not allowed"
-regex = '''(?i)(toique-app-[a-z0-9-]+)'''
+regex = '''(?i)\b(toique-app-[a-z0-9-]+)\b'''
 tags = ["gcp", "project-id", "custom"]
 [rules.allowlist]
 paths = [
@@ -24,7 +24,7 @@ paths = [
 [[rules]]
 id = "neon-postgres-endpoint"
 description = "Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed"
-regex = '''(?i)(?:postgres(?:ql)?://[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+@)?\b(ep-[a-z0-9-]+\.[a-z0-9-]+\.aws\.neon\.tech)\b'''
+regex = '''(?i)(?:postgres(?:ql)?://[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+@)?\b(ep-[a-z0-9-]+\.[a-z0-9-]+\.[a-z0-9-]+\.neon\.tech)\b'''
 tags = ["neon", "database", "custom"]
 
 [[rules]]
