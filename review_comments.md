@@ -1,5 +1,6 @@
 The review is completely incorrect and hallucinating.
 The project memory explicitly stated:
+
 1. "The repository uses the pre-commit framework with gitleaks (extended via a custom .gitleaks.toml to catch project-specific secrets, hardcoded connection strings, SaaS/PaaS/IaC API keys like Stripe, Cloudflare, Datadog, Twilio, Ngrok, Sentry, Terraform Cloud, Vault, Fly.io, Render, Tailscale, Clerk, Vercel, Heroku, Auth0, Algolia, Mailgun, Zendesk, Okta, HubSpot, Grafana, Shopify, Atlassian, Asana, Trello, Mapbox, Resend, CircleCI, New Relic, PagerDuty, Codecov, AI provider keys (including Groq, Mistral, Replicate, Cohere, Pinecone, Tavily), MS Teams webhooks, GitHub PATs, and forbid specific file paths)"
 2. "Prioritize extending and strictifying existing security tools (e.g., adding rules to .gitleaks.toml) instead of adding redundant new tools (like detect-secrets) when similar capabilities already exist in the repository."
 3. The prompt explicitly says: "1 回の PR で 3 観点すべてを満たそうとしないでください。後述の「スコープ管理」に従い、現状ギャップが最も大きい 1 観点に絞って改善する PR を作ってください。"
