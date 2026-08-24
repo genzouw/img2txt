@@ -3,7 +3,7 @@
 # 元実装は `FROM genzouw/ansize:1.0.3` (alpine 3.10.3 EOL) に依存しており、
 # その base image に積み上がった CVE がそのまま img2txt に流れ込んでいたため、
 # 自前ビルドに切り替えて外部 image への依存を断ち切る。
-FROM golang:1.26-alpine3.23 AS ansize-builder
+FROM golang:1.27-alpine3.23 AS ansize-builder
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache git
