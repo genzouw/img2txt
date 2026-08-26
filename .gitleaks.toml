@@ -891,3 +891,21 @@ id = "snowflake-account-password"
 description = "Snowflake credentials or tokens are not allowed"
 regex = '''(?i)(?:snowflake)[-_]?(?:password|token)[\s:=]+['"]?([a-zA-Z0-9_\-]{16,})['"]?'''
 tags = ["snowflake", "api-token", "custom", "data"]
+
+[[rules]]
+id = "langsmith-api-key"
+description = "LangSmith API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)\blsv2_pt_[a-f0-9]{32}_[a-f0-9]{10}\b'''
+tags = ["langsmith", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "wandb-api-key"
+description = "Weights & Biases (WandB) API Keys are not allowed (AI Agent protection)"
+regex = '''(?i)(?:wandb|weights_and_biases)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{40})\b['"]?'''
+tags = ["wandb", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "airtable-api-key-pat"
+description = "Airtable API Keys and Personal Access Tokens are not allowed"
+regex = '''(?i)(?:airtable)[-_]?(?:api|personal|access)?[-_]?(?:key|token)?[\s:=]+['"]?\b(key[a-zA-Z0-9]{14}|pat[a-zA-Z0-9]{14}\.[a-zA-Z0-9]{64})\b['"]?'''
+tags = ["airtable", "api-key", "pat", "custom", "saas"]
