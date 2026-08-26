@@ -891,3 +891,27 @@ id = "snowflake-account-password"
 description = "Snowflake credentials or tokens are not allowed"
 regex = '''(?i)(?:snowflake)[-_]?(?:password|token)[\s:=]+['"]?([a-zA-Z0-9_\-]{16,})['"]?'''
 tags = ["snowflake", "api-token", "custom", "data"]
+
+[[rules]]
+id = "zoom-api-token"
+description = "Zoom API Keys, Secrets, and OAuth Tokens are not allowed"
+regex = '''(?i)(?:zoom)[-_]?(?:api|oauth)?[-_]?(?:key|secret|token)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["zoom", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "dropbox-api-token"
+description = "Dropbox API and Access Tokens are not allowed"
+regex = '''(?i)\b(sl\.[a-zA-Z0-9_-]{130,})\b'''
+tags = ["dropbox", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "box-developer-token"
+description = "Box Developer and API Tokens are not allowed"
+regex = '''(?i)\bbox[-_]?(?:developer|api|access)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["box", "api-token", "custom", "saas"]
+[rules.allowlist]
+description = "Exclude MD5 hashes / hyphen-stripped UUIDs (32-char hex) to prevent false positives"
+regexTarget = "match"
+regexes = [
+    '''^[a-f0-9]{32}$'''
+]
