@@ -262,6 +262,6 @@ pre-commit install
 
 1. **LangSmith API Key の検知**: LangSmith の API キー (`lsv2_pt_...`) を検知対象としました。
 2. **Weights & Biases (WandB) API Key の検知**: WandB の API キーを検知対象としました。
-3. **Airtable API Key / PAT の検知**: Airtable の API キー (`key...`) や Personal Access Token (`pat...`) を検知対象としました。
+3. **Airtable API Key / PAT について**: gitleaks の組み込みルール（`airtable-api-key` / `airtable-personnal-access-token`）が既に Airtable の API キーおよび Personal Access Token を検知対象としているため、本PRでは重複する専用ルールを追加していません。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
