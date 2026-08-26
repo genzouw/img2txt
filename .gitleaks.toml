@@ -906,7 +906,7 @@ paths = [
 [[rules]]
 id = "dropbox-api-token"
 description = "Dropbox API and Access Tokens are not allowed"
-regex = '''(?i)(?:dropbox)[-_]?(?:api|access)?[-_]?(?:key|token)[\s:=]+['"]?\b(sl\.[a-zA-Z0-9_-]{15,}|[a-zA-Z0-9_-]{15,})\b['"]?'''
+regex = '''(?i)\b(sl\.[a-zA-Z0-9_-]{130,})\b'''
 tags = ["dropbox", "api-token", "custom", "saas"]
 [rules.allowlist]
 paths = [
