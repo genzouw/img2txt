@@ -5,6 +5,10 @@ useDefault = true
 
 [allowlist]
 description = "Exclude Git SHA-1 hashes (40-char lowercase hex) to prevent false positives on GitHub Actions pinned SHAs"
+condition = "AND"
+paths = [
+    '''(?i)^\.github/workflows/.*\.ya?ml$'''
+]
 regexes = [
     '''^[0-9a-f]{40}$'''
 ]
@@ -901,5 +905,5 @@ tags = ["langsmith", "api-key", "custom", "ai"]
 [[rules]]
 id = "wandb-api-key"
 description = "Weights & Biases (WandB) API Keys are not allowed (AI Agent protection)"
-regex = '''(?i)(?:wandb|weights_and_biases)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{40})\b['"]?'''
+regex = '''(?i)\b(?:wandb|weights_and_biases)[-_](?:api[-_])?(?:key|token)[\s]*[:=][\s]*['"]?([a-f0-9]{40})['"]?'''
 tags = ["wandb", "api-key", "custom", "ai"]
