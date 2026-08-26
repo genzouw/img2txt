@@ -244,7 +244,7 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル・ディレクトリ群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 
-### 前回の追加対策（データプラットフォーム・クラウドインフラのトークン強化・マージ前手動作業）
+### 今回の追加対策（データプラットフォーム・クラウドインフラのトークン強化・マージ前手動作業）
 
 今回、Snowflake、Databricks、DigitalOcean、PlanetScale、および Upstash などのデータプラットフォームやクラウドインフラの認証情報が意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
 
@@ -256,9 +256,9 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
 
-### 今回の追加対策（LangSmith・WandB・Airtableトークン強化・マージ前手動作業）
+### 追加対策: LangSmith / WandB トークンの検知（マージ前手動作業）
 
-今回、LangSmith、Weights & Biases (WandB)、および Airtable の認証情報や API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+今回、LangSmith および Weights & Biases (WandB) の認証情報や API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
 
 1. **LangSmith API Key の検知**: LangSmith の API キー (`lsv2_pt_...`) を検知対象としました。
 2. **Weights & Biases (WandB) API Key の検知**: WandB の API キー（40 桁 16 進数）を、`key`/`token` キーワードとの結合を必須にした上で検知対象としました。あわせて、既存のグローバル allowlist（Git SHA-1 除外）が本ルールの検知結果まで無条件に握りつぶしていた問題を修正し、`.github/workflows/` 配下のみに除外範囲を限定しました。
