@@ -917,10 +917,11 @@ paths = [
 [[rules]]
 id = "box-developer-token"
 description = "Box Developer and API Tokens are not allowed"
-regex = '''(?i)(?:box)[-_]?(?:developer|api|access)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+regex = '''(?i)\bbox[-_]?(?:developer|api|access)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
 tags = ["box", "api-token", "custom", "saas"]
 [rules.allowlist]
-paths = [
-    '''(?i)\.(md|txt)$''',
-    '''(?i)^test[s]?/'''
+description = "Exclude MD5 hashes / hyphen-stripped UUIDs (32-char hex) to prevent false positives"
+regexTarget = "match"
+regexes = [
+    '''^[a-f0-9]{32}$'''
 ]
