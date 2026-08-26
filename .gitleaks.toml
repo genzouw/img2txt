@@ -895,7 +895,7 @@ tags = ["snowflake", "api-token", "custom", "data"]
 [[rules]]
 id = "zoom-api-token"
 description = "Zoom API Keys, Secrets, and OAuth Tokens are not allowed"
-regex = '''(?i)(?:zoom)[-_]?(?:api|oauth)?[-_]?(?:key|secret|token)[\s:=]+['"]?\b([a-zA-Z0-9_-]{20,})\b['"]?'''
+regex = '''(?i)(?:zoom)[-_]?(?:api|oauth)?[-_]?(?:key|secret|token)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
 tags = ["zoom", "api-token", "custom", "saas"]
 [rules.allowlist]
 paths = [
