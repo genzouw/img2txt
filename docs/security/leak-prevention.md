@@ -256,7 +256,17 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
 
-### 今回の追加対策（コラボレーションツール等のAPIトークン検知強化・マージ前手動作業）
+### 追加対策: LangSmith / WandB トークンの検知（マージ前手動作業）
+
+今回、LangSmith および Weights & Biases (WandB) の認証情報や API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **LangSmith API Key の検知**: LangSmith の API キー (`lsv2_pt_...`) を検知対象としました。
+2. **Weights & Biases (WandB) API Key の検知**: WandB の API キー（40 桁 16 進数）を、`key`/`token` キーワードとの結合を必須にした上で検知対象としました。あわせて、既存のグローバル allowlist（Git SHA-1 除外）が本ルールの検知結果まで無条件に握りつぶしていた問題を修正し、`.github/workflows/` 配下のみに除外範囲を限定しました。
+3. **Airtable API Key / PAT について**: gitleaks の組み込みルール（`airtable-api-key` / `airtable-personnal-access-token`）が既に Airtable の API キーおよび Personal Access Token を検知対象としているため、本PRでは重複する専用ルールを追加していません。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+### 追加対策: Zoom / Dropbox / Box トークンの検知（マージ前手動作業）
 
 今回、一般的なビジネスツールやコラボレーションツールなどの API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
 
