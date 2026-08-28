@@ -256,6 +256,18 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
 
+
+### 追加対策: Mailchimp / Typeform / Cloudinary / Brevo トークンの検知（マージ前手動作業）
+
+今回、一般的なマーケティングおよびメディア管理ツール等の API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Mailchimp API Key の検知**: Mailchimp の API キーを検知対象としました。
+2. **Typeform API Token の検知**: Typeform の API トークン (Personal Access Token) を検知対象としました。
+3. **Cloudinary API URL の検知**: Cloudinary の API 接続 URL（キーおよびシークレットを含む）を検知対象としました。
+4. **Brevo (Sendinblue) API Key の検知**: Brevo (旧 Sendinblue) の API キーを検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
 ### 追加対策: LangSmith / WandB トークンの検知（マージ前手動作業）
 
 今回、LangSmith および Weights & Biases (WandB) の認証情報や API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。

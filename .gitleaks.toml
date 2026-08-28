@@ -931,3 +931,27 @@ regexTarget = "match"
 regexes = [
     '''^[a-f0-9]{32}$'''
 ]
+
+[[rules]]
+id = "mailchimp-api-key"
+description = "Mailchimp API Keys are not allowed"
+regex = '''(?i)\b([a-f0-9]{32}-us\d{1,2})\b'''
+tags = ["mailchimp", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "typeform-api-token"
+description = "Typeform API tokens (Personal Access Tokens) are not allowed"
+regex = '''(?i)\b(tfp_[a-zA-Z0-9]{44}_[a-zA-Z0-9]{14})\b'''
+tags = ["typeform", "api-token", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "cloudinary-api-url"
+description = "Cloudinary API URLs (including key/secret) are not allowed"
+regex = '''(?i)(cloudinary://[0-9]{15}:[a-zA-Z0-9_-]{27}@[a-zA-Z0-9_-]+)'''
+tags = ["cloudinary", "api-url", "custom", "saas", "media"]
+
+[[rules]]
+id = "brevo-sendinblue-api-key"
+description = "Brevo (formerly Sendinblue) API Keys are not allowed"
+regex = '''(?i)\b(xkeysib-[a-f0-9]{64}-[a-zA-Z0-9]{16})\b'''
+tags = ["brevo", "sendinblue", "api-key", "custom", "saas", "marketing"]
