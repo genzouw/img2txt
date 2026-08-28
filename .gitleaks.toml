@@ -966,7 +966,7 @@ tags = ["typeform", "api-token", "custom", "saas", "marketing"]
 [[rules]]
 id = "cloudinary-api-url"
 description = "Cloudinary API URLs (including key/secret) are not allowed"
-regex = '''(?i)(cloudinary://[0-9]{15}:[a-zA-Z0-9_-]{27}@[a-zA-Z0-9_-]+)'''
+regex = '''(?i)(cloudinary://[0-9]{12,}:[a-zA-Z0-9_-]{20,}@[a-zA-Z0-9_-]+)'''
 tags = ["cloudinary", "api-url", "custom", "saas", "media"]
 
 [[rules]]
