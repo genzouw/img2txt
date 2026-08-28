@@ -950,7 +950,15 @@ paths = [
 ]
 
 [[rules]]
-id = "typeform-api-token"
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）に同一IDの
+# "typeform-api-token" ルールが既に存在する（"typeform" キーワードが近傍にある場合のみ
+# 検知する代わりに、tfp_ 以降59文字の許容文字種が `-` `.` `=` を含む広い範囲）。
+# `useDefault = true` により拡張する際、同一IDのルールが存在するとこのカスタムルールは
+# 黙って無効化され、デフォルトルールにシャドーイングされてしまう
+# （実測で確認済み。mapbox-api-token-custom と同じ問題）。
+# そのため、デフォルトルールと衝突しないIDを使用し、両方のルールを併用する
+# （デフォルト: キーワード近接必須・広い許容文字種 / 本ルール: キーワード不要・固定書式）。
+id = "typeform-api-token-custom"
 description = "Typeform API tokens (Personal Access Tokens) are not allowed"
 regex = '''(?i)\b(tfp_[a-zA-Z0-9]{44}_[a-zA-Z0-9]{14})\b'''
 tags = ["typeform", "api-token", "custom", "saas", "marketing"]
