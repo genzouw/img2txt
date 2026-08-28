@@ -970,7 +970,14 @@ regex = '''(?i)(cloudinary://[0-9]{12,}:[a-zA-Z0-9_-]{20,}@[a-zA-Z0-9_-]+)'''
 tags = ["cloudinary", "api-url", "custom", "saas", "media"]
 
 [[rules]]
-id = "brevo-sendinblue-api-key"
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）に同一IDの
+# "sendinblue-api-token" ルールが存在する。組み込み版は末尾の区切り文字がバッククォート・
+# 引用符・空白・セミコロン・改行・文字列末尾に限定されるのに対し、本ルールは単語境界 \b を
+# 使うため、それ以外の区切り文字（カンマ・括弧等）の直後にトークンがあるケースも取りこぼさない。
+# ID を分けたまま両立させると同一シークレットに対して二重検知
+# （brevo-sendinblue-api-key と sendinblue-api-token の双方がヒット）が発生するため、
+# 組み込みと同じ ID で意図的に上書きし、改善した正規表現に一本化する。
+id = "sendinblue-api-token"
 description = "Brevo (formerly Sendinblue) API Keys are not allowed"
 regex = '''(?i)\b(xkeysib-[a-f0-9]{64}-[a-zA-Z0-9]{16})\b'''
 tags = ["brevo", "sendinblue", "api-key", "custom", "saas", "marketing"]

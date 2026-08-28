@@ -28,7 +28,7 @@
 
 ## ロールバック手順
 
-万が一誤検知（False Positive）が多発し開発に重大な支障が出た場合は、本 PR で `.gitleaks.toml` に追加した `mailchimp-api-key`, `typeform-api-token-custom`, `cloudinary-api-url`, `brevo-sendinblue-api-key` の各 `[[rules]]` ブロックを削除またはコメントアウトし、PR を作成・マージしてください。
+万が一誤検知（False Positive）が多発し開発に重大な支障が出た場合は、本 PR で `.gitleaks.toml` に追加した `mailchimp-api-key`, `typeform-api-token-custom`, `cloudinary-api-url`, `sendinblue-api-token` の各 `[[rules]]` ブロックを削除またはコメントアウトし、PR を作成・マージしてください。
 
 ## 参考情報
 
