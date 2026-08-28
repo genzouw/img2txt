@@ -933,10 +933,21 @@ regexes = [
 ]
 
 [[rules]]
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）にも同一IDの
+# "mailchimp-api-key" ルールが存在するが、組み込み版は "mailchimp" というキーワードが
+# 近傍にあることを要求するため、キーワードを伴わない裸のトークンを検知できない。
+# `useDefault = true` の下では同一IDのローカル定義が優先されるため、この上書きは
+# 意図的に行っている（組み込み版が要求するキーワード条件を撤廃し、検知範囲を広げる）。
 id = "mailchimp-api-key"
 description = "Mailchimp API Keys are not allowed"
 regex = '''(?i)\b([a-f0-9]{32}-us\d{1,2})\b'''
 tags = ["mailchimp", "api-key", "custom", "saas", "marketing"]
+[rules.allowlist]
+description = "Exclude documentation files where sample values may be referenced"
+paths = [
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
 
 [[rules]]
 id = "typeform-api-token"
