@@ -244,6 +244,16 @@ pre-commit install
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて上記ファイル・ディレクトリ群が正しく除外されていること、および `pre-commit install` が実施済みであることを周知してください。
 
+### 今回の追加対策（ソーシャルメディアのAPIトークン強化・マージ前手動作業）
+
+今回、一般的なソーシャルメディア（Twitter/X、Facebook/Meta、LINE 等）の API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Twitter/X API Key の検知**: Twitter/X の API キーや Bearer トークンを検知対象としました。
+2. **Facebook/Meta Access Token の検知**: Facebook/Meta の Access Token および App Secret を検知対象としました。
+3. **LINE Channel Access Token の検知**: LINE の Channel Access Token および Channel Secret を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
 ### 今回の追加対策（データプラットフォーム・クラウドインフラのトークン強化・マージ前手動作業）
 
 今回、Snowflake、Databricks、DigitalOcean、PlanetScale、および Upstash などのデータプラットフォームやクラウドインフラの認証情報が意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
