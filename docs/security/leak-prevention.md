@@ -286,3 +286,13 @@ pre-commit install
 3. **Box Developer Token の検知**: Box の Developer Token や API トークンを検知対象としました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+### 今回の追加対策（決済系トークンの検知・マージ前手動作業）
+
+今回、主要な決済サービスやオンラインペイメントの API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Braintree Access Token の検知**: Braintree の Access Token (`access_token$production$...`) を検知・拒否するルールを追加しました。
+2. **PayPal Client ID / Secret の検知**: PayPal の Client ID や Secret キーを検知対象としました。
+3. **Square Access Token の検知**: Square の Access Token (`sq0atp-...` や `EAAA...` で始まるもの) を検知対象としました。
+4. **Stripe API Key / Webhook について**: 既存のルールにて既に Stripe の API キーおよび Webhook シークレットを強力に検知・拒否する設定が含まれているため、本PRでは引き続きそのルールが適用されます。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
