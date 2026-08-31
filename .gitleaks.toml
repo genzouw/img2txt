@@ -991,13 +991,13 @@ tags = ["twitter", "api-key", "custom", "social"]
 [[rules]]
 id = "facebook-access-token"
 description = "Facebook/Meta Access Tokens are not allowed"
-regex = '''(?i)(?:facebook|meta|fb)[-_]?(?:access[-_]?token|app[-_]?secret)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{32,})\b['"]?'''
+regex = '''(?i)\b(?:facebook|meta|fb)[-_](?:access[-_]?token|app[-_]?secret)[\s:=]+['"]?\b([a-zA-Z0-9]{32,})\b['"]?'''
 tags = ["facebook", "meta", "api-token", "custom", "social"]
 
 [[rules]]
 id = "line-channel-access-token"
 description = "LINE Channel Access Tokens are not allowed"
-regex = '''(?i)(?:line)[-_]?(?:channel[-_]?access[-_]?token|channel[-_]?secret)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9+/=]{43,})\b['"]?'''
+regex = '''(?i)\bline[-_](?:channel[-_]?access[-_]?token|channel[-_]?secret)[\s:=]+['"]?\b([a-zA-Z0-9+/=]{43,})\b['"]?'''
 tags = ["line", "api-token", "custom", "social"]
 
 [[rules]]
