@@ -985,7 +985,7 @@ tags = ["brevo", "sendinblue", "api-key", "custom", "saas", "marketing"]
 [[rules]]
 id = "twitter-api-key"
 description = "Twitter/X API Keys are not allowed"
-regex = '''(?i)(?:twitter|x)[-_]?(?:api[-_]?key|consumer[-_]?key|bearer[-_]?token)?[_]?[\s:=]+['"]?\b([a-zA-Z0-9]{25,})\b['"]?'''
+regex = '''(?i)\b(?:twitter|x)[-_](?:api[-_]?key|consumer[-_]?key|bearer[-_]?token)[\s:=]+['"]?\b([a-zA-Z0-9]{25,})\b['"]?'''
 tags = ["twitter", "api-key", "custom", "social"]
 
 [[rules]]
