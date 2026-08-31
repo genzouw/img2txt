@@ -981,3 +981,28 @@ id = "sendinblue-api-token"
 description = "Brevo (formerly Sendinblue) API Keys are not allowed"
 regex = '''(?i)\b(xkeysib-[a-f0-9]{64}-[a-zA-Z0-9]{16})\b'''
 tags = ["brevo", "sendinblue", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "braintree-access-token"
+description = "Braintree Access Tokens are not allowed"
+regex = '''(?i)\b(access_token\$production\$[a-zA-Z0-9]+\$[a-f0-9]{32})\b'''
+tags = ["braintree", "api-token", "custom", "saas", "payment"]
+
+[[rules]]
+id = "paypal-client-id-secret"
+description = "PayPal Client IDs and Secrets are not allowed"
+regex = '''(?i)(?:paypal)[-_]?(?:client)?[-_]?(?:id|secret|key|token)?[\s:=]+['"]?\b([A-Za-z0-9_-]{80})\b['"]?'''
+tags = ["paypal", "api-key", "custom", "saas", "payment"]
+
+[[rules]]
+# NOTE: Square Access Tokens usually start with EAAA or sq0atp-
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）に同一IDの
+# "square-access-token" ルールが既に存在する。
+# `useDefault = true` により拡張する際、同一IDのルールが存在するとこのカスタムルールは
+# 黙って無効化され、デフォルトルールにシャドーイングされてしまう
+# （実測で確認済み。mapbox-api-token-custom / typeform-api-token-custom と同じ問題）。
+# そのため、デフォルトルールと衝突しないIDを使用する。
+id = "square-access-token-custom"
+description = "Square Access Tokens are not allowed"
+regex = '''(?i)\b(sq0atp-[0-9A-Za-z\-_]{22}|EAAA[0-9A-Za-z\-_]{60})\b'''
+tags = ["square", "api-token", "custom", "saas", "payment"]
