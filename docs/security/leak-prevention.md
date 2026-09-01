@@ -306,7 +306,6 @@ pre-commit install
 3. **Square Access Token の検知**: Square の Access Token (`sq0atp-...` や `EAAA...` で始まるもの) を検知対象としました。
 4. **Stripe API Key / Webhook について**: 既存のルールにて既に Stripe の API キーおよび Webhook シークレットを強力に検知・拒否する設定が含まれているため、本PRでは引き続きそのルールが適用されます。
 
-
 ### 今回の追加対策（プロダクトアナリティクスSaaSのAPIトークン検知・マージ前手動作業）
 
 今回、プロダクトアナリティクス系SaaS（Amplitude、Mixpanel、PostHog、Segment）のAPIキーやプロジェクトトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
