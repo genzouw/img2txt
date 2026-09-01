@@ -1024,3 +1024,27 @@ id = "square-access-token-custom"
 description = "Square Access Tokens are not allowed"
 regex = '''(?i)\b(sq0atp-[0-9A-Za-z\-_]{22}|EAAA[0-9A-Za-z\-_]{60})\b'''
 tags = ["square", "api-token", "custom", "saas", "payment"]
+
+[[rules]]
+id = "amplitude-api-key"
+description = "Amplitude API Keys are not allowed"
+regex = '''(?i)\b(amplitude)[-_]?(?:api)?[-_]?(?:key|token)[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+tags = ["amplitude", "api-key", "custom", "saas", "analytics"]
+
+[[rules]]
+id = "mixpanel-project-token"
+description = "Mixpanel Project Tokens and API Secrets are not allowed"
+regex = '''(?i)\b(mixpanel)[-_]?(?:project|api)?[-_]?(?:token|secret|key)[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+tags = ["mixpanel", "api-token", "custom", "saas", "analytics"]
+
+[[rules]]
+id = "posthog-api-key"
+description = "PostHog API Keys are not allowed"
+regex = '''(?i)\b(phc_[A-Za-z0-9_-]{43})\b'''
+tags = ["posthog", "api-key", "custom", "saas", "analytics"]
+
+[[rules]]
+id = "segment-api-key"
+description = "Segment Write Keys / Public API Keys are not allowed"
+regex = '''(?i)\b(segment)[-_]?(?:public|write|api)?[-_]?(?:key|token)[\s:=]+['"]?\b([A-Za-z0-9]{32})\b['"]?'''
+tags = ["segment", "api-key", "custom", "saas", "analytics"]
