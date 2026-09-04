@@ -1064,7 +1064,7 @@ tags = ["braze", "api-key", "custom", "saas", "marketing"]
 [[rules]]
 id = "klaviyo-api-key"
 description = "Klaviyo Private API Keys are not allowed"
-regex = '''(?i)\b(pk_[a-zA-Z0-9]{34})\b'''
+regex = '''(?i)(?:klaviyo)[-_]?(?:private|api)?[-_]?(?:key|token)[\s:=]+['"]?\b(pk_[a-zA-Z0-9]{34})\b['"]?'''
 tags = ["klaviyo", "api-key", "custom", "saas", "marketing"]
 
 [[rules]]
