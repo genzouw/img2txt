@@ -1048,3 +1048,27 @@ id = "segment-api-key"
 description = "Segment Write Keys / Public API Keys are not allowed"
 regex = '''(?i)\b(segment)[-_]?(?:public|write|api)?[-_]?(?:key|token)[\s:=]+['"]?\b([A-Za-z0-9]{32})\b['"]?'''
 tags = ["segment", "api-key", "custom", "saas", "analytics"]
+
+[[rules]]
+id = "onesignal-api-key"
+description = "OneSignal API, REST, and App Keys are not allowed"
+regex = '''(?i)(?:onesignal)[-_]?(?:api|rest|app|user|auth)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9_-]{40,60})\b['"]?'''
+tags = ["onesignal", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "braze-api-key"
+description = "Braze API and REST Keys are not allowed"
+regex = '''(?i)(?:braze)[-_]?(?:api|rest)?[-_]?(?:token|key)[\s:=]+['"]?\b([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\b['"]?'''
+tags = ["braze", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "klaviyo-api-key"
+description = "Klaviyo Private API Keys are not allowed"
+regex = '''(?i)\b(pk_[a-zA-Z0-9]{34})\b'''
+tags = ["klaviyo", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "customerio-api-key"
+description = "Customer.io API, App, and Tracking Keys are not allowed"
+regex = '''(?i)(?:customer\.?io)[-_]?(?:app|api|site|tracking)?[-_]?(?:token|key|id)[\s:=]+['"]?\b([a-zA-Z0-9]{32,40})\b['"]?'''
+tags = ["customerio", "api-key", "custom", "saas", "marketing"]

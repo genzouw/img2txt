@@ -26,6 +26,18 @@
      - actionlint / zizmor: GitHub Actions ワークフロー自体の定期 lint や、ワークフローのセキュリティ脆弱性パターンの定期監視（不適切なインジェクションや過剰な権限設定の検知）。
      - osv-scanner: ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査。
 
+
+### 今回の追加対策（カスタマーエンゲージメントSaaSのAPIトークン検知・マージ前手動作業）
+
+今回、カスタマーエンゲージメントおよびマーケティングオートメーション系SaaS（Braze、Klaviyo、Customer.io、OneSignal）のAPIキーやシークレットトークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Braze API Key の検知**: Braze の REST API キー（UUID形式）を検知対象としました。
+2. **Klaviyo Private API Key の検知**: Klaviyo の Private API キー（`pk_` から始まる34文字）を検知対象としました。
+3. **Customer.io API Key の検知**: Customer.io の App/Tracking/Site API キー（32文字以上の英数字）を検知対象としました。
+4. **OneSignal API Key の検知**: OneSignal の REST API キーおよび App Auth キーを検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
 ## その他の推奨対策
 
 GitHub リポジトリの設定から、**GitHub Secret Scanning** および **Push Protection** を有効にすることを強く推奨します。これにより、ローカルの検知をすり抜けたシークレットがプッシュされるのを防ぐ二重の防御となります。
