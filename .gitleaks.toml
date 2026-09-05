@@ -1072,3 +1072,41 @@ id = "customerio-api-key"
 description = "Customer.io API, App, and Tracking Keys are not allowed"
 regex = '''(?i)(?:customer\.?io)[-_]?(?:app|api|site|tracking)?[-_]?(?:token|key|id)[\s:=]+['"]?\b([a-zA-Z0-9]{32,40})\b['"]?'''
 tags = ["customerio", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+# NOTE: gitleaks の組み込みデフォルトルール（config/gitleaks.toml）に同一IDの
+# "fastly-api-token" ルールが既に存在する。
+# `useDefault = true` により拡張する際、同一IDのルールが存在するとこのカスタムルールは
+# 黙って無効化され、デフォルトルールにシャドーイングされてしまう
+# （実測で確認済み。square-access-token-custom / mapbox-api-token-custom /
+# typeform-api-token-custom と同じ問題）。
+# そのため、デフォルトルールと衝突しないIDを使用し、両方のルールを併用する。
+id = "fastly-api-token-custom"
+description = "Fastly Personal Access Tokens and API Tokens are not allowed"
+regex = '''(?i)(?:fastly)[-_]?(?:api|token|key|pat)?[\s:=]+['"]?\b([a-zA-Z0-9_-]{32})\b['"]?'''
+tags = ["fastly", "api-token", "custom", "saas", "cdn"]
+
+[[rules]]
+# NOTE: Buildkite公式の環境変数は BUILDKITE_API_TOKEN / BUILDKITE_AGENT_TOKEN のように
+# キーワードがアンダースコアで複数連結される形式のため、キーワード部分は
+# api・agent・token・key の任意の組み合わせを許容する。
+id = "buildkite-api-token"
+description = "Buildkite API Access Tokens are not allowed"
+regex = '''(?i)(?:buildkite)[-_]?(?:api|agent)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+tags = ["buildkite", "api-token", "custom", "saas", "ci-cd"]
+
+[[rules]]
+# NOTE: LaunchDarklyのAPIアクセストークンは "api-" に続けてUUID形式
+# （8-4-4-4-12のハイフン区切り）を取るため、ハイフンを許容する形式にする。
+# また LAUNCHDARKLY_API_KEY のようにキーワードが複数連結される環境変数名にも
+# マッチするよう、キーワード部分を2箇所まで許容する（buildkite-api-tokenと同様の対応）。
+id = "launchdarkly-api-key"
+description = "LaunchDarkly API Keys and Access Tokens are not allowed"
+regex = '''(?i)(?:launchdarkly|ld)[-_]?(?:api)?[-_]?(?:token|key)?[\s:=]+['"]?\b(api-[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})\b['"]?'''
+tags = ["launchdarkly", "api-key", "custom", "saas", "feature-flag"]
+
+[[rules]]
+id = "pusher-api-key"
+description = "Pusher API Keys, App IDs, and Secrets are not allowed"
+regex = '''(?i)(?:pusher)[-_]?(?:api|token|key|secret)?[\s:=]+['"]?\b([a-zA-Z0-9]{20,})\b['"]?'''
+tags = ["pusher", "api-key", "custom", "saas", "realtime"]

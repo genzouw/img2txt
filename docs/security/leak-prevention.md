@@ -327,3 +327,14 @@ pre-commit install
 4. **Segment Write Key の検知**: Segment の Write Key（32文字の英数字）を検知対象としました。
 
 レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
+
+### 今回の追加対策（CDN・CI/CD・Feature Flag等のトークン検知・マージ前手動作業）
+
+今回、インフラストラクチャや開発運用を支える主要なツール（Fastly、Buildkite、LaunchDarkly、Pusher）の API トークンが意図せず公開リポジトリへコミット・プッシュされることを防ぐため、`.gitleaks.toml` へカスタムルールを新たに追加し、コミット前検知の水際対策をさらに強化しました。
+
+1. **Fastly API Token の検知**: Fastly の Personal Access Token および API トークン（32文字の英数字）を検知対象としました。
+2. **Buildkite API Access Token の検知**: Buildkite の API Access Token（40文字の英数字）を検知対象としました。
+3. **LaunchDarkly API Key の検知**: LaunchDarkly の API キーおよびアクセストークン（`api-` で始まるもの）を検知対象としました。
+4. **Pusher API Key の検知**: Pusher の API キー、App ID、および Secret を検知対象としました。
+
+レビュアーは本 PR をマージする前に、各開発者のローカル環境にて `pre-commit install` が実施済みであることを周知してください。
