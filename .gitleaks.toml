@@ -1087,9 +1087,12 @@ regex = '''(?i)(?:fastly)[-_]?(?:api|token|key|pat)?[\s:=]+['"]?\b([a-zA-Z0-9_-]
 tags = ["fastly", "api-token", "custom", "saas", "cdn"]
 
 [[rules]]
+# NOTE: Buildkite公式の環境変数は BUILDKITE_API_TOKEN / BUILDKITE_AGENT_TOKEN のように
+# キーワードがアンダースコアで複数連結される形式のため、キーワード部分は
+# api・agent・token・key の任意の組み合わせを許容する。
 id = "buildkite-api-token"
 description = "Buildkite API Access Tokens are not allowed"
-regex = '''(?i)(?:buildkite)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+regex = '''(?i)(?:buildkite)[-_]?(?:api|agent)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
 tags = ["buildkite", "api-token", "custom", "saas", "ci-cd"]
 
 [[rules]]
