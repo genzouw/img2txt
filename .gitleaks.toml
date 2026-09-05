@@ -1072,3 +1072,27 @@ id = "customerio-api-key"
 description = "Customer.io API, App, and Tracking Keys are not allowed"
 regex = '''(?i)(?:customer\.?io)[-_]?(?:app|api|site|tracking)?[-_]?(?:token|key|id)[\s:=]+['"]?\b([a-zA-Z0-9]{32,40})\b['"]?'''
 tags = ["customerio", "api-key", "custom", "saas", "marketing"]
+
+[[rules]]
+id = "fastly-api-token"
+description = "Fastly Personal Access Tokens and API Tokens are not allowed"
+regex = '''(?i)(?:fastly)[-_]?(?:api|token|key|pat)?[\s:=]+['"]?\b([a-zA-Z0-9_-]{32})\b['"]?'''
+tags = ["fastly", "api-token", "custom", "saas", "cdn"]
+
+[[rules]]
+id = "buildkite-api-token"
+description = "Buildkite API Access Tokens are not allowed"
+regex = '''(?i)(?:buildkite)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+tags = ["buildkite", "api-token", "custom", "saas", "ci-cd"]
+
+[[rules]]
+id = "launchdarkly-api-key"
+description = "LaunchDarkly API Keys and Access Tokens are not allowed"
+regex = '''(?i)(?:launchdarkly|ld)[-_]?(?:api|token|key)?[\s:=]+['"]?\b(api-[a-zA-Z0-9]{36})\b['"]?'''
+tags = ["launchdarkly", "api-key", "custom", "saas", "feature-flag"]
+
+[[rules]]
+id = "pusher-api-key"
+description = "Pusher API Keys, App IDs, and Secrets are not allowed"
+regex = '''(?i)(?:pusher)[-_]?(?:api|token|key|secret)?[\s:=]+['"]?\b([a-zA-Z0-9]{20,})\b['"]?'''
+tags = ["pusher", "api-key", "custom", "saas", "realtime"]
