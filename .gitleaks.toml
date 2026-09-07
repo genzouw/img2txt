@@ -119,6 +119,17 @@ paths = [
 ]
 
 [[rules]]
+id = "unpublished-backend-url"
+description = "Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed"
+regex = '''(?i)(https?://[a-zA-Z0-9-]+\.(?:ngrok\.io|ngrok-free\.app|loca\.lt|serveo\.net|localtonet\.com|localhost\.run))'''
+tags = ["network", "unpublished-backend", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
+
+[[rules]]
 id = "internal-ip"
 description = "Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed"
 regex = '''\b(10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3})\b'''
