@@ -34,7 +34,7 @@
 
 `[extend] useDefault = true` により、gitleaks 標準ルールも併用されます。本表はそこに上乗せしている独自ルールのみを扱います。
 
-### インフラ・クラウド識別子 / 接続情報（28 件）
+### インフラ・クラウド識別子 / 接続情報（29 件）
 
 | ルール ID | 検知対象 |
 | :--- | :--- |
@@ -66,6 +66,7 @@
 | `saas-backend-url` | Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed |
 | `tailscale-auth-key` | Tailscale Auth Keys are not allowed |
 | `terraform-cloud-api-token` | Terraform Cloud API Tokens are not allowed |
+| `unpublished-backend-url` | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed |
 
 ### PII（個人情報）（3 件）
 
