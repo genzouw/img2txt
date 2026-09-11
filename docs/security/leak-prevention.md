@@ -23,7 +23,7 @@
 1. **定期監査（スケジュール実行）**:
    - ツール: `.github/workflows/pre-commit.yml`, `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml`, `.github/workflows/zizmor.yml` 内の `schedule` トリガー
    - 目的: 定期的にリポジトリ全体（過去の履歴も含む）を再スキャンし、セキュリティリスクを継続的に監視します。
-     - pre-commit / Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。特に pre-commit ワークフローのスケジュール実行により、リポジトリの最新状態に対する各種フックによる漏洩チェックが定期的に自動実行されます。
+     - pre-commit / Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。特に pre-commit ワークフローのスケジュール実行により、リポジトリの最新状態に対する各種フックによる漏洩チェックが定期的に自動実行されます。TruffleHog は `schedule` トリガー実行時のみ `--only-verified` を外し、検証非対応のシークレットも含めて検知対象とすることで、CI 検知（push/pull_request）よりも広範囲の監査を行います。
      - Dependabot: 日次スケジュール（Daily）とグループ化機能による、依存パッケージの定期的な棚卸しと更新。
      - actionlint / zizmor: GitHub Actions ワークフロー自体の定期 lint や、ワークフローのセキュリティ脆弱性パターンの定期監視（不適切なインジェクションや過剰な権限設定の検知）。
      - osv-scanner: ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査。
@@ -36,186 +36,186 @@
 
 ### インフラ・クラウド識別子 / 接続情報（29 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `aws-internal-endpoint` | Hardcoded AWS internal endpoints (e.g. \*.rds.amazonaws.com, \*.cache.amazonaws.com) are not allowed |
-| `aws-resource-arn` | Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed |
-| `cloud-run-url` | Hardcoded Cloud Run URLs (\*.run.app) are not allowed |
-| `cloudflare-pages-url` | Hardcoded Cloudflare Pages URLs (\*.pages.dev) are not allowed |
-| `digitalocean-pat` | DigitalOcean Personal Access Tokens are not allowed |
-| `gcp-app-engine-url` | Hardcoded GCP App Engine URLs (\*.appspot.com) are not allowed |
-| `gcp-cloud-functions-url` | Hardcoded GCP Cloud Functions URLs (\*.cloudfunctions.net) are not allowed |
-| `gcp-cloud-sql-unix-socket` | Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed |
-| `gcp-oauth-client-secret` | GCP OAuth Client Secrets are not allowed |
-| `gcp-project-id` | Hardcoded GCP Project ID (toique-app-\*) is not allowed |
-| `gcp-project-number` | Hardcoded GCP Project Numbers (12 digits) are not allowed |
-| `gcp-secret-manager` | Hardcoded GCP Secret Manager resource paths are not allowed |
-| `gcp-service-account` | GCP Service Account emails are not allowed |
-| `gcp-service-account-key-json` | GCP Service Account Key JSON files are not allowed, regardless of filename |
-| `gcp-storage-url` | Hardcoded GCS Bucket URLs (storage.googleapis.com/\*) are not allowed |
-| `gcp-workload-identity` | Hardcoded GCP Workload Identity Federation provider strings are not allowed |
-| `generic-private-key-content` | Private keys are not allowed (detects content, overriding filename obfuscation) |
-| `generic-uri-credentials` | Hardcoded credentials in generic URIs (ftp, amqp, etc.) are not allowed |
-| `hardcoded-connection-string` | Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed |
-| `hashicorp-vault-token` | HashiCorp Vault Tokens are not allowed |
-| `http-basic-auth` | HTTP/HTTPS URLs with embedded basic auth credentials are not allowed |
-| `internal-domain` | Internal domain names (\*.internal, \*.corp, \*.local) are not allowed to prevent infrastructure exposure |
-| `internal-ip` | Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed |
-| `jwt-token` | Generic JWT Tokens are not allowed |
-| `neon-postgres-endpoint` | Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed |
-| `saas-backend-url` | Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed |
-| `tailscale-auth-key` | Tailscale Auth Keys are not allowed |
-| `terraform-cloud-api-token` | Terraform Cloud API Tokens are not allowed |
-| `unpublished-backend-url` | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed |
+| ルール ID                      | 検知対象                                                                                                  |
+| :----------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| `aws-internal-endpoint`        | Hardcoded AWS internal endpoints (e.g. \*.rds.amazonaws.com, \*.cache.amazonaws.com) are not allowed      |
+| `aws-resource-arn`             | Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed                               |
+| `cloud-run-url`                | Hardcoded Cloud Run URLs (\*.run.app) are not allowed                                                     |
+| `cloudflare-pages-url`         | Hardcoded Cloudflare Pages URLs (\*.pages.dev) are not allowed                                            |
+| `digitalocean-pat`             | DigitalOcean Personal Access Tokens are not allowed                                                       |
+| `gcp-app-engine-url`           | Hardcoded GCP App Engine URLs (\*.appspot.com) are not allowed                                            |
+| `gcp-cloud-functions-url`      | Hardcoded GCP Cloud Functions URLs (\*.cloudfunctions.net) are not allowed                                |
+| `gcp-cloud-sql-unix-socket`    | Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed                                     |
+| `gcp-oauth-client-secret`      | GCP OAuth Client Secrets are not allowed                                                                  |
+| `gcp-project-id`               | Hardcoded GCP Project ID (toique-app-\*) is not allowed                                                   |
+| `gcp-project-number`           | Hardcoded GCP Project Numbers (12 digits) are not allowed                                                 |
+| `gcp-secret-manager`           | Hardcoded GCP Secret Manager resource paths are not allowed                                               |
+| `gcp-service-account`          | GCP Service Account emails are not allowed                                                                |
+| `gcp-service-account-key-json` | GCP Service Account Key JSON files are not allowed, regardless of filename                                |
+| `gcp-storage-url`              | Hardcoded GCS Bucket URLs (storage.googleapis.com/\*) are not allowed                                     |
+| `gcp-workload-identity`        | Hardcoded GCP Workload Identity Federation provider strings are not allowed                               |
+| `generic-private-key-content`  | Private keys are not allowed (detects content, overriding filename obfuscation)                           |
+| `generic-uri-credentials`      | Hardcoded credentials in generic URIs (ftp, amqp, etc.) are not allowed                                   |
+| `hardcoded-connection-string`  | Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed              |
+| `hashicorp-vault-token`        | HashiCorp Vault Tokens are not allowed                                                                    |
+| `http-basic-auth`              | HTTP/HTTPS URLs with embedded basic auth credentials are not allowed                                      |
+| `internal-domain`              | Internal domain names (\*.internal, \*.corp, \*.local) are not allowed to prevent infrastructure exposure |
+| `internal-ip`                  | Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed                            |
+| `jwt-token`                    | Generic JWT Tokens are not allowed                                                                        |
+| `neon-postgres-endpoint`       | Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed                 |
+| `saas-backend-url`             | Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed                         |
+| `tailscale-auth-key`           | Tailscale Auth Keys are not allowed                                                                       |
+| `terraform-cloud-api-token`    | Terraform Cloud API Tokens are not allowed                                                                |
+| `unpublished-backend-url`      | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed  |
 
 ### PII（個人情報）（3 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `pii-credit-card` | Credit Card Numbers (PII) are not allowed |
-| `pii-email` | Real email addresses (PII) are not allowed. Use @example.com/org for dummies. |
-| `pii-japanese-phone` | Japanese phone numbers (PII) are not allowed |
+| ルール ID            | 検知対象                                                                      |
+| :------------------- | :---------------------------------------------------------------------------- |
+| `pii-credit-card`    | Credit Card Numbers (PII) are not allowed                                     |
+| `pii-email`          | Real email addresses (PII) are not allowed. Use @example.com/org for dummies. |
+| `pii-japanese-phone` | Japanese phone numbers (PII) are not allowed                                  |
 
 ### AI / LLM プロバイダのキー（15 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `anthropic-api-key` | Anthropic API Keys are not allowed (AI Agent protection) |
-| `cohere-api-key` | Cohere API Keys are not allowed (AI Agent protection) |
-| `deepseek-api-key` | DeepSeek API Keys are not allowed (AI Agent protection) |
-| `gemini-api-key` | Gemini API Keys are not allowed (AI Agent protection) |
-| `groq-api-key` | Groq API Keys are not allowed (AI Agent protection) |
-| `huggingface-token` | HuggingFace Access Tokens are not allowed (AI Agent protection) |
-| `langsmith-api-key` | LangSmith API Keys are not allowed (AI Agent protection) |
-| `mistral-api-key` | Mistral API Keys are not allowed (AI Agent protection) |
-| `openai-api-key-strict` | OpenAI API Keys are not allowed (AI Agent protection) |
-| `perplexity-api-key` | Perplexity AI API Keys are not allowed (AI Agent protection) |
-| `pinecone-api-key` | Pinecone API Keys are not allowed (AI Agent protection) |
-| `replicate-api-token` | Replicate API Tokens are not allowed (AI Agent protection) |
-| `tavily-api-key` | Tavily API Keys are not allowed (AI Agent protection) |
-| `together-api-key` | Together AI API Keys are not allowed (AI Agent protection) |
-| `wandb-api-key` | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
+| ルール ID               | 検知対象                                                                |
+| :---------------------- | :---------------------------------------------------------------------- |
+| `anthropic-api-key`     | Anthropic API Keys are not allowed (AI Agent protection)                |
+| `cohere-api-key`        | Cohere API Keys are not allowed (AI Agent protection)                   |
+| `deepseek-api-key`      | DeepSeek API Keys are not allowed (AI Agent protection)                 |
+| `gemini-api-key`        | Gemini API Keys are not allowed (AI Agent protection)                   |
+| `groq-api-key`          | Groq API Keys are not allowed (AI Agent protection)                     |
+| `huggingface-token`     | HuggingFace Access Tokens are not allowed (AI Agent protection)         |
+| `langsmith-api-key`     | LangSmith API Keys are not allowed (AI Agent protection)                |
+| `mistral-api-key`       | Mistral API Keys are not allowed (AI Agent protection)                  |
+| `openai-api-key-strict` | OpenAI API Keys are not allowed (AI Agent protection)                   |
+| `perplexity-api-key`    | Perplexity AI API Keys are not allowed (AI Agent protection)            |
+| `pinecone-api-key`      | Pinecone API Keys are not allowed (AI Agent protection)                 |
+| `replicate-api-token`   | Replicate API Tokens are not allowed (AI Agent protection)              |
+| `tavily-api-key`        | Tavily API Keys are not allowed (AI Agent protection)                   |
+| `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
+| `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
 ### SaaS・開発ツールの API キー / トークン（86 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `algolia-api-key` | Algolia API Keys are not allowed |
-| `amplitude-api-key` | Amplitude API Keys are not allowed |
-| `asana-personal-access-token` | Asana Personal Access Tokens are not allowed |
-| `atlassian-api-token` | Atlassian API Tokens (Jira, Confluence) are not allowed |
-| `auth0-management-api-token` | Auth0 Management API Tokens are not allowed |
-| `bitbucket-client-id` | Discovered a potential Bitbucket Client ID, risking unauthorized repository access and potential codebase exposure. |
-| `bitbucket-client-secret` | Discovered a potential Bitbucket Client Secret, posing a risk of compromised code repositories and unauthorized access. |
-| `box-developer-token` | Box Developer and API Tokens are not allowed |
-| `braintree-access-token` | Braintree Access Tokens are not allowed |
-| `braze-api-key` | Braze API and REST Keys are not allowed |
-| `buildkite-api-token` | Buildkite API Access Tokens are not allowed |
-| `circleci-api-token` | CircleCI API Tokens are not allowed |
-| `clerk-secret-key` | Clerk Secret Keys are not allowed |
-| `cloudflare-api-key` | Cloudflare API Keys and Tokens are strictly not allowed |
-| `cloudinary-api-url` | Cloudinary API URLs (including key/secret) are not allowed |
-| `codecov-api-token` | Codecov API Tokens are not allowed |
-| `contentful-delivery-api-token` | Discovered a Contentful delivery API token, posing a risk to content management systems and data integrity. |
-| `customerio-api-key` | Customer.io API, App, and Tracking Keys are not allowed |
-| `databricks-api-token` | Databricks Personal Access Tokens are not allowed |
-| `datadog-access-token` | Datadog Access Tokens and API Keys are not allowed |
-| `discord-bot-token` | Discord Bot tokens are not allowed |
-| `discord-webhook` | Discord Webhook URLs are not allowed |
-| `docker-hub-pat` | Docker Hub Personal Access Tokens are not allowed |
-| `doppler-api-token` | Doppler API Tokens are not allowed |
-| `dropbox-api-token` | Dropbox API and Access Tokens are not allowed |
-| `facebook-access-token` | Facebook/Meta Access Tokens are not allowed |
-| `fastly-api-token-custom` | Fastly Personal Access Tokens and API Tokens are not allowed |
-| `figma-pat` | Figma Personal Access Tokens are not allowed |
-| `fly-io-api-token` | Fly.io API Tokens are not allowed |
-| `github-pat-strict` | GitHub Personal Access Tokens are strictly not allowed |
-| `github-runner-token` | GitHub Actions Runner Tokens are not allowed |
-| `gitlab-pat` | GitLab Personal Access Tokens are not allowed |
-| `grafana-api-token` | Grafana API Tokens are not allowed |
-| `heroku-api-key` | Heroku API Keys are not allowed |
-| `hubspot-api-token` | HubSpot API Tokens are not allowed |
-| `klaviyo-api-key` | Klaviyo Private API Keys are not allowed |
-| `launchdarkly-api-key` | LaunchDarkly API Keys and Access Tokens are not allowed |
-| `line-channel-access-token` | LINE Channel Access Tokens are not allowed |
-| `linear-api-key` | Linear API keys are not allowed |
-| `mailchimp-api-key` | Mailchimp API Keys are not allowed |
-| `mailgun-api-key` | Mailgun API Keys are not allowed |
-| `mapbox-api-token-custom` | Mapbox API tokens are not allowed |
-| `mixpanel-project-token` | Mixpanel Project Tokens and API Secrets are not allowed |
-| `msteams-webhook` | Microsoft Teams Webhook URLs are not allowed |
-| `newrelic-api-key` | New Relic API Keys and License Keys are not allowed |
-| `ngrok-auth-token` | Ngrok Auth Tokens are not allowed |
-| `notion-api-key` | Notion API keys are not allowed |
-| `npm-access-token` | NPM access tokens are not allowed |
-| `okta-api-token` | Okta API Tokens are not allowed |
-| `onesignal-api-key` | OneSignal API, REST, and App Keys are not allowed |
-| `pagerduty-api-key` | PagerDuty API Keys are not allowed |
-| `paypal-client-id-secret` | PayPal Client IDs and Secrets are not allowed |
-| `planetscale-password` | PlanetScale passwords or tokens are not allowed |
-| `posthog-api-key` | PostHog API Keys are not allowed |
-| `postman-api-key` | Postman API Keys are not allowed |
-| `pulumi-access-token` | Pulumi Access Tokens are not allowed |
-| `pusher-api-key` | Pusher API Keys, App IDs, and Secrets are not allowed |
-| `pypi-api-token` | PyPI API tokens are not allowed |
-| `render-api-key` | Render API Keys are not allowed |
-| `resend-api-key` | Resend API keys are strictly not allowed |
-| `resend-api-key-strict` | Resend API keys (strict detection) are strictly not allowed |
-| `segment-api-key` | Segment Write Keys / Public API Keys are not allowed |
-| `sendgrid-api-key` | SendGrid API keys are not allowed |
-| `sendinblue-api-token` | Brevo (formerly Sendinblue) API Keys are not allowed |
-| `sentry-auth-token` | Sentry Auth Tokens are not allowed |
-| `shopify-api-token` | Shopify API Tokens are not allowed |
-| `slack-api-token` | Slack API tokens (xoxb, xoxp, xapp) are not allowed |
-| `slack-webhook` | Slack Webhook URLs are not allowed |
-| `snowflake-account-password` | Snowflake credentials or tokens are not allowed |
-| `snyk-api-token` | Uncovered a Snyk API token, potentially compromising software vulnerability scanning and code security. |
-| `sonar-api-token` | Uncovered a Sonar API token, potentially compromising software vulnerability scanning and code security. |
-| `square-access-token-custom` | Square Access Tokens are not allowed |
-| `stripe-api-key` | Stripe API keys (Secret and Restricted) are strictly not allowed |
-| `stripe-webhook-secret` | Stripe Webhook Secrets are strictly not allowed |
-| `supabase-api-key` | Supabase API keys (JWT tokens) are not allowed |
-| `telegram-bot-token` | Telegram Bot tokens are not allowed |
-| `travisci-access-token` | Identified a Travis CI Access Token, potentially compromising continuous integration services and codebase security. |
-| `trello-api-key` | Trello API Keys are not allowed |
-| `trello-api-token` | Trello API Tokens are not allowed |
-| `twilio-api-key` | Twilio API Keys are not allowed |
-| `twitter-api-key` | Twitter/X API Keys are not allowed |
-| `typeform-api-token-custom` | Typeform API tokens (Personal Access Tokens) are not allowed |
-| `upstash-api-token` | Upstash API tokens are not allowed |
-| `vercel-access-token` | Vercel Access Tokens are not allowed |
-| `zendesk-api-token` | Zendesk API Tokens are not allowed |
-| `zoom-api-token` | Zoom API Keys, Secrets, and OAuth Tokens are not allowed |
+| ルール ID                       | 検知対象                                                                                                                |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
+| `algolia-api-key`               | Algolia API Keys are not allowed                                                                                        |
+| `amplitude-api-key`             | Amplitude API Keys are not allowed                                                                                      |
+| `asana-personal-access-token`   | Asana Personal Access Tokens are not allowed                                                                            |
+| `atlassian-api-token`           | Atlassian API Tokens (Jira, Confluence) are not allowed                                                                 |
+| `auth0-management-api-token`    | Auth0 Management API Tokens are not allowed                                                                             |
+| `bitbucket-client-id`           | Discovered a potential Bitbucket Client ID, risking unauthorized repository access and potential codebase exposure.     |
+| `bitbucket-client-secret`       | Discovered a potential Bitbucket Client Secret, posing a risk of compromised code repositories and unauthorized access. |
+| `box-developer-token`           | Box Developer and API Tokens are not allowed                                                                            |
+| `braintree-access-token`        | Braintree Access Tokens are not allowed                                                                                 |
+| `braze-api-key`                 | Braze API and REST Keys are not allowed                                                                                 |
+| `buildkite-api-token`           | Buildkite API Access Tokens are not allowed                                                                             |
+| `circleci-api-token`            | CircleCI API Tokens are not allowed                                                                                     |
+| `clerk-secret-key`              | Clerk Secret Keys are not allowed                                                                                       |
+| `cloudflare-api-key`            | Cloudflare API Keys and Tokens are strictly not allowed                                                                 |
+| `cloudinary-api-url`            | Cloudinary API URLs (including key/secret) are not allowed                                                              |
+| `codecov-api-token`             | Codecov API Tokens are not allowed                                                                                      |
+| `contentful-delivery-api-token` | Discovered a Contentful delivery API token, posing a risk to content management systems and data integrity.             |
+| `customerio-api-key`            | Customer.io API, App, and Tracking Keys are not allowed                                                                 |
+| `databricks-api-token`          | Databricks Personal Access Tokens are not allowed                                                                       |
+| `datadog-access-token`          | Datadog Access Tokens and API Keys are not allowed                                                                      |
+| `discord-bot-token`             | Discord Bot tokens are not allowed                                                                                      |
+| `discord-webhook`               | Discord Webhook URLs are not allowed                                                                                    |
+| `docker-hub-pat`                | Docker Hub Personal Access Tokens are not allowed                                                                       |
+| `doppler-api-token`             | Doppler API Tokens are not allowed                                                                                      |
+| `dropbox-api-token`             | Dropbox API and Access Tokens are not allowed                                                                           |
+| `facebook-access-token`         | Facebook/Meta Access Tokens are not allowed                                                                             |
+| `fastly-api-token-custom`       | Fastly Personal Access Tokens and API Tokens are not allowed                                                            |
+| `figma-pat`                     | Figma Personal Access Tokens are not allowed                                                                            |
+| `fly-io-api-token`              | Fly.io API Tokens are not allowed                                                                                       |
+| `github-pat-strict`             | GitHub Personal Access Tokens are strictly not allowed                                                                  |
+| `github-runner-token`           | GitHub Actions Runner Tokens are not allowed                                                                            |
+| `gitlab-pat`                    | GitLab Personal Access Tokens are not allowed                                                                           |
+| `grafana-api-token`             | Grafana API Tokens are not allowed                                                                                      |
+| `heroku-api-key`                | Heroku API Keys are not allowed                                                                                         |
+| `hubspot-api-token`             | HubSpot API Tokens are not allowed                                                                                      |
+| `klaviyo-api-key`               | Klaviyo Private API Keys are not allowed                                                                                |
+| `launchdarkly-api-key`          | LaunchDarkly API Keys and Access Tokens are not allowed                                                                 |
+| `line-channel-access-token`     | LINE Channel Access Tokens are not allowed                                                                              |
+| `linear-api-key`                | Linear API keys are not allowed                                                                                         |
+| `mailchimp-api-key`             | Mailchimp API Keys are not allowed                                                                                      |
+| `mailgun-api-key`               | Mailgun API Keys are not allowed                                                                                        |
+| `mapbox-api-token-custom`       | Mapbox API tokens are not allowed                                                                                       |
+| `mixpanel-project-token`        | Mixpanel Project Tokens and API Secrets are not allowed                                                                 |
+| `msteams-webhook`               | Microsoft Teams Webhook URLs are not allowed                                                                            |
+| `newrelic-api-key`              | New Relic API Keys and License Keys are not allowed                                                                     |
+| `ngrok-auth-token`              | Ngrok Auth Tokens are not allowed                                                                                       |
+| `notion-api-key`                | Notion API keys are not allowed                                                                                         |
+| `npm-access-token`              | NPM access tokens are not allowed                                                                                       |
+| `okta-api-token`                | Okta API Tokens are not allowed                                                                                         |
+| `onesignal-api-key`             | OneSignal API, REST, and App Keys are not allowed                                                                       |
+| `pagerduty-api-key`             | PagerDuty API Keys are not allowed                                                                                      |
+| `paypal-client-id-secret`       | PayPal Client IDs and Secrets are not allowed                                                                           |
+| `planetscale-password`          | PlanetScale passwords or tokens are not allowed                                                                         |
+| `posthog-api-key`               | PostHog API Keys are not allowed                                                                                        |
+| `postman-api-key`               | Postman API Keys are not allowed                                                                                        |
+| `pulumi-access-token`           | Pulumi Access Tokens are not allowed                                                                                    |
+| `pusher-api-key`                | Pusher API Keys, App IDs, and Secrets are not allowed                                                                   |
+| `pypi-api-token`                | PyPI API tokens are not allowed                                                                                         |
+| `render-api-key`                | Render API Keys are not allowed                                                                                         |
+| `resend-api-key`                | Resend API keys are strictly not allowed                                                                                |
+| `resend-api-key-strict`         | Resend API keys (strict detection) are strictly not allowed                                                             |
+| `segment-api-key`               | Segment Write Keys / Public API Keys are not allowed                                                                    |
+| `sendgrid-api-key`              | SendGrid API keys are not allowed                                                                                       |
+| `sendinblue-api-token`          | Brevo (formerly Sendinblue) API Keys are not allowed                                                                    |
+| `sentry-auth-token`             | Sentry Auth Tokens are not allowed                                                                                      |
+| `shopify-api-token`             | Shopify API Tokens are not allowed                                                                                      |
+| `slack-api-token`               | Slack API tokens (xoxb, xoxp, xapp) are not allowed                                                                     |
+| `slack-webhook`                 | Slack Webhook URLs are not allowed                                                                                      |
+| `snowflake-account-password`    | Snowflake credentials or tokens are not allowed                                                                         |
+| `snyk-api-token`                | Uncovered a Snyk API token, potentially compromising software vulnerability scanning and code security.                 |
+| `sonar-api-token`               | Uncovered a Sonar API token, potentially compromising software vulnerability scanning and code security.                |
+| `square-access-token-custom`    | Square Access Tokens are not allowed                                                                                    |
+| `stripe-api-key`                | Stripe API keys (Secret and Restricted) are strictly not allowed                                                        |
+| `stripe-webhook-secret`         | Stripe Webhook Secrets are strictly not allowed                                                                         |
+| `supabase-api-key`              | Supabase API keys (JWT tokens) are not allowed                                                                          |
+| `telegram-bot-token`            | Telegram Bot tokens are not allowed                                                                                     |
+| `travisci-access-token`         | Identified a Travis CI Access Token, potentially compromising continuous integration services and codebase security.    |
+| `trello-api-key`                | Trello API Keys are not allowed                                                                                         |
+| `trello-api-token`              | Trello API Tokens are not allowed                                                                                       |
+| `twilio-api-key`                | Twilio API Keys are not allowed                                                                                         |
+| `twitter-api-key`               | Twitter/X API Keys are not allowed                                                                                      |
+| `typeform-api-token-custom`     | Typeform API tokens (Personal Access Tokens) are not allowed                                                            |
+| `upstash-api-token`             | Upstash API tokens are not allowed                                                                                      |
+| `vercel-access-token`           | Vercel Access Tokens are not allowed                                                                                    |
+| `zendesk-api-token`             | Zendesk API Tokens are not allowed                                                                                      |
+| `zoom-api-token`                | Zoom API Keys, Secrets, and OAuth Tokens are not allowed                                                                |
 
 ### 秘匿ファイルそのもののコミット（パスベース検知）（18 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `forbidden-file-ai-agent` | Detects AI agent workspace directories |
-| `forbidden-file-ai-agent-logs` | Detects AI agent chat logs and MCP settings files (no allowlist: must be blocked even under .cursor/rules/) |
-| `forbidden-file-api-client` | Detects API client export files (Postman, Insomnia) which should not be committed |
-| `forbidden-file-api-client-modern` | Detects modern API client workspaces (Thunder Client, Bruno) which should not be committed |
-| `forbidden-file-cloud-config` | Detects cloud and tool auth configs which should not be committed |
-| `forbidden-file-credentials` | Detects credentials files |
-| `forbidden-file-database-dump` | Detects database dumps, local SQLite DBs, and log files which should not be committed as they often contain PII or secrets |
-| `forbidden-file-env` | Detects .env files which should not be committed |
-| `forbidden-file-env-local` | Detects local environment variable files (e.g., .env.local, .env.development.local, .env.test.local) specifically to prevent AI agent sample leaks |
-| `forbidden-file-ide-history` | Detects IDE workspaces and local history directories which should not be committed |
-| `forbidden-file-keystore` | Detects keystores and certificates which should not be committed |
-| `forbidden-file-local-auth` | Detects local authentication or configuration files (.npmrc, .netrc, .aws/credentials, etc.) |
-| `forbidden-file-local-overrides` | Detects local Docker overrides which should not be committed |
-| `forbidden-file-macos-keychain` | Detects macOS Keychain files which should not be committed |
-| `forbidden-file-shell-history` | Detects shell history files which should not be committed |
-| `forbidden-file-ssh-keys` | Detects SSH private keys which should not be committed |
-| `forbidden-file-tfstate` | Detects IaC state, variable files, and build artifact directories which should not be committed |
-| `forbidden-file-vpn-network` | Detects VPN configurations and network captures which should not be committed |
+| ルール ID                          | 検知対象                                                                                                                                           |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `forbidden-file-ai-agent`          | Detects AI agent workspace directories                                                                                                             |
+| `forbidden-file-ai-agent-logs`     | Detects AI agent chat logs and MCP settings files (no allowlist: must be blocked even under .cursor/rules/)                                        |
+| `forbidden-file-api-client`        | Detects API client export files (Postman, Insomnia) which should not be committed                                                                  |
+| `forbidden-file-api-client-modern` | Detects modern API client workspaces (Thunder Client, Bruno) which should not be committed                                                         |
+| `forbidden-file-cloud-config`      | Detects cloud and tool auth configs which should not be committed                                                                                  |
+| `forbidden-file-credentials`       | Detects credentials files                                                                                                                          |
+| `forbidden-file-database-dump`     | Detects database dumps, local SQLite DBs, and log files which should not be committed as they often contain PII or secrets                         |
+| `forbidden-file-env`               | Detects .env files which should not be committed                                                                                                   |
+| `forbidden-file-env-local`         | Detects local environment variable files (e.g., .env.local, .env.development.local, .env.test.local) specifically to prevent AI agent sample leaks |
+| `forbidden-file-ide-history`       | Detects IDE workspaces and local history directories which should not be committed                                                                 |
+| `forbidden-file-keystore`          | Detects keystores and certificates which should not be committed                                                                                   |
+| `forbidden-file-local-auth`        | Detects local authentication or configuration files (.npmrc, .netrc, .aws/credentials, etc.)                                                       |
+| `forbidden-file-local-overrides`   | Detects local Docker overrides which should not be committed                                                                                       |
+| `forbidden-file-macos-keychain`    | Detects macOS Keychain files which should not be committed                                                                                         |
+| `forbidden-file-shell-history`     | Detects shell history files which should not be committed                                                                                          |
+| `forbidden-file-ssh-keys`          | Detects SSH private keys which should not be committed                                                                                             |
+| `forbidden-file-tfstate`           | Detects IaC state, variable files, and build artifact directories which should not be committed                                                    |
+| `forbidden-file-vpn-network`       | Detects VPN configurations and network captures which should not be committed                                                                      |
 
 ### AI エージェントが残しがちなダミー値（2 件）
 
-| ルール ID | 検知対象 |
-| :--- | :--- |
-| `ai-debug-placeholder` | AI agent debug placeholders (YOUR_API_KEY, dummy_secret, CHANGEME, REPLACE_ME, etc.) are not allowed. Use <REDACTED> instead. |
-| `ai-debug-placeholder-extended` | Extended AI agent debug placeholders (CHANGE_ME, XXX_SECRET_XXX, etc.) are not allowed |
+| ルール ID                       | 検知対象                                                                                                                      |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------- |
+| `ai-debug-placeholder`          | AI agent debug placeholders (YOUR_API_KEY, dummy_secret, CHANGEME, REPLACE_ME, etc.) are not allowed. Use <REDACTED> instead. |
+| `ai-debug-placeholder-extended` | Extended AI agent debug placeholders (CHANGE_ME, XXX_SECRET_XXX, etc.) are not allowed                                        |
 
 ## 運用ルール（コミット前検知のセットアップ）
 
@@ -257,10 +257,3 @@ pre-commit install
 ## その他の推奨対策
 
 GitHub リポジトリの設定から、**GitHub Secret Scanning** および **Push Protection** を有効にすることを強く推奨します。これにより、ローカルの検知をすり抜けたシークレットがプッシュされるのを防ぐ二重の防御となります。
-
-### マージ前に必要な手動作業（チェックリスト）
-
-レビュアーおよび管理者は、セキュリティに関する PR をマージする前に以下を必ず実施・確認してください。
-
-- [ ] GitHub リポジトリの設定画面 (Settings) -> Code security and analysis から、**Secret scanning** と **Push protection** が有効になっていることを確認する。
-- [ ] 新規ルール追加の場合、開発者各自のローカル環境で `pre-commit install` が実施済みであることを周知する。
