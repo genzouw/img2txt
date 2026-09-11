@@ -257,3 +257,10 @@ pre-commit install
 ## その他の推奨対策
 
 GitHub リポジトリの設定から、**GitHub Secret Scanning** および **Push Protection** を有効にすることを強く推奨します。これにより、ローカルの検知をすり抜けたシークレットがプッシュされるのを防ぐ二重の防御となります。
+
+### マージ前に必要な手動作業（チェックリスト）
+
+レビュアーおよび管理者は、セキュリティに関する PR をマージする前に以下を必ず実施・確認してください。
+
+- [ ] GitHub リポジトリの設定画面 (Settings) -> Code security and analysis から、**Secret scanning** と **Push protection** が有効になっていることを確認する。
+- [ ] 新規ルール追加の場合、開発者各自のローカル環境で `pre-commit install` が実施済みであることを周知する。
