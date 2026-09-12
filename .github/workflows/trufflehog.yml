@@ -41,7 +41,8 @@ jobs:
 
       - name: Run TruffleHog
         run: |
-          trufflehog git file://. \
-            --no-update \
-            --only-verified \
-            --fail
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            trufflehog git file://. --no-update --fail
+          else
+            trufflehog git file://. --no-update --only-verified --fail
+          fi
