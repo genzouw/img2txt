@@ -258,7 +258,6 @@ pre-commit install
 
 GitHub リポジトリの設定から、**GitHub Secret Scanning** および **Push Protection** を有効にすることを強く推奨します。これにより、ローカルの検知をすり抜けたシークレットがプッシュされるのを防ぐ二重の防御となります。
 
-
 ## GitHub Actions セキュリティ強化のコミット前検知
 
 .pre-commit-config.yaml に `zizmor` および `actionlint` を追加しています。
