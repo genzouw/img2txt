@@ -39,3 +39,43 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "npm"
+    groups:
+      npm-version-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      npm-security-dependencies:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "terraform"
+    groups:
+      terraform-version-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      terraform-security-dependencies:
+        applies-to: security-updates
+        patterns:
+          - "*"
