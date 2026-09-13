@@ -24,7 +24,7 @@
    - ツール: `.github/workflows/pre-commit.yml`, `.github/workflows/gitleaks.yml`, `.github/workflows/trufflehog.yml`, `.github/workflows/trivy.yml`, `.github/workflows/actionlint.yml`, `.github/workflows/osv-scanner.yml`, `.github/workflows/zizmor.yml` 内の `schedule` トリガー
    - 目的: 定期的にリポジトリ全体（過去の履歴も含む）を再スキャンし、セキュリティリスクを継続的に監視します。
      - pre-commit / Gitleaks / TruffleHog / Trivy: 過去に漏洩したリスクや、シークレット検知パターンのアップデートに伴う新たな検知、外部依存関係の新たな脆弱性や漏洩リスクの検知。特に pre-commit ワークフローのスケジュール実行により、リポジトリの最新状態に対する各種フックによる漏洩チェックが定期的に自動実行されます。TruffleHog は `schedule` トリガー実行時のみ `--only-verified` を外し、検証非対応のシークレットも含めて検知対象とすることで、CI 検知（push/pull_request）よりも広範囲の監査を行います。
-     - Dependabot: 日次スケジュール（Daily）とグループ化機能による、依存パッケージの定期的な棚卸しと更新。
+     - Dependabot: 日次スケジュール（Daily）とグループ化機能による、依存パッケージ（Docker, GitHub Actions, npm, Terraform / CDKTF）の定期的な棚卸しと更新。
      - actionlint / zizmor: GitHub Actions ワークフロー自体の定期 lint や、ワークフローのセキュリティ脆弱性パターンの定期監視（不適切なインジェクションや過剰な権限設定の検知）。
      - osv-scanner: ソースコード上の依存パッケージに潜む OSS 脆弱性（OSV データベースに基づく）の定期監査。
 
