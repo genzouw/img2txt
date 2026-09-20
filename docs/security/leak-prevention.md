@@ -96,7 +96,7 @@
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
-### SaaS・開発ツールの API キー / トークン（86 件）
+### SaaS・開発ツールの API キー / トークン（90 件）
 
 | ルール ID                       | 検知対象                                                                                                                |
 | :------------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
@@ -117,6 +117,7 @@
 | `cloudinary-api-url`            | Cloudinary API URLs (including key/secret) are not allowed                                                              |
 | `codecov-api-token`             | Codecov API Tokens are not allowed                                                                                      |
 | `contentful-delivery-api-token` | Discovered a Contentful delivery API token, posing a risk to content management systems and data integrity.             |
+| `contentstack-management-token` | Contentstack Management Tokens and Delivery Tokens are not allowed                                          |
 | `customerio-api-key`            | Customer.io API, App, and Tracking Keys are not allowed                                                                 |
 | `databricks-api-token`          | Databricks Personal Access Tokens are not allowed                                                                       |
 | `datadog-access-token`          | Datadog Access Tokens and API Keys are not allowed                                                                      |
@@ -142,6 +143,7 @@
 | `mailchimp-api-key`             | Mailchimp API Keys are not allowed                                                                                      |
 | `mailgun-api-key`               | Mailgun API Keys are not allowed                                                                                        |
 | `mapbox-api-token-custom`       | Mapbox API tokens are not allowed                                                                                       |
+| `microcms-api-key`              | microCMS API Keys and Webhook Signatures are not allowed                                                |
 | `mixpanel-project-token`        | Mixpanel Project Tokens and API Secrets are not allowed                                                                 |
 | `msteams-webhook`               | Microsoft Teams Webhook URLs are not allowed                                                                            |
 | `newrelic-api-key`              | New Relic API Keys and License Keys are not allowed                                                                     |
@@ -161,6 +163,7 @@
 | `render-api-key`                | Render API Keys are not allowed                                                                                         |
 | `resend-api-key`                | Resend API keys are strictly not allowed                                                                                |
 | `resend-api-key-strict`         | Resend API keys (strict detection) are strictly not allowed                                                             |
+| `sanity-api-token`              | Sanity API Tokens are not allowed                                                                       |
 | `segment-api-key`               | Segment Write Keys / Public API Keys are not allowed                                                                    |
 | `sendgrid-api-key`              | SendGrid API keys are not allowed                                                                                       |
 | `sendinblue-api-token`          | Brevo (formerly Sendinblue) API Keys are not allowed                                                                    |
@@ -172,6 +175,7 @@
 | `snyk-api-token`                | Uncovered a Snyk API token, potentially compromising software vulnerability scanning and code security.                 |
 | `sonar-api-token`               | Uncovered a Sonar API token, potentially compromising software vulnerability scanning and code security.                |
 | `square-access-token-custom`    | Square Access Tokens are not allowed                                                                                    |
+| `storyblok-personal-access-token` | Storyblok Personal Access Tokens and Space Tokens are not allowed                                       |
 | `stripe-api-key`                | Stripe API keys (Secret and Restricted) are strictly not allowed                                                        |
 | `stripe-webhook-secret`         | Stripe Webhook Secrets are strictly not allowed                                                                         |
 | `supabase-api-key`              | Supabase API keys (JWT tokens) are not allowed                                                                          |
