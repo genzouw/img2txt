@@ -1121,3 +1121,27 @@ id = "pusher-api-key"
 description = "Pusher API Keys, App IDs, and Secrets are not allowed"
 regex = '''(?i)(?:pusher)[-_]?(?:api|token|key|secret)?[\s:=]+['"]?\b([a-zA-Z0-9]{20,})\b['"]?'''
 tags = ["pusher", "api-key", "custom", "saas", "realtime"]
+
+[[rules]]
+id = "microcms-api-key"
+description = "microCMS API Keys and Webhook Signatures are not allowed"
+regex = '''(?i)(?:microcms)[-_]?(?:api|webhook)?[-_]?(?:key|signature|token)?[\s:=]+['"]?\b([a-zA-Z0-9_-]{32,})\b['"]?'''
+tags = ["microcms", "api-key", "custom", "saas", "cms"]
+
+[[rules]]
+id = "sanity-api-token"
+description = "Sanity API Tokens are not allowed"
+regex = '''(?i)(?:sanity)[-_]?(?:api|read|write|deploy)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40,})\b['"]?'''
+tags = ["sanity", "api-token", "custom", "saas", "cms"]
+
+[[rules]]
+id = "storyblok-personal-access-token"
+description = "Storyblok Personal Access Tokens and Space Tokens are not allowed"
+regex = '''(?i)(?:storyblok)[-_]?(?:personal|space)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{20,})\b['"]?'''
+tags = ["storyblok", "token", "custom", "saas", "cms"]
+
+[[rules]]
+id = "contentstack-management-token"
+description = "Contentstack Management Tokens and Delivery Tokens are not allowed"
+regex = '''(?i)(?:contentstack|cs)[-_]?(?:management|delivery)?[-_]?(?:token|key)?[\s:=]+['"]?\b(cs[a-zA-Z0-9]{20,})\b['"]?'''
+tags = ["contentstack", "token", "custom", "saas", "cms"]
