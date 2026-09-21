@@ -1137,7 +1137,7 @@ tags = ["sanity", "api-token", "custom", "saas", "cms"]
 [[rules]]
 id = "storyblok-personal-access-token"
 description = "Storyblok Personal Access Tokens and Space Tokens are not allowed"
-regex = '''(?i)(?:storyblok)[-_]?(?:personal|space)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{32,40})\b['"]?'''
+regex = '''(?i)(?:storyblok)[-_]?(?:personal|space)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{20,})\b['"]?'''
 tags = ["storyblok", "token", "custom", "saas", "cms"]
 
 [[rules]]
