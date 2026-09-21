@@ -1131,7 +1131,7 @@ tags = ["microcms", "api-key", "custom", "saas", "cms"]
 [[rules]]
 id = "sanity-api-token"
 description = "Sanity API Tokens are not allowed"
-regex = '''(?i)(?:sanity)[-_]?(?:api|read|write|deploy)?[-_]?(?:token|key)?[\s:=]+['"]?\b(sk[a-zA-Z0-9]{40,})\b['"]?'''
+regex = '''(?i)(?:sanity)[-_]?(?:api|read|write|deploy)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{40,})\b['"]?'''
 tags = ["sanity", "api-token", "custom", "saas", "cms"]
 
 [[rules]]
