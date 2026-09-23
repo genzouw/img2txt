@@ -7,6 +7,11 @@
   "semanticCommits": "enabled",
   "semanticCommitScope": "deps",
   "timezone": "Asia/Tokyo",
+  "description": [
+    "schedule は削除した .github/dependabot.yml の interval: daily / time: 09:00 (Asia/Tokyo) の移植。",
+    "Renovate の cron は分フィールドを * にしか書けず 09:00 ちょうどを指定できない。",
+    "さらに Mend Renovate App の起動タイミングは保証されないため、9〜11 時台の 3 時間幅にして取りこぼしを防ぐ。"
+  ],
   "schedule": [
     "* 9-11 * * *"
   ],
