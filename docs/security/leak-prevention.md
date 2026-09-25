@@ -96,7 +96,7 @@
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
-### SaaS・開発ツールの API キー / トークン（90 件）
+### SaaS・開発ツールの API キー / トークン（92 件）
 
 | ルール ID                         | 検知対象                                                                                                                |
 | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
@@ -146,6 +146,7 @@
 | `microcms-api-key`                | microCMS API Keys and Webhook Signatures are not allowed                                                                |
 | `mixpanel-project-token`          | Mixpanel Project Tokens and API Secrets are not allowed                                                                 |
 | `msteams-webhook`                 | Microsoft Teams Webhook URLs are not allowed                                                                            |
+| `neon-api-key`                    | Neon API Keys are not allowed                                                                                           |
 | `newrelic-api-key`                | New Relic API Keys and License Keys are not allowed                                                                     |
 | `ngrok-auth-token`                | Ngrok Auth Tokens are not allowed                                                                                       |
 | `notion-api-key`                  | Notion API keys are not allowed                                                                                         |
@@ -177,6 +178,7 @@
 | `square-access-token-custom`      | Square Access Tokens are not allowed                                                                                    |
 | `storyblok-personal-access-token` | Storyblok Personal Access Tokens and Space Tokens are not allowed                                                       |
 | `stripe-api-key`                  | Stripe API keys (Secret and Restricted) are strictly not allowed                                                        |
+| `stripe-publishable-key`          | Stripe Publishable Keys are not allowed to prevent exposing project metadata                                            |
 | `stripe-webhook-secret`           | Stripe Webhook Secrets are strictly not allowed                                                                         |
 | `supabase-api-key`                | Supabase API keys (JWT tokens) are not allowed                                                                          |
 | `telegram-bot-token`              | Telegram Bot tokens are not allowed                                                                                     |
