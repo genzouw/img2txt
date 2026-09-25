@@ -1145,3 +1145,15 @@ id = "contentstack-management-token"
 description = "Contentstack Management Tokens and Delivery Tokens are not allowed"
 regex = '''(?i)(?:contentstack|cs)[-_]?(?:management|delivery)?[-_]?(?:token|key)?[\s:=]+['"]?\b(cs[a-zA-Z0-9]{20,})\b['"]?'''
 tags = ["contentstack", "token", "custom", "saas", "cms"]
+
+[[rules]]
+id = "stripe-publishable-key"
+description = "Stripe Publishable Keys are not allowed to prevent exposing project metadata"
+regex = '''(?i)\bpk_(?:test|live)_[a-zA-Z0-9]{24,}\b'''
+tags = ["stripe", "api-key", "custom"]
+
+[[rules]]
+id = "neon-api-key"
+description = "Neon API Keys are not allowed"
+regex = '''(?i)(?:neon)[-_]?(?:api|key|token)?[\s:=]+['"]?\b([a-zA-Z0-9]{64})\b['"]?'''
+tags = ["neon", "api-key", "custom", "database"]
