@@ -1157,3 +1157,27 @@ id = "neon-api-key"
 description = "Neon API Keys are not allowed"
 regex = '''(?i)(?:neon)[-_]?(?:api|key|token)?[\s:=]+['"]?\b([a-zA-Z0-9]{64})\b['"]?'''
 tags = ["neon", "api-key", "custom", "database"]
+
+[[rules]]
+id = "monday-api-token"
+description = "Monday.com API Tokens are not allowed"
+regex = '''(?i)(?:monday)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9\.\-_]{80,})\b['"]?'''
+tags = ["monday", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "canva-api-key"
+description = "Canva API Keys and Tokens are not allowed"
+regex = '''(?i)(?:canva)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9_\-]{40,})\b['"]?'''
+tags = ["canva", "api-key", "custom", "saas"]
+
+[[rules]]
+id = "vimeo-access-token"
+description = "Vimeo Access Tokens are not allowed"
+regex = '''(?i)(?:vimeo)[-_]?(?:access|api)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+tags = ["vimeo", "api-token", "custom", "saas", "media"]
+
+[[rules]]
+id = "magento-access-token"
+description = "Magento Access Tokens are not allowed"
+regex = '''(?i)(?:magento)[-_]?(?:access|api)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["magento", "api-token", "custom", "saas", "ecommerce"]
