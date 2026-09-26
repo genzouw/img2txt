@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     # PHP 7.4 は ubuntu-latest 標準にも含まれず shivammathur/setup-php もポリシー違反で
     # 起動不可のため、公式 PHP コンテナを container として利用する。
-    container: php:7.4-cli
+    container: php:8.1-cli
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -120,7 +120,7 @@ jobs:
 
       - name: Upload SARIF to GitHub Security
         if: always()
-        uses: github/codeql-action/upload-sarif@78ed0c7291d93e40c51b085850dc669a4c3ab73b # v3
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
         with:
           sarif_file: "trivy-image.sarif"
           category: trivy-image
