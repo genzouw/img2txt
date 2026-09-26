@@ -30,7 +30,7 @@
 
 ## 検知対象一覧
 
-`.gitleaks.toml` に定義しているカスタムルールの一覧です（152 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
+`.gitleaks.toml` に定義しているカスタムルールの一覧です（156 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
 
 `[extend] useDefault = true` により、gitleaks 標準ルールも併用されます。本表はそこに上乗せしている独自ルールのみを扱います。
 
@@ -96,7 +96,7 @@
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
-### SaaS・開発ツールの API キー / トークン（92 件）
+### SaaS・開発ツールの API キー / トークン（96 件）
 
 | ルール ID                         | 検知対象                                                                                                                |
 | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
@@ -111,6 +111,7 @@
 | `braintree-access-token`          | Braintree Access Tokens are not allowed                                                                                 |
 | `braze-api-key`                   | Braze API and REST Keys are not allowed                                                                                 |
 | `buildkite-api-token`             | Buildkite API Access Tokens are not allowed                                                                             |
+| `canva-api-key`                   | Canva API Keys and Tokens are not allowed                                                                               |
 | `circleci-api-token`              | CircleCI API Tokens are not allowed                                                                                     |
 | `clerk-secret-key`                | Clerk Secret Keys are not allowed                                                                                       |
 | `cloudflare-api-key`              | Cloudflare API Keys and Tokens are strictly not allowed                                                                 |
@@ -140,11 +141,13 @@
 | `launchdarkly-api-key`            | LaunchDarkly API Keys and Access Tokens are not allowed                                                                 |
 | `line-channel-access-token`       | LINE Channel Access Tokens are not allowed                                                                              |
 | `linear-api-key`                  | Linear API keys are not allowed                                                                                         |
+| `magento-access-token`            | Magento Access Tokens are not allowed                                                                                   |
 | `mailchimp-api-key`               | Mailchimp API Keys are not allowed                                                                                      |
 | `mailgun-api-key`                 | Mailgun API Keys are not allowed                                                                                        |
 | `mapbox-api-token-custom`         | Mapbox API tokens are not allowed                                                                                       |
 | `microcms-api-key`                | microCMS API Keys and Webhook Signatures are not allowed                                                                |
 | `mixpanel-project-token`          | Mixpanel Project Tokens and API Secrets are not allowed                                                                 |
+| `monday-api-token`                | Monday.com API Tokens are not allowed                                                                                   |
 | `msteams-webhook`                 | Microsoft Teams Webhook URLs are not allowed                                                                            |
 | `neon-api-key`                    | Neon API Keys are not allowed                                                                                           |
 | `newrelic-api-key`                | New Relic API Keys and License Keys are not allowed                                                                     |
@@ -190,6 +193,7 @@
 | `typeform-api-token-custom`       | Typeform API tokens (Personal Access Tokens) are not allowed                                                            |
 | `upstash-api-token`               | Upstash API tokens are not allowed                                                                                      |
 | `vercel-access-token`             | Vercel Access Tokens are not allowed                                                                                    |
+| `vimeo-access-token`              | Vimeo Access Tokens are not allowed                                                                                     |
 | `zendesk-api-token`               | Zendesk API Tokens are not allowed                                                                                      |
 | `zoom-api-token`                  | Zoom API Keys, Secrets, and OAuth Tokens are not allowed                                                                |
 
