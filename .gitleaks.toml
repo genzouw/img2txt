@@ -1167,7 +1167,7 @@ tags = ["monday", "api-token", "custom", "saas"]
 [[rules]]
 id = "canva-api-key"
 description = "Canva API Keys and Tokens are not allowed"
-regex = '''(?i)(?:canva)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9_\-]{40,})\b['"]?'''
+regex = '''(?i)(?:canva)[-_]?(?:api)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9_\-]{40,})\b['"]?'''
 tags = ["canva", "api-key", "custom", "saas"]
 
 [[rules]]
