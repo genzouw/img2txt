@@ -17,8 +17,9 @@ jobs:
   lint-php:
     name: PHP syntax check
     runs-on: ubuntu-latest
-    # PHP 7.4 は ubuntu-latest 標準にも含まれず shivammathur/setup-php もポリシー違反で
-    # 起動不可のため、公式 PHP コンテナを container として利用する。
+    # ubuntu-latest 標準の PHP は Renovate で追従させる版と一致せず、shivammathur/setup-php も
+    # ポリシー違反で起動不可のため、公式 PHP コンテナを container として利用する。
+    # 版は Renovate が更新する。実行環境 (Dockerfile の php85) との版差は構文チェックのみの用途で許容している。
     container: php:8.1-cli
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -26,7 +27,7 @@ jobs:
           persist-credentials: false
 
       # 1 ファイルでも syntax error があれば赤にする。元実装は `|| true` で常に成功扱いだった。
-      # `php:7.4-cli` (debian) のデフォルトシェルは dash で `pipefail` 非対応のため
+      # `php:*-cli` (debian) のデフォルトシェルは dash で `pipefail` 非対応のため
       # bash を明示し、bash が無い場合は apt で入れる。
       - name: Install bash (for pipefail)
         run: |
