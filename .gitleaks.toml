@@ -1161,7 +1161,7 @@ tags = ["neon", "api-key", "custom", "database"]
 [[rules]]
 id = "monday-api-token"
 description = "Monday.com API Tokens are not allowed"
-regex = '''(?i)(?:monday)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9\.\-_]{80,})\b['"]?'''
+regex = '''(?i)(?:monday)[-_]?(?:api)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9\.\-_]{80,})\b['"]?'''
 tags = ["monday", "api-token", "custom", "saas"]
 
 [[rules]]
