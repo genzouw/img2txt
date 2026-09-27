@@ -17,3 +17,9 @@ b1ffdafd573e48d497b93c7536068ce2e517318d:html/index.php:pii-email:249
 # 最新コミットでは非マッチ表現（<REDACTED_40CHAR_TOKEN> 等）へ置換済みのため、
 # 実害のない過去履歴分のみを対象を絞ってignore する。
 fd50c03d5fbab7835f8d71ec984557e5ad3028bc:pr_body.md:circleci-api-token:27
+
+# pr_body.md に記載していたダミートークン例（`0123456789...` の連番40文字）が、
+# gitleaks 8.30 系で追加された組み込みルール zendesk-secret-key に誤検知された古い履歴コミット。
+# 実在のトークンではなく、`--log-opts="--all"` で過去履歴を走査する限り検知され続けるため、
+# 該当コミット・行に限定して ignore する。
+72675d6a0f0bd8fbe6eb3c9782ae1ad4ba51257f:pr_body.md:zendesk-secret-key:27
