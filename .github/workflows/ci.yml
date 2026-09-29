@@ -20,7 +20,7 @@ jobs:
     # ubuntu-latest 標準の PHP は Renovate で追従させる版と一致せず、shivammathur/setup-php も
     # ポリシー違反で起動不可のため、公式 PHP コンテナを container として利用する。
     # 版は Renovate が更新する。実行環境 (Dockerfile の php85) との版差は構文チェックのみの用途で許容している。
-    container: php:8.3-cli
+    container: php:8.5-cli
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
