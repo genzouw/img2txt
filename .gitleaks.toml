@@ -215,9 +215,7 @@ regex = '''(?i)(projects/\d{11,12}/locations/global/workloadIdentityPools/[a-z0-
 tags = ["gcp", "workload-identity", "custom"]
 [rules.allowlist]
 paths = [
-    '''(?i)^infra/.*\.ts$''',
-    '''(?i)^docs/.*\.md$''',
-    '''(?i)^README\.md$'''
+    '''(?i)^infra/.*\.ts$'''
 ]
 
 [[rules]]
@@ -260,9 +258,7 @@ regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
 tags = ["gcp", "secret-manager", "custom"]
 [rules.allowlist]
 paths = [
-    '''(?i)^infra/.*\.ts$''',
-    '''(?i)^docs/.*\.md$''',
-    '''(?i)^README\.md$'''
+    '''(?i)^infra/.*\.ts$'''
 ]
 
 [[rules]]
@@ -385,9 +381,7 @@ regex = '''(?i)([a-z0-9-]+\.(rds|cache|es|mq)\.amazonaws\.com)'''
 tags = ["aws", "internal-endpoint", "custom"]
 [rules.allowlist]
 paths = [
-    '''(?i)^infra/.*\.ts$''',
-    '''(?i)^docs/.*\.md$''',
-    '''(?i)^README\.md$'''
+    '''(?i)^infra/.*\.ts$'''
 ]
 
 [[rules]]

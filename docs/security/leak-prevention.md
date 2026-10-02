@@ -275,4 +275,10 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 開発者は必ず `pre-commit install` を実行し、ワークフロー編集時にこれらのフックが動作することを確認してください。
 
 ### インフラ識別子の過剰検知防止と対象ファイル峻別
-`.gitleaks.toml` において、`cloud-run-url` (Cloud Run)、`cloudflare-pages-url` (Cloudflare Pages)、`gcp-workload-identity`、`gcp-secret-manager` などのインフラ識別子は、実際のインフラ構成コード (`infra/.*\.ts`) やドキュメントにおいて仕様上公開や記述が必要になる場合があります。これらについて、秘匿すべきハードコードと正常な記述を峻別するため、`[rules.allowlist]` を用いて `infra/.*\.ts`, `docs/.*\.md`, `README.md` を例外として設定しています。これにより、GCP プロジェクトIDと同様に、開発時の false positive（過剰検知）を防ぎつつ、本来混入すべきではないフロントエンドやバックエンドコードへのハードコードを厳格にブロックします。
+
+`.gitleaks.toml` では、インフラ識別子のルールごとに例外の範囲を分けています。
+
+- `cloud-run-url` (`*.run.app`) と `cloudflare-pages-url` (`*.pages.dev`): 仕様上公開が必要な URL のため、`infra/.*\.ts`、`docs/.*\.md`、`README.md` を例外にしています。
+- `gcp-workload-identity`、`gcp-secret-manager`、`aws-internal-endpoint`: 実プロジェクト番号や実リソースパスそのものを検知するルールで、公開が必要なものではありません。例外は `infra/.*\.ts` のみです。ドキュメントにはダミー値（例: `projects/000000000000/...`）を使ってください。
+
+これにより、GCP プロジェクトIDと同様に開発時の false positive（過剰検知）を防ぎつつ、フロントエンドやバックエンドコードへのハードコードは厳格にブロックします。
