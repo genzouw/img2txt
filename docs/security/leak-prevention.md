@@ -273,3 +273,6 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 .pre-commit-config.yaml に `zizmor` および `actionlint` を追加しています。
 これにより、GitHub Actions ワークフローの設定不備やセキュリティリスク（意図しない権限の付与やスクリプトインジェクションなど）をコミット前にローカルで検知・ブロックすることができます。
 開発者は必ず `pre-commit install` を実行し、ワークフロー編集時にこれらのフックが動作することを確認してください。
+
+### インフラ識別子の過剰検知防止と対象ファイル峻別
+`.gitleaks.toml` において、`cloud-run-url` (Cloud Run)、`cloudflare-pages-url` (Cloudflare Pages)、`gcp-workload-identity`、`gcp-secret-manager` などのインフラ識別子は、実際のインフラ構成コード (`infra/.*\.ts`) やドキュメントにおいて仕様上公開や記述が必要になる場合があります。これらについて、秘匿すべきハードコードと正常な記述を峻別するため、`[rules.allowlist]` を用いて `infra/.*\.ts`, `docs/.*\.md`, `README.md` を例外として設定しています。これにより、GCP プロジェクトIDと同様に、開発時の false positive（過剰検知）を防ぎつつ、本来混入すべきではないフロントエンドやバックエンドコードへのハードコードを厳格にブロックします。
