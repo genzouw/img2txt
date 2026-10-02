@@ -189,18 +189,34 @@ id = "cloud-run-url"
 description = "Hardcoded Cloud Run URLs (*.run.app) are not allowed"
 regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+run\.app)'''
 tags = ["gcp", "cloud-run", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
 
 [[rules]]
 id = "cloudflare-pages-url"
 description = "Hardcoded Cloudflare Pages URLs (*.pages.dev) are not allowed"
 regex = '''(?i)(https?://(?:[a-z0-9-]+\.)+pages\.dev)'''
 tags = ["cloudflare", "pages", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
+]
 
 [[rules]]
 id = "gcp-workload-identity"
 description = "Hardcoded GCP Workload Identity Federation provider strings are not allowed"
 regex = '''(?i)(projects/\d{11,12}/locations/global/workloadIdentityPools/[a-z0-9-]+/providers/[a-z0-9-]+)'''
 tags = ["gcp", "workload-identity", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$'''
+]
 
 [[rules]]
 id = "forbidden-file-tfstate"
@@ -240,6 +256,10 @@ id = "gcp-secret-manager"
 description = "Hardcoded GCP Secret Manager resource paths are not allowed"
 regex = '''(?i)(projects/\d{11,12}/secrets/[a-z0-9_-]+/versions/\w+)'''
 tags = ["gcp", "secret-manager", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$'''
+]
 
 [[rules]]
 id = "ai-debug-placeholder"
@@ -359,6 +379,10 @@ id = "aws-internal-endpoint"
 description = "Hardcoded AWS internal endpoints (e.g. *.rds.amazonaws.com, *.cache.amazonaws.com) are not allowed"
 regex = '''(?i)([a-z0-9-]+\.(rds|cache|es|mq)\.amazonaws\.com)'''
 tags = ["aws", "internal-endpoint", "custom"]
+[rules.allowlist]
+paths = [
+    '''(?i)^infra/.*\.ts$'''
+]
 
 [[rules]]
 id = "notion-api-key"
