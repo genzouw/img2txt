@@ -31,8 +31,13 @@ repos:
     name: Forbid AI agent traces
     entry: AI agent trace files (e.g. .claude, .cursor, .aider) are not allowed to be committed.
     language: fail
-    files: '(?i)^\.?(claude|cursor|aider|gemini|windsurf|cline|roo|codeium|continue|pearai|trae|cody)(/|$)|.*\.aider\.chat\.history\.md|\.cline_mcp_settings\.json'
-    exclude: '^\.cursor/rules/'
+    files: '(?i)(?:^|/)\.(claude|cursor|aider|gemini|windsurf|cline|roo|codeium|continue|pearai|trae|cody)(?:/|$)'
+    exclude: '(?i)(?:^|/)\.cursor/rules/'
+  - id: forbid-ai-logs
+    name: Forbid AI agent chat logs and MCP settings
+    entry: AI agent chat logs and MCP settings files must not be committed (no exclusion, even under .cursor/rules/).
+    language: fail
+    files: '(?i)(?:^|/)(?:.*\.aider\.chat\.history\.md|\.cline_mcp_settings\.json)$'
   - id: forbid-env-local
     name: Forbid .env.local files
     entry: .env.local and similar local env files must not be committed.
