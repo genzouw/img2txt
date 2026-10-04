@@ -274,11 +274,6 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 これにより、GitHub Actions ワークフローの設定不備やセキュリティリスク（意図しない権限の付与やスクリプトインジェクションなど）をコミット前にローカルで検知・ブロックすることができます。
 開発者は必ず `pre-commit install` を実行し、ワークフロー編集時にこれらのフックが動作することを確認してください。
 
-## AI エージェントの作業跡と .env.local のコミット防止 (二重の防御)
-
-`.pre-commit-config.yaml` に、ローカルの `fail` スクリプト (`forbid-ai-traces` および `forbid-env-local`) を追加しています。
-これにより、`.gitleaks.toml` によるファイルパススキャンに加えて、`pre-commit` 自体の軽量かつ高速なファイル名チェックとして機能し、AI エージェントのチャット履歴（`.claude`, `.cursor`, `.aider*` など）や `.env.local` などの一時ファイルが誤ってコミットされるのを確実にブロックする二重の防御層を形成しています。
-
 ### インフラ識別子の過剰検知防止と対象ファイル峻別
 
 `.gitleaks.toml` では、インフラ識別子のルールごとに例外の範囲を分けています。
@@ -287,3 +282,16 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 - `gcp-workload-identity`、`gcp-secret-manager`、`aws-internal-endpoint`: 実プロジェクト番号や実リソースパスそのものを検知するルールで、公開が必要なものではありません。例外は `infra/.*\.ts` のみです。ドキュメントにはダミー値（例: `projects/000000000000/...`）を使ってください。
 
 これにより、GCP プロジェクトIDと同様に開発時の false positive（過剰検知）を防ぎつつ、フロントエンドやバックエンドコードへのハードコードは厳格にブロックします。
+
+## AI エージェントの作業跡と .env.local のコミット防止 (二重の防御)
+
+`.pre-commit-config.yaml` に、ローカルの `fail` スクリプト (`forbid-ai-traces`、`forbid-ai-logs`、`forbid-env-local`) を追加しています。
+これにより、`.gitleaks.toml` によるファイルパススキャンに加えて、`pre-commit` 自体の軽量かつ高速なファイル名チェックとして機能し、AI エージェントの作業跡や `.env.local` などの一時ファイルが誤ってコミットされるのを防ぐ二重の防御層を形成しています。
+
+| フック              | 検知対象                                                                                                                                            | 例外                                          |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------- |
+| `forbid-ai-traces`  | 任意の階層にある `.claude/`、`.cursor/`、`.aider/`、`.gemini/` など、ドット付きの AI エージェントのワークスペースディレクトリ配下のファイル          | `.cursor/rules/` 配下（`.gitleaks.toml` と同じ） |
+| `forbid-ai-logs`    | 任意の階層にある `*.aider.chat.history.md`（Aider のチャット履歴）と `.cline_mcp_settings.json`（Cline の MCP 設定）                                | なし（`.cursor/rules/` 配下でも検知する）     |
+| `forbid-env-local`  | `.env.local` や `.env.production.local` など、末尾が `local` のローカル用環境変数ファイル                                                            | なし                                          |
+
+ドットなしの `claude/` や `cody/` のような通常のディレクトリは対象外です。
