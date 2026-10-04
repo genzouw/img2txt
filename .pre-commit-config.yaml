@@ -25,3 +25,16 @@ repos:
   rev: v1.7.7
   hooks:
   - id: actionlint
+- repo: local
+  hooks:
+  - id: forbid-ai-traces
+    name: Forbid AI agent traces
+    entry: AI agent trace files (e.g. .claude, .cursor, .aider) are not allowed to be committed.
+    language: fail
+    files: '(?i)^\.?(claude|cursor|aider|gemini|windsurf|cline|roo|codeium|continue|pearai|trae|cody)(/|$)|.*\.aider\.chat\.history\.md|\.cline_mcp_settings\.json'
+    exclude: '^\.cursor/rules/'
+  - id: forbid-env-local
+    name: Forbid .env.local files
+    entry: .env.local and similar local env files must not be committed.
+    language: fail
+    files: '(?i)(?:^|/)\.env\..*local$'
