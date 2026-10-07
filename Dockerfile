@@ -35,6 +35,9 @@ RUN apk add \
     php85-phar \
     tzdata \
     unzip \
+    # CVE-2026-85091 (Snyk: SNYK-ALPINE324-ZLIB-20541555) 対策。
+    # alpine:3.24 のベースイメージは zlib 1.3.2-r0 を含むため、修正版 r1 以上へ更新する
+    'zlib>=1.3.2-r1' \
     ; \
   sed -i '/#LoadModule deflate_module modules\/mod_deflate.so/s/^#//' /etc/apache2/httpd.conf
 
