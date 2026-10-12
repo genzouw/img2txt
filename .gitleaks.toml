@@ -365,13 +365,14 @@ tags = ["discord", "webhook", "custom"]
 
 [[rules]]
 id = "saas-backend-url"
-description = "Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed"
-regex = '''(?i)(https?://[a-z0-9-]+\.(supabase\.co|firebaseapp\.com|vercel\.app|netlify\.app))'''
+description = "Hardcoded SaaS/PaaS backend URLs (Supabase, Firebase, Vercel, Netlify, Render, Heroku, Fly.io, Railway) are not allowed"
+regex = '''(?i)(https?://[a-z0-9-]+\.(supabase\.co|firebaseapp\.com|vercel\.app|netlify\.app|onrender\.com|herokuapp\.com|fly\.dev|up\.railway\.app))'''
 tags = ["saas", "backend-url", "custom"]
 [rules.allowlist]
 paths = [
-    '''(?i)\.(ts|tsx|js|jsx|json|yml|yaml|toml|xml|md|txt)$''',
-    '''(?i)^LICENSE$'''
+    '''(?i)^infra/.*\.ts$''',
+    '''(?i)^docs/.*\.md$''',
+    '''(?i)^README\.md$'''
 ]
 
 [[rules]]

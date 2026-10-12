@@ -63,7 +63,7 @@
 | `internal-ip`                  | Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed                            |
 | `jwt-token`                    | Generic JWT Tokens are not allowed                                                                        |
 | `neon-postgres-endpoint`       | Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed                 |
-| `saas-backend-url`             | Hardcoded SaaS backend URLs (Supabase, Firebase, Vercel, Netlify) are not allowed                         |
+| `saas-backend-url`             | Hardcoded SaaS/PaaS backend URLs (Supabase, Firebase, Vercel, Netlify, Render, Heroku, Fly.io, Railway) are not allowed |
 | `tailscale-auth-key`           | Tailscale Auth Keys are not allowed                                                                       |
 | `terraform-cloud-api-token`    | Terraform Cloud API Tokens are not allowed                                                                |
 | `unpublished-backend-url`      | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed  |
