@@ -1206,3 +1206,40 @@ id = "magento-access-token"
 description = "Magento Access Tokens are not allowed"
 regex = '''(?i)(?:magento)[-_]?(?:access|api)?[-_]?(?:token|key)?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
 tags = ["magento", "api-token", "custom", "saas", "ecommerce"]
+
+[[rules]]
+id = "sonarqube-api-token"
+description = "SonarQube / SonarCloud API Tokens are not allowed"
+regex = '''(?i)(?:sonar)[-_]?(?:qube|cloud|api|token|key)?[\s:=]+['"]?\b(sq[a-z]_[a-f0-9]{40})\b['"]?'''
+tags = ["sonarqube", "api-token", "custom", "ci"]
+
+[[rules]]
+id = "rubygems-api-token"
+description = "RubyGems API Tokens are not allowed"
+regex = '''(?i)\b(rubygems_[a-f0-9]{48})\b'''
+tags = ["rubygems", "api-token", "custom", "package"]
+
+[[rules]]
+id = "nuget-api-key"
+description = "NuGet API Keys are not allowed"
+regex = '''(?i)(?:nuget)[-_]?(?:api|key|token)?[\s:=]+['"]?\b(oy2[a-z0-9]{43})\b['"]?'''
+tags = ["nuget", "api-key", "custom", "package"]
+
+[[rules]]
+id = "kaggle-api-token"
+description = "Kaggle API Tokens are not allowed"
+regex = '''(?i)(?:kaggle)[-_]?(?:api[-_]?)?(?:token|key)[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+entropy = 3.0
+tags = ["kaggle", "api-token", "custom", "ai"]
+
+[[rules]]
+id = "workos-api-key"
+description = "WorkOS API Keys are not allowed"
+regex = '''(?i)(?:workos)[-_]?(?:api|key|token)?[\s:=]+['"]?\b(sk_[a-zA-Z0-9]{24,})\b['"]?'''
+tags = ["workos", "api-key", "custom", "auth"]
+
+[[rules]]
+id = "stytch-project-secret"
+description = "Stytch Project Secrets are not allowed"
+regex = '''(?i)(?:stytch)[-_]?(?:secret|key|token)?[\s:=]+['"]?\b(secret-[a-zA-Z0-9]{5}-?[a-zA-Z0-9_-]{45,})\b['"]?'''
+tags = ["stytch", "secret", "custom", "auth"]
