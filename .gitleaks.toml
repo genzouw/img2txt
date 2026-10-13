@@ -1228,7 +1228,8 @@ tags = ["nuget", "api-key", "custom", "package"]
 [[rules]]
 id = "kaggle-api-token"
 description = "Kaggle API Tokens are not allowed"
-regex = '''(?i)(?:kaggle)[-_]?(?:api|token|key)?[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+regex = '''(?i)(?:kaggle)[-_]?(?:api[-_]?)?(?:token|key)[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+entropy = 3.0
 tags = ["kaggle", "api-token", "custom", "ai"]
 
 [[rules]]
@@ -1242,9 +1243,3 @@ id = "stytch-project-secret"
 description = "Stytch Project Secrets are not allowed"
 regex = '''(?i)(?:stytch)[-_]?(?:secret|key|token)?[\s:=]+['"]?\b(secret-[a-zA-Z0-9]{5}-?[a-zA-Z0-9_-]{45,})\b['"]?'''
 tags = ["stytch", "secret", "custom", "auth"]
-
-[[rules]]
-id = "infisical-machine-identity-token"
-description = "Infisical Machine Identity Tokens are not allowed"
-regex = '''(?i)(?:infisical)[-_]?(?:machine|identity|token|key)?[\s:=]+['"]?\b([a-zA-Z0-9_-]{40,})\b['"]?'''
-tags = ["infisical", "token", "custom", "secrets"]

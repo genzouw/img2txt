@@ -30,43 +30,43 @@
 
 ## 検知対象一覧
 
-`.gitleaks.toml` に定義しているカスタムルールの一覧です（156 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
+`.gitleaks.toml` に定義しているカスタムルールの一覧です（162 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
 
 `[extend] useDefault = true` により、gitleaks 標準ルールも併用されます。本表はそこに上乗せしている独自ルールのみを扱います。
 
 ### インフラ・クラウド識別子 / 接続情報（29 件）
 
-| ルール ID                      | 検知対象                                                                                                  |
-| :----------------------------- | :-------------------------------------------------------------------------------------------------------- |
-| `aws-internal-endpoint`        | Hardcoded AWS internal endpoints (e.g. \*.rds.amazonaws.com, \*.cache.amazonaws.com) are not allowed      |
-| `aws-resource-arn`             | Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed                               |
-| `cloud-run-url`                | Hardcoded Cloud Run URLs (\*.run.app) are not allowed                                                     |
-| `cloudflare-pages-url`         | Hardcoded Cloudflare Pages URLs (\*.pages.dev) are not allowed                                            |
-| `digitalocean-pat`             | DigitalOcean Personal Access Tokens are not allowed                                                       |
-| `gcp-app-engine-url`           | Hardcoded GCP App Engine URLs (\*.appspot.com) are not allowed                                            |
-| `gcp-cloud-functions-url`      | Hardcoded GCP Cloud Functions URLs (\*.cloudfunctions.net) are not allowed                                |
-| `gcp-cloud-sql-unix-socket`    | Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed                                     |
-| `gcp-oauth-client-secret`      | GCP OAuth Client Secrets are not allowed                                                                  |
-| `gcp-project-id`               | Hardcoded GCP Project ID (toique-app-\*) is not allowed                                                   |
-| `gcp-project-number`           | Hardcoded GCP Project Numbers (12 digits) are not allowed                                                 |
-| `gcp-secret-manager`           | Hardcoded GCP Secret Manager resource paths are not allowed                                               |
-| `gcp-service-account`          | GCP Service Account emails are not allowed                                                                |
-| `gcp-service-account-key-json` | GCP Service Account Key JSON files are not allowed, regardless of filename                                |
-| `gcp-storage-url`              | Hardcoded GCS Bucket URLs (storage.googleapis.com/\*) are not allowed                                     |
-| `gcp-workload-identity`        | Hardcoded GCP Workload Identity Federation provider strings are not allowed                               |
-| `generic-private-key-content`  | Private keys are not allowed (detects content, overriding filename obfuscation)                           |
-| `generic-uri-credentials`      | Hardcoded credentials in generic URIs (ftp, amqp, etc.) are not allowed                                   |
-| `hardcoded-connection-string`  | Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed              |
-| `hashicorp-vault-token`        | HashiCorp Vault Tokens are not allowed                                                                    |
-| `http-basic-auth`              | HTTP/HTTPS URLs with embedded basic auth credentials are not allowed                                      |
-| `internal-domain`              | Internal domain names (\*.internal, \*.corp, \*.local) are not allowed to prevent infrastructure exposure |
-| `internal-ip`                  | Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed                            |
-| `jwt-token`                    | Generic JWT Tokens are not allowed                                                                        |
-| `neon-postgres-endpoint`       | Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed                 |
+| ルール ID                      | 検知対象                                                                                                                |
+| :----------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| `aws-internal-endpoint`        | Hardcoded AWS internal endpoints (e.g. \*.rds.amazonaws.com, \*.cache.amazonaws.com) are not allowed                    |
+| `aws-resource-arn`             | Hardcoded AWS Resource ARNs containing 12-digit account IDs are not allowed                                             |
+| `cloud-run-url`                | Hardcoded Cloud Run URLs (\*.run.app) are not allowed                                                                   |
+| `cloudflare-pages-url`         | Hardcoded Cloudflare Pages URLs (\*.pages.dev) are not allowed                                                          |
+| `digitalocean-pat`             | DigitalOcean Personal Access Tokens are not allowed                                                                     |
+| `gcp-app-engine-url`           | Hardcoded GCP App Engine URLs (\*.appspot.com) are not allowed                                                          |
+| `gcp-cloud-functions-url`      | Hardcoded GCP Cloud Functions URLs (\*.cloudfunctions.net) are not allowed                                              |
+| `gcp-cloud-sql-unix-socket`    | Hardcoded Cloud SQL Unix Socket paths (/cloudsql/...) are not allowed                                                   |
+| `gcp-oauth-client-secret`      | GCP OAuth Client Secrets are not allowed                                                                                |
+| `gcp-project-id`               | Hardcoded GCP Project ID (toique-app-\*) is not allowed                                                                 |
+| `gcp-project-number`           | Hardcoded GCP Project Numbers (12 digits) are not allowed                                                               |
+| `gcp-secret-manager`           | Hardcoded GCP Secret Manager resource paths are not allowed                                                             |
+| `gcp-service-account`          | GCP Service Account emails are not allowed                                                                              |
+| `gcp-service-account-key-json` | GCP Service Account Key JSON files are not allowed, regardless of filename                                              |
+| `gcp-storage-url`              | Hardcoded GCS Bucket URLs (storage.googleapis.com/\*) are not allowed                                                   |
+| `gcp-workload-identity`        | Hardcoded GCP Workload Identity Federation provider strings are not allowed                                             |
+| `generic-private-key-content`  | Private keys are not allowed (detects content, overriding filename obfuscation)                                         |
+| `generic-uri-credentials`      | Hardcoded credentials in generic URIs (ftp, amqp, etc.) are not allowed                                                 |
+| `hardcoded-connection-string`  | Hardcoded database or cache connection strings (postgres://, redis://, etc.) are not allowed                            |
+| `hashicorp-vault-token`        | HashiCorp Vault Tokens are not allowed                                                                                  |
+| `http-basic-auth`              | HTTP/HTTPS URLs with embedded basic auth credentials are not allowed                                                    |
+| `internal-domain`              | Internal domain names (\*.internal, \*.corp, \*.local) are not allowed to prevent infrastructure exposure               |
+| `internal-ip`                  | Internal IPv4 addresses (10.x.x.x, 172.16-31.x.x, 192.168.x.x) are not allowed                                          |
+| `jwt-token`                    | Generic JWT Tokens are not allowed                                                                                      |
+| `neon-postgres-endpoint`       | Hardcoded Neon Postgres endpoints (including connection strings) are strictly not allowed                               |
 | `saas-backend-url`             | Hardcoded SaaS/PaaS backend URLs (Supabase, Firebase, Vercel, Netlify, Render, Heroku, Fly.io, Railway) are not allowed |
-| `tailscale-auth-key`           | Tailscale Auth Keys are not allowed                                                                       |
-| `terraform-cloud-api-token`    | Terraform Cloud API Tokens are not allowed                                                                |
-| `unpublished-backend-url`      | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed  |
+| `tailscale-auth-key`           | Tailscale Auth Keys are not allowed                                                                                     |
+| `terraform-cloud-api-token`    | Terraform Cloud API Tokens are not allowed                                                                              |
+| `unpublished-backend-url`      | Hardcoded unpublished backend or local tunnel URLs (ngrok.io, loca.lt, serveo.net, etc.) are not allowed                |
 
 ### PII（個人情報）（3 件）
 
@@ -96,7 +96,7 @@
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
-### SaaS・開発ツールの API キー / トークン（96 件）
+### SaaS・開発ツールの API キー / トークン（102 件）
 
 | ルール ID                         | 検知対象                                                                                                                |
 | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
@@ -196,7 +196,6 @@
 | `vimeo-access-token`              | Vimeo Access Tokens are not allowed                                                                                     |
 | `zendesk-api-token`               | Zendesk API Tokens are not allowed                                                                                      |
 | `zoom-api-token`                  | Zoom API Keys, Secrets, and OAuth Tokens are not allowed                                                                |
-| `infisical-machine-identity-token`| Infisical Machine Identity Tokens are not allowed                                                                         |
 | `kaggle-api-token`                | Kaggle API Tokens are not allowed                                                                                       |
 | `nuget-api-key`                   | NuGet API Keys are not allowed                                                                                          |
 | `rubygems-api-token`              | RubyGems API Tokens are not allowed                                                                                     |
@@ -295,10 +294,10 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 `.pre-commit-config.yaml` に、ローカルの `fail` スクリプト (`forbid-ai-traces`、`forbid-ai-logs`、`forbid-env-local`) を追加しています。
 これにより、`.gitleaks.toml` によるファイルパススキャンに加えて、`pre-commit` 自体の軽量かつ高速なファイル名チェックとして機能し、AI エージェントの作業跡や `.env.local` などの一時ファイルが誤ってコミットされるのを防ぐ二重の防御層を形成しています。
 
-| フック              | 検知対象                                                                                                                                            | 例外                                          |
-| :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------- |
-| `forbid-ai-traces`  | 任意の階層にある `.claude/`、`.cursor/`、`.aider/`、`.gemini/` など、ドット付きの AI エージェントのワークスペースディレクトリ配下のファイル          | `.cursor/rules/` 配下（`.gitleaks.toml` と同じ） |
-| `forbid-ai-logs`    | 任意の階層にある `*.aider.chat.history.md`（Aider のチャット履歴）と `.cline_mcp_settings.json`（Cline の MCP 設定）                                | なし（`.cursor/rules/` 配下でも検知する）     |
-| `forbid-env-local`  | `.env.local` や `.env.production.local` など、末尾が `local` のローカル用環境変数ファイル                                                            | なし                                          |
+| フック             | 検知対象                                                                                                                                    | 例外                                             |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------- |
+| `forbid-ai-traces` | 任意の階層にある `.claude/`、`.cursor/`、`.aider/`、`.gemini/` など、ドット付きの AI エージェントのワークスペースディレクトリ配下のファイル | `.cursor/rules/` 配下（`.gitleaks.toml` と同じ） |
+| `forbid-ai-logs`   | 任意の階層にある `*.aider.chat.history.md`（Aider のチャット履歴）と `.cline_mcp_settings.json`（Cline の MCP 設定）                        | なし（`.cursor/rules/` 配下でも検知する）        |
+| `forbid-env-local` | `.env.local` や `.env.production.local` など、末尾が `local` のローカル用環境変数ファイル                                                   | なし                                             |
 
 ドットなしの `claude/` や `cody/` のような通常のディレクトリは対象外です。
