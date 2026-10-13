@@ -196,6 +196,13 @@
 | `vimeo-access-token`              | Vimeo Access Tokens are not allowed                                                                                     |
 | `zendesk-api-token`               | Zendesk API Tokens are not allowed                                                                                      |
 | `zoom-api-token`                  | Zoom API Keys, Secrets, and OAuth Tokens are not allowed                                                                |
+| `infisical-machine-identity-token`| Infisical Machine Identity Tokens are not allowed                                                                         |
+| `kaggle-api-token`                | Kaggle API Tokens are not allowed                                                                                       |
+| `nuget-api-key`                   | NuGet API Keys are not allowed                                                                                          |
+| `rubygems-api-token`              | RubyGems API Tokens are not allowed                                                                                     |
+| `sonarqube-api-token`             | SonarQube / SonarCloud API Tokens are not allowed                                                                       |
+| `stytch-project-secret`           | Stytch Project Secrets are not allowed                                                                                  |
+| `workos-api-key`                  | WorkOS API Keys are not allowed                                                                                         |
 
 ### 秘匿ファイルそのもののコミット（パスベース検知）（18 件）
 
