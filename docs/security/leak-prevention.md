@@ -301,7 +301,3 @@ GitHub リポジトリの設定から、**GitHub Secret Scanning** および **P
 | `forbid-env-local` | `.env.local` や `.env.production.local` など、末尾が `local` のローカル用環境変数ファイル                                                   | なし                                             |
 
 ドットなしの `claude/` や `cody/` のような通常のディレクトリは対象外です。
-
-## GitHub Secret Scanning と Push Protection の設定
-
-このリポジトリでは GitHub Secret Scanning と Push Protection を有効にすることを強く推奨し、運用ルールとして定めています。本PRの導入にあたり、必ずリポジトリの Code security ページから Push protection を手動で有効化してください。
