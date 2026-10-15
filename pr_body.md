@@ -1,36 +1,34 @@
 ## 背景
 
-本リポジトリは公開リポジトリであり、インフラ構成情報や各種シークレットの漏洩リスクを継続的に低減する必要があります。現状の CI 検知では、GitHub Actions ワークフロー自体の設定不備や不適切な権限付与（例: actionlint で検知できるリスク）を定期的に監査する仕組みが欠如していました。
+公開リポジトリにおいて、プロジェクト識別子やインフラ管理用 API キーが露出すると、不正なリソース操作やプロジェクト構成の特定につながるリスクがあります。現状の `.gitleaks.toml` では Stripe の Secret Key（`sk_`）等は検知できますが、Publishable Key や、実際にインフラとして使用している Neon Postgres の API Key については明示的なルールが存在していませんでした。
 
 ## このPRで導入するもの
 
-- ツール名: actionlint (既存)
-- 導入箇所: `.github/workflows/actionlint.yml` に `schedule` トリガーを追加
-- 期待される効果: 毎週の定期実行により、ワークフロー定義に潜むセキュリティリスクや構文エラーを自動かつ継続的に検知します。
+- ツール名: gitleaks カスタムルール
+- 導入箇所: `.gitleaks.toml` および `docs/security/leak-prevention.md`
+- 期待される効果: コミット前にローカルおよび CI で、Stripe Publishable Key (`pk_test_...` / `pk_live_...`) および Neon API Key のソースコードへの混入を検知・ブロックします。
 
 ## 検知漏れリスクと補完策
 
-- 検知できないケース: ワークフロー内の外部スクリプトの脆弱性や、動的に注入されるシークレット自体の漏洩
-- 補完策: 既存の Gitleaks および TruffleHog の定期監査、ならびに GitHub Secret Scanning を併用して二重防御とします。
+- 検知できないケース: Neon API Key が `[a-zA-Z0-9]{64}` といった形式であり、周辺に `neon` といったキーワードが存在しない（完全にハードコードされただけの）場合は、誤検知防止のため今回は検知されません。
+- 補完策: 既存の GitHub Secret Scanning および TruffleHog の動的検証による多重防御により、有効なトークンの漏洩リスクを低減します。
 
 ## マージ前に必要な手動作業（チェックリスト）
 
 レビュアーは PR をマージする前に必ず以下を実施してください。
 本 PR の CI は手動作業完了を前提に通る設計です。
 
-- [ ] GitHub リポジトリの設定から Code security -> Push protection が有効になっていることを確認する
-- [ ] developer 各自のローカル環境で `pre-commit install` を最新状態にしておくよう周知する
+- [ ] 開発者各位のローカル環境にて `pre-commit install` が実行され、gitleaks の最新ルールが反映されていることを周知する。
 
 ## マージ後の確認手順
 
-- [ ] 次のスケジュール時刻（毎週月曜 06:00 JST）で workflow が green になることを確認
-- [ ] actionlint の実行結果に警告がないことを確認
+- [ ] 次の push / PR で `.github/workflows/gitleaks.yml` などが正常に（green で）完了することを確認する。
+- [ ] ローカルで意図的に該当トークン（ダミー値）を含むコミットを試み、フックが正常にブロックすることを確認する。
 
 ## ロールバック手順
 
-- `.github/workflows/actionlint.yml` から `schedule` ブロックを削除して push してください。
+- 誤検知が頻発する場合は、`.gitleaks.toml` に追加した `stripe-publishable-key` または `neon-api-key` ルールを削除（またはコメントアウト）する PR を作成してください。
 
 ## 参考情報
 
-- 公式ドキュメント: https://github.com/rhysd/actionlint
-- 比較検討した他案: zizmor (既に導入・スケジュール設定済みのため併用)
+- 比較検討した他案: 新規シークレットスキャンツール (detect-secrets 等) の導入も検討しましたが、すでに設定済みの gitleaks の機能を拡張する方がリポジトリ構成への影響が小さく、1ツールでの管理に寄与するため、今回は `.gitleaks.toml` へのルール追記を採用しました。
