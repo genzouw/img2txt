@@ -14,6 +14,9 @@ on:
     paths:
       - '.github/workflows/**'
       - '.github/actionlint*'
+  schedule:
+    # 毎週月曜 06:00 JST (= 日曜 21:00 UTC) に定期監査
+    - cron: '0 21 * * 0'
 
 concurrency:
   group: actionlint-${{ github.ref }}
