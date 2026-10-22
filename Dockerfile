@@ -28,11 +28,11 @@ RUN apk add \
     bash \
     curl \
     openssl \
-    php85 \
-    php85-apache2 \
-    php85-iconv \
-    php85-openssl \
-    php85-phar \
+    'php85>=8.5.12-r0' \
+    'php85-apache2>=8.5.12-r0' \
+    'php85-iconv>=8.5.12-r0' \
+    'php85-openssl>=8.5.12-r0' \
+    'php85-phar>=8.5.12-r0' \
     tzdata \
     unzip \
     # CVE-2026-85091 (Snyk: SNYK-ALPINE324-ZLIB-20541555) 対策。
