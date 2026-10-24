@@ -1247,7 +1247,7 @@ tags = ["stytch", "secret", "custom", "auth"]
 [[rules]]
 id = "chatwork-api-token"
 description = "Chatwork API Tokens are not allowed"
-regex = '''(?i)(?:chatwork|cw)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+regex = '''(?i)(?:^|[^a-zA-Z0-9])(?:chatwork|cw)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
 tags = ["chatwork", "api-token", "custom", "saas", "communication"]
 
 [[rules]]
@@ -1265,17 +1265,17 @@ tags = ["qiita", "access-token", "custom", "saas"]
 [[rules]]
 id = "esa-api-token"
 description = "esa.io API Tokens are not allowed"
-regex = '''(?i)(?:esa)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9_-]{40,64})\b['"]?'''
+regex = '''(?i)(?:^|[^a-zA-Z0-9])(?:esa)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9_-]{40,64})\b['"]?'''
 tags = ["esa", "api-token", "custom", "saas"]
 
 [[rules]]
 id = "kintone-api-token"
 description = "Kintone API Tokens are not allowed"
-regex = '''(?i)(?:kintone)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9A-Za-z_-]{44,})\b['"]?'''
+regex = '''(?i)(?:kintone)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
 tags = ["kintone", "api-token", "custom", "saas"]
 
 [[rules]]
 id = "line-notify-token"
 description = "LINE Notify Tokens are not allowed"
-regex = '''(?i)(?:line)[-_]?(?:notify)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{43})\b['"]?'''
+regex = '''(?i)(?:^|[^a-zA-Z0-9])line[-_]?notify[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{43})\b['"]?'''
 tags = ["line", "notify-token", "custom", "saas", "communication"]
