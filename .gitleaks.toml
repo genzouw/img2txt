@@ -1243,3 +1243,39 @@ id = "stytch-project-secret"
 description = "Stytch Project Secrets are not allowed"
 regex = '''(?i)(?:stytch)[-_]?(?:secret|key|token)?[\s:=]+['"]?\b(secret-[a-zA-Z0-9]{5}-?[a-zA-Z0-9_-]{45,})\b['"]?'''
 tags = ["stytch", "secret", "custom", "auth"]
+
+[[rules]]
+id = "chatwork-api-token"
+description = "Chatwork API Tokens are not allowed"
+regex = '''(?i)(?:^|[^a-zA-Z0-9])(?:chatwork|cw)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["chatwork", "api-token", "custom", "saas", "communication"]
+
+[[rules]]
+id = "backlog-api-key"
+description = "Backlog API Keys are not allowed"
+regex = '''(?i)(?:backlog)[-_]?(?:api)?[-_]?(?:key|token)[\s:=]+['"]?\b([a-zA-Z0-9]{64})\b['"]?'''
+tags = ["backlog", "api-key", "custom", "saas", "project-management"]
+
+[[rules]]
+id = "qiita-access-token"
+description = "Qiita Personal Access Tokens are not allowed"
+regex = '''(?i)(?:qiita)[-_]?(?:access|api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-f0-9]{40})\b['"]?'''
+tags = ["qiita", "access-token", "custom", "saas"]
+
+[[rules]]
+id = "esa-api-token"
+description = "esa.io API Tokens are not allowed"
+regex = '''(?i)(?:^|[^a-zA-Z0-9])(?:esa)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9_-]{40,64})\b['"]?'''
+tags = ["esa", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "kintone-api-token"
+description = "Kintone API Tokens are not allowed"
+regex = '''(?i)(?:kintone)[-_]?(?:api)?[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{40})\b['"]?'''
+tags = ["kintone", "api-token", "custom", "saas"]
+
+[[rules]]
+id = "line-notify-token"
+description = "LINE Notify Tokens are not allowed"
+regex = '''(?i)(?:^|[^a-zA-Z0-9])line[-_]?notify[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{43})\b['"]?'''
+tags = ["line", "notify-token", "custom", "saas", "communication"]
