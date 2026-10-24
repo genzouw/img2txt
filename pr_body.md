@@ -1,35 +1,34 @@
 ## 背景
 
-公開リポジトリにおいて、国内で頻繁に利用される日本発およびローカルなSaaS・開発ツール（Chatwork、Backlog、Qiita、esa.io、Kintone等）のAPIトークンが意図せずコミットされるリスクが存在します。現状の gitleaks デフォルトルールではこれらを十分に検知できないというギャップがあります。
+公開リポジトリにおいて、プロジェクト識別子やインフラ管理用 API キーが露出すると、不正なリソース操作やプロジェクト構成の特定につながるリスクがあります。現状の `.gitleaks.toml` では Stripe の Secret Key（`sk_`）等は検知できますが、Publishable Key や、実際にインフラとして使用している Neon Postgres の API Key については明示的なルールが存在していませんでした。
 
 ## このPRで導入するもの
 
-- ツール名: gitleaks v8.x (カスタムルールの追加)
-- 導入箇所: `.gitleaks.toml` と `docs/security/leak-prevention.md`
-- 期待される効果: コミット前にローカルで Chatwork / Backlog / Qiita / esa.io / Kintone / LINE Notify の API トークン形式の値を検出して拒否
+- ツール名: gitleaks カスタムルール
+- 導入箇所: `.gitleaks.toml` および `docs/security/leak-prevention.md`
+- 期待される効果: コミット前にローカルおよび CI で、Stripe Publishable Key (`pk_test_...` / `pk_live_...`) および Neon API Key のソースコードへの混入を検知・ブロックします。
 
 ## 検知漏れリスクと補完策
 
-- 検知できないケース: 上記ツールの環境変数名を全く伴わず、かつフォーマットが汎用的な文字列（Base64 など）である場合、誤検知を防ぐためのキーワード制約により検知から漏れる可能性があります。
-- 補完策: GitHub Actions に設定済みの TruffleHog (検証可能シークレットの動的スキャン) や GitHub Secret Scanning を組み合わせて多重に保護します。
+- 検知できないケース: Neon API Key が `[a-zA-Z0-9]{64}` といった形式であり、周辺に `neon` といったキーワードが存在しない（完全にハードコードされただけの）場合は、誤検知防止のため今回は検知されません。
+- 補完策: 既存の GitHub Secret Scanning および TruffleHog の動的検証による多重防御により、有効なトークンの漏洩リスクを低減します。
 
 ## マージ前に必要な手動作業（チェックリスト）
 
 レビュアーは PR をマージする前に必ず以下を実施してください。
 本 PR の CI は手動作業完了を前提に通る設計です。
 
-- [ ] ローカル開発環境の各自において `pre-commit install` が実施済みであることをチームに周知する
+- [ ] 開発者各位のローカル環境にて `pre-commit install` が実行され、gitleaks の最新ルールが反映されていることを周知する。
 
 ## マージ後の確認手順
 
-- [ ] 次の push / PR で導入した workflow (pre-commit, gitleaks CI) が green になることを確認
-- [ ] ローカルでテスト用にダミートークン（例: `chatwork_api_token = "<ダミー値>"`）をコミットしようとし、gitleaks フックで弾かれることを確認
+- [ ] 次の push / PR で `.github/workflows/gitleaks.yml` などが正常に（green で）完了することを確認する。
+- [ ] ローカルで意図的に該当トークン（ダミー値）を含むコミットを試み、フックが正常にブロックすることを確認する。
 
 ## ロールバック手順
 
-誤検知により開発進行に著しい支障をきたした場合は、本 PR を Revert し、再度 `.gitleaks.toml` の正規表現を緩和する PR を作成してください。
+- 誤検知が頻発する場合は、`.gitleaks.toml` に追加した `stripe-publishable-key` または `neon-api-key` ルールを削除（またはコメントアウト）する PR を作成してください。
 
 ## 参考情報
 
-- 公式ドキュメント: https://github.com/gitleaks/gitleaks
-- 比較検討した他案: 新たな汎用シークレット検知ツール（detect-secrets等）の導入も検討しましたが、既存の gitleaks ルール拡張の方が運用コストが低く、同様の機能を満たせるため不採用としました。
+- 比較検討した他案: 新規シークレットスキャンツール (detect-secrets 等) の導入も検討しましたが、すでに設定済みの gitleaks の機能を拡張する方がリポジトリ構成への影響が小さく、1ツールでの管理に寄与するため、今回は `.gitleaks.toml` へのルール追記を採用しました。
