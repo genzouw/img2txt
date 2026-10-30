@@ -30,7 +30,7 @@
 
 ## 検知対象一覧
 
-`.gitleaks.toml` に定義しているカスタムルールの一覧です（175 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
+`.gitleaks.toml` に定義しているカスタムルールの一覧です（178 件）。**正となる定義は `.gitleaks.toml` 側**で、本表はその索引です。ルールを追加したら該当カテゴリに1行足してください。
 
 `[extend] useDefault = true` により、gitleaks 標準ルールも併用されます。本表はそこに上乗せしている独自ルールのみを扱います。
 
@@ -96,7 +96,7 @@
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
 
-### SaaS・開発ツールの API キー / トークン（108 件）
+### SaaS / クラウドプロバイダ等の API キー・トークン（129 件）
 
 | ルール ID                         | 検知対象                                                                                                                |
 | :-------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
@@ -105,6 +105,8 @@
 | `asana-personal-access-token`     | Asana Personal Access Tokens are not allowed                                                                            |
 | `atlassian-api-token`             | Atlassian API Tokens (Jira, Confluence) are not allowed                                                                 |
 | `auth0-management-api-token`      | Auth0 Management API Tokens are not allowed                                                                             |
+| `aws-access-key-id`               | AWS Access Key IDs are not allowed                                                                                      |
+| `aws-secret-access-key`           | AWS Secret Access Keys are not allowed                                                                                  |
 | `backlog-api-key`                 | Backlog API Keys are not allowed                                                                                        |
 | `bitbucket-client-id`             | Discovered a potential Bitbucket Client ID, risking unauthorized repository access and potential codebase exposure.     |
 | `bitbucket-client-secret`         | Discovered a potential Bitbucket Client Secret, posing a risk of compromised code repositories and unauthorized access. |
@@ -137,9 +139,11 @@
 | `github-pat-strict`               | GitHub Personal Access Tokens are strictly not allowed                                                                  |
 | `github-runner-token`             | GitHub Actions Runner Tokens are not allowed                                                                            |
 | `gitlab-pat`                      | GitLab Personal Access Tokens are not allowed                                                                           |
+| `google-maps-api-key`             | Google Maps API Keys are not allowed                                                                                    |
 | `grafana-api-token`               | Grafana API Tokens are not allowed                                                                                      |
 | `heroku-api-key`                  | Heroku API Keys are not allowed                                                                                         |
 | `hubspot-api-token`               | HubSpot API Tokens are not allowed                                                                                      |
+| `kaggle-api-token`                | Kaggle API Tokens are not allowed                                                                                       |
 | `kintone-api-token`               | Kintone API Tokens are not allowed                                                                                      |
 | `klaviyo-api-key`                 | Klaviyo Private API Keys are not allowed                                                                                |
 | `launchdarkly-api-key`            | LaunchDarkly API Keys and Access Tokens are not allowed                                                                 |
@@ -159,6 +163,7 @@
 | `ngrok-auth-token`                | Ngrok Auth Tokens are not allowed                                                                                       |
 | `notion-api-key`                  | Notion API keys are not allowed                                                                                         |
 | `npm-access-token`                | NPM access tokens are not allowed                                                                                       |
+| `nuget-api-key`                   | NuGet API Keys are not allowed                                                                                          |
 | `okta-api-token`                  | Okta API Tokens are not allowed                                                                                         |
 | `onesignal-api-key`               | OneSignal API, REST, and App Keys are not allowed                                                                       |
 | `pagerduty-api-key`               | PagerDuty API Keys are not allowed                                                                                      |
@@ -171,8 +176,9 @@
 | `pypi-api-token`                  | PyPI API tokens are not allowed                                                                                         |
 | `qiita-access-token`              | Qiita Personal Access Tokens are not allowed                                                                            |
 | `render-api-key`                  | Render API Keys are not allowed                                                                                         |
-| `resend-api-key`                  | Resend API keys are strictly not allowed                                                                                |
 | `resend-api-key-strict`           | Resend API keys (strict detection) are strictly not allowed                                                             |
+| `resend-api-key`                  | Resend API keys are strictly not allowed                                                                                |
+| `rubygems-api-token`              | RubyGems API Tokens are not allowed                                                                                     |
 | `sanity-api-token`                | Sanity API Tokens are not allowed                                                                                       |
 | `segment-api-key`                 | Segment Write Keys / Public API Keys are not allowed                                                                    |
 | `sendgrid-api-key`                | SendGrid API keys are not allowed                                                                                       |
@@ -184,11 +190,13 @@
 | `snowflake-account-password`      | Snowflake credentials or tokens are not allowed                                                                         |
 | `snyk-api-token`                  | Uncovered a Snyk API token, potentially compromising software vulnerability scanning and code security.                 |
 | `sonar-api-token`                 | Uncovered a Sonar API token, potentially compromising software vulnerability scanning and code security.                |
+| `sonarqube-api-token`             | SonarQube / SonarCloud API Tokens are not allowed                                                                       |
 | `square-access-token-custom`      | Square Access Tokens are not allowed                                                                                    |
 | `storyblok-personal-access-token` | Storyblok Personal Access Tokens and Space Tokens are not allowed                                                       |
 | `stripe-api-key`                  | Stripe API keys (Secret and Restricted) are strictly not allowed                                                        |
 | `stripe-publishable-key`          | Stripe Publishable Keys are not allowed to prevent exposing project metadata                                            |
 | `stripe-webhook-secret`           | Stripe Webhook Secrets are strictly not allowed                                                                         |
+| `stytch-project-secret`           | Stytch Project Secrets are not allowed                                                                                  |
 | `supabase-api-key`                | Supabase API keys (JWT tokens) are not allowed                                                                          |
 | `telegram-bot-token`              | Telegram Bot tokens are not allowed                                                                                     |
 | `travisci-access-token`           | Identified a Travis CI Access Token, potentially compromising continuous integration services and codebase security.    |
@@ -200,14 +208,9 @@
 | `upstash-api-token`               | Upstash API tokens are not allowed                                                                                      |
 | `vercel-access-token`             | Vercel Access Tokens are not allowed                                                                                    |
 | `vimeo-access-token`              | Vimeo Access Tokens are not allowed                                                                                     |
+| `workos-api-key`                  | WorkOS API Keys are not allowed                                                                                         |
 | `zendesk-api-token`               | Zendesk API Tokens are not allowed                                                                                      |
 | `zoom-api-token`                  | Zoom API Keys, Secrets, and OAuth Tokens are not allowed                                                                |
-| `kaggle-api-token`                | Kaggle API Tokens are not allowed                                                                                       |
-| `nuget-api-key`                   | NuGet API Keys are not allowed                                                                                          |
-| `rubygems-api-token`              | RubyGems API Tokens are not allowed                                                                                     |
-| `sonarqube-api-token`             | SonarQube / SonarCloud API Tokens are not allowed                                                                       |
-| `stytch-project-secret`           | Stytch Project Secrets are not allowed                                                                                  |
-| `workos-api-key`                  | WorkOS API Keys are not allowed                                                                                         |
 
 ### 秘匿ファイルそのもののコミット（パスベース検知）（18 件）
 
