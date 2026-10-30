@@ -1290,7 +1290,7 @@ tags = ["aws", "access-key", "custom"]
 [[rules]]
 id = "aws-secret-access-key"
 description = "AWS Secret Access Keys are not allowed"
-regex = '''(?i)\b[A-Za-z0-9/+=]{40}\b'''
+regex = '''(?i)aws[\w.-]{0,20}secret[\w.-]{0,20}[\s:=]+['"]?([A-Za-z0-9/+=]{40})['"]?(?:[^A-Za-z0-9/+=]|$)'''
 tags = ["aws", "secret-key", "custom"]
 
 [[rules]]
