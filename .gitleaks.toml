@@ -1279,3 +1279,22 @@ id = "line-notify-token"
 description = "LINE Notify Tokens are not allowed"
 regex = '''(?i)(?:^|[^a-zA-Z0-9])line[-_]?notify[-_]?(?:token|key)[\s:=]+['"]?\b([a-zA-Z0-9]{43})\b['"]?'''
 tags = ["line", "notify-token", "custom", "saas", "communication"]
+
+
+[[rules]]
+id = "aws-access-key-id"
+description = "AWS Access Key IDs are not allowed"
+regex = '''(?i)\b(AKIA[0-9A-Z]{16})\b'''
+tags = ["aws", "access-key", "custom"]
+
+[[rules]]
+id = "aws-secret-access-key"
+description = "AWS Secret Access Keys are not allowed"
+regex = '''(?i)aws[\w.-]{0,20}secret[\w.-]{0,20}[\s:=]+['"]?([A-Za-z0-9/+=]{40})['"]?(?:[^A-Za-z0-9/+=]|$)'''
+tags = ["aws", "secret-key", "custom"]
+
+[[rules]]
+id = "google-maps-api-key"
+description = "Google Maps API Keys are not allowed"
+regex = '''(?i)\bAIza[0-9A-Za-z\-_]{35}\b'''
+tags = ["google", "maps", "api-key", "custom"]
