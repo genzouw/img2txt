@@ -1298,3 +1298,27 @@ id = "google-maps-api-key"
 description = "Google Maps API Keys are not allowed"
 regex = '''(?i)\bAIza[0-9A-Za-z\-_]{35}\b'''
 tags = ["google", "maps", "api-key", "custom"]
+
+[[rules]]
+id = "bing-search-api-key"
+description = "Bing Search API Keys are not allowed (AI Agent search protection)"
+regex = '''(?i)(?:bing)[-_]?(?:search)?[_]?(?:api)?[_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{32})\b['"]?'''
+tags = ["bing", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "brave-search-api-key"
+description = "Brave Search API Keys are not allowed (AI Agent search protection)"
+regex = '''(?i)(?:brave)[-_]?(?:search)?[_]?(?:api)?[_]?(?:key|token)?[\s:=]+['"]?\bBSA[a-zA-Z0-9]{40,45}\b['"]?'''
+tags = ["brave", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "exa-api-key"
+description = "Exa API Keys are not allowed (AI Agent search protection)"
+regex = '''(?i)(?:exa)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+tags = ["exa", "api-key", "custom", "ai"]
+
+[[rules]]
+id = "serpapi-api-key"
+description = "SerpAPI Keys are not allowed (AI Agent search protection)"
+regex = '''(?i)(?:serpapi)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{64})\b['"]?'''
+tags = ["serpapi", "api-key", "custom", "ai"]

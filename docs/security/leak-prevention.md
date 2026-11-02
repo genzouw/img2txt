@@ -76,13 +76,16 @@
 | `pii-email`          | Real email addresses (PII) are not allowed. Use @example.com/org for dummies. |
 | `pii-japanese-phone` | Japanese phone numbers (PII) are not allowed                                  |
 
-### AI / LLM プロバイダのキー（15 件）
+### AI / LLM プロバイダのキー（19 件）
 
 | ルール ID               | 検知対象                                                                |
 | :---------------------- | :---------------------------------------------------------------------- |
 | `anthropic-api-key`     | Anthropic API Keys are not allowed (AI Agent protection)                |
+| `bing-search-api-key`   | Bing Search API Keys are not allowed (AI Agent search protection)       |
+| `brave-search-api-key`  | Brave Search API Keys are not allowed (AI Agent search protection)      |
 | `cohere-api-key`        | Cohere API Keys are not allowed (AI Agent protection)                   |
 | `deepseek-api-key`      | DeepSeek API Keys are not allowed (AI Agent protection)                 |
+| `exa-api-key`           | Exa API Keys are not allowed (AI Agent search protection)               |
 | `gemini-api-key`        | Gemini API Keys are not allowed (AI Agent protection)                   |
 | `groq-api-key`          | Groq API Keys are not allowed (AI Agent protection)                     |
 | `huggingface-token`     | HuggingFace Access Tokens are not allowed (AI Agent protection)         |
@@ -92,6 +95,7 @@
 | `perplexity-api-key`    | Perplexity AI API Keys are not allowed (AI Agent protection)            |
 | `pinecone-api-key`      | Pinecone API Keys are not allowed (AI Agent protection)                 |
 | `replicate-api-token`   | Replicate API Tokens are not allowed (AI Agent protection)              |
+| `serpapi-api-key`       | SerpAPI Keys are not allowed (AI Agent search protection)               |
 | `tavily-api-key`        | Tavily API Keys are not allowed (AI Agent protection)                   |
 | `together-api-key`      | Together AI API Keys are not allowed (AI Agent protection)              |
 | `wandb-api-key`         | Weights & Biases (WandB) API Keys are not allowed (AI Agent protection) |
