@@ -1308,13 +1308,13 @@ tags = ["bing", "api-key", "custom", "ai"]
 [[rules]]
 id = "brave-search-api-key"
 description = "Brave Search API Keys are not allowed (AI Agent search protection)"
-regex = '''(?i)(?:brave)[-_]?(?:search)?[_]?(?:api)?[_]?(?:key|token)?[\s:=]+['"]?\bBSA[a-zA-Z0-9]{40,45}\b['"]?'''
+regex = '''(?i)(?:brave)[-_]?(?:search)?[_]?(?:api)?[_]?(?:key|token)?[\s:=]+['"]?\bBSA[a-zA-Z0-9_\-]{20,64}\b['"]?'''
 tags = ["brave", "api-key", "custom", "ai"]
 
 [[rules]]
 id = "exa-api-key"
 description = "Exa API Keys are not allowed (AI Agent search protection)"
-regex = '''(?i)(?:exa)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-zA-Z0-9]{32})\b['"]?'''
+regex = '''(?i)(?:exa)[-_]?(?:api)?[-_]?(?:key|token)?[\s:=]+['"]?\b([a-f0-9]{8}-?[a-f0-9]{4}-?[a-f0-9]{4}-?[a-f0-9]{4}-?[a-f0-9]{12})\b['"]?'''
 tags = ["exa", "api-key", "custom", "ai"]
 
 [[rules]]
